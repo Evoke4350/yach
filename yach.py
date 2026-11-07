@@ -282,6 +282,13 @@ class Sandbox:
         self.network = network
         self.name = f"yach-{os.getpid()}-{os.urandom(3).hex()}"
         self.image = self.build_image()
+        mounts = ["-v", f"{ROOT}:{ROOT}"]
+        git_dir = ROOT / ".git"
+        if git_dir.is_dir():
+            # Git runs hooks and config commands (core.fsmonitor, core.pager...)
+            # on the host. If the sandbox could write .git, it could plant code
+            # that runs outside the container with your environment.
+            mounts += ["-v", f"{git_dir}:{git_dir}:ro"]
         subprocess.run([
             "docker", "run", "-d", "--rm", "--init", "--name", self.name,
             "--user", f"{os.getuid()}:{os.getgid()}",
@@ -289,7 +296,7 @@ class Sandbox:
             "--read-only", "--tmpfs", "/tmp:exec,mode=1777",
             "--pids-limit", "1024", "--network", network,
             "-e", "HOME=/tmp",
-            "-v", f"{ROOT}:{ROOT}", "-w", str(ROOT),
+            *mounts, "-w", str(ROOT),
             self.image, "sleep", "infinity",
         ], check=True, stdout=subprocess.DEVNULL)
         atexit.register(self.stop)
@@ -310,12 +317,22 @@ class Sandbox:
                 subprocess.run(cmd, input=dockerfile, text=True, check=True, stdout=subprocess.DEVNULL)
         return tag
 
-    def exec_argv(self, command: str, timeout: int) -> list[str]:
+    def exec_argv(self, command: str, timeout: int, run_id: str) -> list[str]:
         env = [arg for k, v in PLAIN_ENV.items() for arg in ("-e", f"{k}={v}")]
-        # Enforce the timeout inside the container: killing the docker client
-        # alone would leave the command running.
+        # Killing the docker client doesn't stop the command inside the
+        # container. So each run gets its own process group, recorded in a pid
+        # file, which kill_run() can take down; the in-container timeout covers
+        # the normal case.
+        script = (f'echo $$ > /tmp/yach-run-{run_id}.pid; '
+                  f'exec timeout -k 5 {timeout} bash -c "$1"')
         return ["docker", "exec", *env, "-w", str(ROOT), self.name,
-                "timeout", "-k", "5", str(timeout), "bash", "-c", command]
+                "setsid", "-w", "bash", "-c", script, "yach", command]
+
+    def kill_run(self, run_id: str) -> None:
+        subprocess.run(["docker", "exec", self.name, "sh", "-c",
+                        # dash's kill takes no "--"; a negative pid means the group
+                        f'kill -9 -"$(cat /tmp/yach-run-{run_id}.pid)"'],
+                       capture_output=True, timeout=15)
 
     def stop(self) -> None:
         # rm -f kills and waits for removal; plain kill returns before --rm finishes.
@@ -325,24 +342,43 @@ class Sandbox:
 SANDBOX: Sandbox | None = None
 
 
+MAX_BASH_TIMEOUT = 1800
+
+
 def run_bash(command: str, timeout: int = 120) -> str:
+    # The model picks the timeout; keep it sane (0 would disable coreutils' timeout).
+    timeout = max(1, min(timeout, MAX_BASH_TIMEOUT))
+    run_id = os.urandom(4).hex()
+    if SANDBOX:
+        argv, extra = SANDBOX.exec_argv(command, timeout, run_id), {}
+    else:
+        # Own process group, so a timeout or Ctrl-C can kill the command's
+        # children too, not just the shell.
+        argv, extra = command, {"shell": True, "cwd": ROOT, "start_new_session": True,
+                                "env": {**os.environ, **PLAIN_ENV}}
+    proc = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                            stdin=subprocess.DEVNULL, text=True, errors="replace", **extra)
     try:
+        out, _ = proc.communicate(timeout=timeout + 15 if SANDBOX else timeout)
+    except (subprocess.TimeoutExpired, KeyboardInterrupt) as e:
         if SANDBOX:
-            proc = subprocess.run(
-                SANDBOX.exec_argv(command, timeout), capture_output=True, text=True,
-                errors="replace", timeout=timeout + 15, stdin=subprocess.DEVNULL,
-            )
-            if proc.returncode == 124:
-                raise ToolError(f"timed out after {timeout}s\n{clean(proc.stdout + proc.stderr)}")
+            SANDBOX.kill_run(run_id)
         else:
-            proc = subprocess.run(
-                command, shell=True, cwd=ROOT, capture_output=True, text=True, errors="replace",
-                timeout=timeout, stdin=subprocess.DEVNULL, env={**os.environ, **PLAIN_ENV},
-            )
-    except subprocess.TimeoutExpired as e:
-        out = (e.stdout or b"").decode(errors="replace") if isinstance(e.stdout, bytes) else (e.stdout or "")
+            try:
+                os.killpg(proc.pid, 9)
+            except ProcessLookupError:
+                pass
+        proc.kill()
+        try:
+            out, _ = proc.communicate(timeout=5)
+        except subprocess.TimeoutExpired:  # a detached grandchild still holds the pipe
+            out = ""
+        if isinstance(e, KeyboardInterrupt):
+            raise
+        raise ToolError(f"timed out after {timeout}s\n{clean(out or '')}")
+    if SANDBOX and proc.returncode == 124:
         raise ToolError(f"timed out after {timeout}s\n{clean(out)}")
-    out = clean(proc.stdout + proc.stderr)
+    out = clean(out)
     if proc.returncode != 0:
         out += f"\n[exit code {proc.returncode}]"
     return out or "[no output]"
@@ -383,9 +419,10 @@ def edit_file(path: str, old_str: str, new_str: str, replace_all: bool = False) 
 
 
 def grep(pattern: str, path: str = ".", glob: str | None = None) -> str:
-    cmd = ["rg", "-n", "--no-heading", "--max-columns", "300", pattern, str(resolve(path))]
-    if glob:
-        cmd[1:1] = ["--glob", glob]
+    # -e and -- keep a pattern or path starting with "-" from being read as an
+    # rg option (e.g. --pre=bash would run a command on every file searched).
+    cmd = ["rg", "-n", "--no-heading", "--max-columns", "300",
+           *(["--glob", glob] if glob else []), "-e", pattern, "--", str(resolve(path))]
     proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     if proc.returncode == 1:
         return "[no matches]"
@@ -395,7 +432,10 @@ def grep(pattern: str, path: str = ".", glob: str | None = None) -> str:
 
 
 def glob_files(pattern: str) -> str:
-    matches = [p for p in ROOT.glob(pattern) if p.is_file() and ".git" not in p.parts]
+    if not pattern or Path(pattern).is_absolute() or ".." in Path(pattern).parts:
+        raise ToolError("use a relative pattern inside the project, e.g. src/**/*.py (no leading / or ..)")
+    matches = [p for p in ROOT.glob(pattern)
+               if p.is_file() and ".git" not in p.parts and p.resolve().is_relative_to(ROOT)]
     matches.sort(key=lambda p: p.stat().st_mtime, reverse=True)
     return "\n".join(str(p.relative_to(ROOT)) for p in matches[:500]) or "[no matches]"
 
@@ -472,8 +512,21 @@ def describe_action(name: str, args: dict) -> str:
         verb = "Overwrite existing file" if path.exists() else "Create new file"
         return f"{verb} {path}:\n{cut(args['contents'])}"
     if name == "edit_file":
-        return f"Edit {path}, replacing:\n{cut(args['old_str'])}\n--- with: ---\n{cut(args['new_str'])}"
+        all_ = " (every occurrence)" if args.get("replace_all") else ""
+        return f"Edit {path}, replacing{all_}:\n{cut(args['old_str'])}\n--- with: ---\n{cut(args['new_str'])}"
+    if name == "read_file":
+        return f"Read a file outside the project: {path}"
+    if name == "grep":
+        return f"Search outside the project, in {path}, for: {args['pattern']}"
     return f"{name} {json.dumps(args)[:4000]}"
+
+
+def outside_root(name: str, args: dict) -> Path | None:
+    """For the read-only tools: the target, if it's outside the project."""
+    if name not in ("read_file", "grep"):
+        return None
+    p = resolve(args.get("path", "."))
+    return None if p.is_relative_to(ROOT) else p
 
 
 def review_action(client: anthropic.Anthropic, requests: list[str], name: str, args: dict):
@@ -546,13 +599,19 @@ class Permissions:
             p = resolve(args["path"])
             if p.is_file():
                 old = p.read_text(errors="replace")
-                new = old.replace(args["old_str"], args["new_str"], 1)
+                # Preview exactly what edit_file will write.
+                count = -1 if args.get("replace_all") else 1
+                new = old.replace(args["old_str"], args["new_str"], count)
                 print_diff(old.splitlines(), new.splitlines(), args["path"])
+        elif target := outside_root(name, args):
+            print(f"{YELLOW}  outside the project: {target}{RESET}")
 
     def allow(self, name: str, args: dict, review=None) -> tuple[bool, str]:
         """Returns (allowed, note for the model if denied).
         review: callable returning (decision, reason), used in auto mode."""
-        if name in NO_APPROVAL:
+        # Read-only tools run freely inside the project. Reading elsewhere
+        # (~/.ssh, ~/.aws, other projects' .env) goes through approval.
+        if name in NO_APPROVAL and not outside_root(name, args):
             return True, ""
         self.preview(name, args)
         if name == "bash" and self.guard:
@@ -614,7 +673,8 @@ def sandbox_note() -> str:
         return ""
     net = "no network access" if SANDBOX.network == "none" else "network access"
     return (f"Shell commands run in a Linux container (Debian, Python 3.14, uv, git, ripgrep) with {net}. "
-            "Only the project directory is mounted; you are not root and cannot install system packages. "
+            "Only the project directory is mounted, and its .git directory is read-only (you can't commit "
+            "from here; leave commits to the user). You are not root and cannot install system packages. "
             "Install project dependencies inside the project (e.g. a .venv) instead.\n")
 
 
@@ -692,7 +752,9 @@ class Session:
         self._write({"yach_compaction": {"at": stamp, "replaced_messages": replaced}}, summary)
 
     @classmethod
-    def load(cls, session_id: str) -> Session:
+    def load(cls, session_id: str, readonly: bool = False) -> Session:
+        """readonly: just read it (for listing); don't fix up the file, which
+        another running yach might be writing to."""
         session = cls(session_id)
         lines = session.path.read_text().splitlines()
         session.system = json.loads(lines[0]).get("system", "")
@@ -709,6 +771,8 @@ class Session:
                 session.messages.append(entry)
                 if not session.title and entry["role"] == "user" and isinstance(entry["content"], str):
                     session.title = entry["content"]
+        if readonly:
+            return session
         if valid != len(lines):
             # A crash left a partial line; drop it (and anything after) so new
             # appends don't get glued onto it.
@@ -717,15 +781,16 @@ class Session:
         return session
 
     def repair(self) -> None:
-        """If we stopped between a tool call and its result, answer the call so
-        the history is valid to send again."""
+        """If the last message is a tool call with no result (interrupted,
+        refused, or the session ended), answer it so the history is valid to
+        send again. Called before every new user message."""
         if not self.messages or self.messages[-1]["role"] != "assistant":
             return
         pending = [b["id"] for b in self.messages[-1]["content"] if b.get("type") == "tool_use"]
         if pending:
             self.append({"role": "user", "content": [
                 {"type": "tool_result", "tool_use_id": i, "is_error": True,
-                 "content": "Interrupted: the session ended before this ran."} for i in pending]})
+                 "content": "Not run: the turn ended before this tool call ran."} for i in pending]})
 
     def first_request(self) -> str:
         return self.title or "(no messages)"
@@ -756,7 +821,7 @@ def pick_session() -> Session | None:
     if not paths:
         print(f"{DIM}no saved sessions for {ROOT}{RESET}")
         return None
-    sessions = [Session.load(p.stem) for p in paths]
+    sessions = [Session.load(p.stem, readonly=True) for p in paths]
     for i, (path, s) in enumerate(zip(paths, sessions), 1):
         preview = clean(s.first_request()).replace("\n", " ")[:70]
         print(f"  {CYAN}{i:2}.{RESET} {DIM}{ago(path):>8} · {len(s.messages):3} msgs ·{RESET} {preview}")
@@ -765,7 +830,7 @@ def pick_session() -> Session | None:
     except EOFError:
         return None
     if choice.isdigit() and 1 <= int(choice) <= len(sessions):
-        return sessions[int(choice) - 1]
+        return Session.load(paths[int(choice) - 1].stem)  # now load it for real
     return None
 
 
@@ -808,8 +873,17 @@ class Agent:
 
     def resume(self, session: Session, quiet: bool = False) -> None:
         self.session = session
-        # Replayed thinking is only valid against the system prompt it was made under.
-        self.system = session.system or self.system
+        # Replayed thinking is only valid against the system prompt it was made
+        # under, so keep the saved prompt if only its date differs. If anything
+        # real changed (sandbox on/off, AGENTS.md), the model must see the
+        # current one; resumed sessions drop mismatched thinking (see
+        # thinking_config), so that's safe, just slightly lossy.
+        current = build_system_prompt()
+        undated = lambda text: re.sub(r"^Date: .*$", "", text, flags=re.M)
+        if session.system and undated(session.system) == undated(current):
+            self.system = session.system
+        else:
+            self.system = current
         self.resumed = True
         self.context_tokens = None
         if quiet:
@@ -1020,9 +1094,12 @@ class Agent:
                 output = truncate(HANDLERS[block.name](**args))
             finally:
                 SPINNER.stop()
-        except (ToolError, OSError, UnicodeDecodeError) as e:
-            print(f"{RED}  error: {clean(str(e))}{RESET}")
-            return {**result, "is_error": True, "content": str(e)}
+        except KeyboardInterrupt:
+            raise
+        except Exception as e:  # odd input (NUL bytes, bad patterns...) must not crash the REPL
+            message = str(e) if isinstance(e, (ToolError, OSError)) else f"{type(e).__name__}: {e}"
+            print(f"{RED}  error: {clean(message)}{RESET}")
+            return {**result, "is_error": True, "content": message}
         preview = clean(output).strip().splitlines()
         if preview and block.name != "ask_user":  # the user just typed the answer
             more = f" (+{len(preview) - 3} lines)" if len(preview) > 3 else ""
@@ -1030,6 +1107,7 @@ class Agent:
         return {**result, "content": output}
 
     def send(self, user_text: str) -> None:
+        self.session.repair()  # a refused or interrupted turn can leave a tool call unanswered
         # Compact between turns, never mid tool loop: the whole history is
         # summarized and nothing older is replayed, so no thinking rules apply.
         if self.compact_at and self.context_tokens and self.context_tokens >= self.compact_at:
@@ -1068,6 +1146,7 @@ class Agent:
                 continue
             if response.stop_reason == "refusal":
                 print(f"{RED}[the model declined this request]{RESET}")
+                self.session.repair()  # never run a refused turn's tools, but answer them
                 return
             tool_uses = [b for b in response.content if b.type == "tool_use"]
             if not tool_uses:
@@ -1236,6 +1315,7 @@ def main() -> None:
                     print(f"\n{YELLOW}[interrupted]{RESET}")
                 elif code != 0:
                     print(f"{DIM}[exit code {code}]{RESET}")
+                agent.session.repair()
                 agent.add_message(shell_context(command, output, code))
             continue
         if text in ("/exit", "/quit"):

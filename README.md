@@ -129,13 +129,20 @@ Layers, from outermost in:
 2. **Approval mode**: in `auto`, the reviewer model judges intent and risk; in
    `ask`, you judge everything.
 3. **Project confinement**: file writes outside the project root are refused,
-   whatever the mode.
+   whatever the mode. Reading or searching outside it (`~/.ssh`, `~/.aws`,
+   another project's `.env`) goes through approval like a write.
 4. **Sandbox** (opt-in): commands can only touch the project directory, and
-   never see your environment or credentials.
+   never see your environment or credentials. The project's `.git` is mounted
+   read-only, so nothing in the sandbox can plant hooks or config that git
+   would later run on your host. That also means commits happen outside the
+   sandbox.
+
+Commands that time out or that you stop with Ctrl-C are killed along with
+their child processes, on the host and in the sandbox.
 
 The sandbox protects your machine, not your project: the model can still change
-anything inside the project folder, and push or deploy if networking is on. Use
-git.
+anything inside the project folder (including build scripts you'll run later),
+and push or deploy if networking is on. Use git, and read diffs.
 
 To give the sandbox your own toolchain, put a Dockerfile at `.yach/Dockerfile`
 in your project.
