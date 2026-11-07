@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:84eb281750e7c397159f815924fbe6462fe39ff99203cffb8536594a6b8aa293",
+  "claims": [
+    {
+      "id": "claim_543a8820c59f4185bf145e0dd4571930",
+      "statement": "run_bash clamps the model-supplied timeout to between 1 and 1800 seconds before running the command.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L345-L350",
+          "version": "repo-lines-v1:sha256:6eef12e1373f1a0487fc4fd1433e6757696e745eaa81cb41e429c34de8913beb:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDdhMGJkMzJhZWU2YjkwMzg1ZDFmMzZlY2U4YjdkMTU5ZTAyYTI4NDNkYTA2NWQ5MDZlYzIwY2ZiYTUxYWYzOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWE4MTExZWZjZmZiMTU1MzA1NDc3ZWNjYzJkNDhlMDljNWZmYWIwMzEzMTc3NTY5MjRkYWVhOGRlNTNiYjE2NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOGQ5MWRmNTkyMmQ5ODg4MjJiNTczZDAyYTYzZTMyODUwMDA0MmNiNWQyMTY1OGExYWRkYTlkM2ZlYWZiYzRmMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2VmZWJkY2E5YjUxMmQwZTU5MWViMjJlNzFhNTYyNWMxZTkyNmQ5NjNlNzNlM2U2NTY0ZjQ3N2IxNTZjYmY5ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d982f978b50a42dab8363b31d91d7467",
+      "statement": "Host commands run in the project root in a new session with PLAIN_ENV (TERM=dumb, NO_COLOR, PAGER=cat, GIT_PAGER=cat) over the user's environment, with stdin closed and stderr merged into stdout.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L268-L269",
+          "version": "repo-lines-v1:sha256:462c1289404fd23474fbb78489379e0c298976e9bf8e0a0023d51267bead2498:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTYwZjFiYjA1ZDdkNTlhNWNkYjUzZTk4YWNjNzE5YjBmZWUxMDlhNTc5Y2IxNTdkYzg1OTI3ZDk0MTNkMDE4ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2I1OWU4NGYwOWJiOGYyZTFkYjA1NWUwYThiM2UxYjg0ZGI4NWU1NTljMjFlNTY4ZThmMzBiMTc1ZmQ0MzdmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmRhNzUyOTNkYmRmMjZiZGIzYWI5MWE2ZDFmOTYwNDFhODdmMjFlZmQzYmU5NGFiMmYxMTUwM2FjYWZhNzY3NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTVhYTNhMjE2ZjVhMTg3OWQ1NWM2MDEwZjRhMTM2YTQ3MmNkNDhhZGNhOTUwZTM2ZmZlNDc4NmQ5YmMyYTRjNCJ9"
+        },
+        {
+          "resource": "repo://yach.py#L354-L360",
+          "version": "repo-lines-v1:sha256:bb77b3a9d6a68e5229760b746317d8e32d0d615dda939112ea8c3920375d1990:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTljNzE0OTdjZmM4MmU2ZmUwZmZmZjBiMDYyMzY1ZWY0OTcxNTM4OGE2NTQ3Yjk3YTEzMDBmN2VlYTI4ZjAyZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMThkNThkNjZjODQ0MzE5MjA0YzhkMzNlYWRmMDU1OWRhZmFkYmU2Y2E5NzdiODZmYTUwZTUyYTczNTMzZWMwOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2VmZWJkY2E5YjUxMmQwZTU5MWViMjJlNzFhNTYyNWMxZTkyNmQ5NjNlNzNlM2U2NTY0ZjQ3N2IxNTZjYmY5ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmM1NGEyNmU5NDdjZmEzZjQ2NzUwMGI4NGRhMDNjYzk2ZWViMzE2NTVjYjM3YTRhNzZhOGJlMjUwMzZhZmYyZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fcb0413a7eca4361a5ac7a2cb6801f27",
+      "statement": "On timeout or Ctrl-C, run_bash kills the command's whole process group (os.killpg on the host, Sandbox.kill_run in the container), then re-raises Ctrl-C or reports the timeout with partial output.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L361-L378",
+          "version": "repo-lines-v1:sha256:4c9aa16a934becc8122f0d589b6464b19d0ed050dd030b37bd67469992946ba3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkYTVjNjZlMTdiMTQ1Mzk3ODM0YjhjODU0ZGM0MTkzZTIxMjUxODBhODk5NmExNGMzMTg4MzMyNmIyZWZiY2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkZGNlZTNiY2JlMzAzZTkxNDI0NGI5ODYxMTAxN2EwMWVlZWZmYmU2Y2E3Y2VlZGEyYjBkZmUwNWI1OGIzZGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRjYjQxYzc2OGNmNzczZTE3ZWVkODkwNTFhYjA4Y2FlMmEzMTdmZDI0MjQ5MmIzZDIyZDg0NGM1YjViMTU3MDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJlMDc1M2I0YWIxMzFkMDEwMzEzODY4MGQxM2NmZmI4Y2IzMzk5NjdkMDVmNGVmYjEzZDkyMmY3YjU2MzQ2MzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4f7c1909e0314afa84d85b96c88faa9f",
+      "statement": "The sandbox container runs as the user's UID/GID with all capabilities dropped, no-new-privileges, a read-only root filesystem with tmpfs /tmp as HOME, a 1024-pid limit, the chosen network mode, and only the project mounted at its host path.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L281-L301",
+          "version": "repo-lines-v1:sha256:96ac03fa597b0591f6315f53751c4ddd42b259b8ac3ff492d4f630dc2cf722b4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkMzhmNWFlMWVmZDgwYmQ5ZWI4MjQ4ODJhZjNkYmMwMjc5YmY5ODgzOWZhM2QzMGRjODg1NDMxZWNjYTNmMWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhNDNmMjFkNjYxNWQ1NDAwMjk0ZDI2MjAzNjU1NzI4YWI3MzY2NWI4MDEzN2YwYjU5MDFjYTYyN2JlMjc4MWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkYjlhNGRkODMzYWMwNTBlMGFhNzVkZjRlMjAyMGNjYmI4MDkxODM3NDU2NjBjMzk3Y2ExOTczYTk1MDEyMTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZlODU2YjZjZWFjN2YwMzI4NTIyNTNlZmE2NjdmYTEzNjI0OWU2ZmE3M2FiOWE4OTU3MmYxNDcwOTZkZWEzZWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7d2201ced830413bac9327273ddad38e",
+      "statement": "When the project has a .git directory it is mounted read-only in the sandbox so sandboxed commands cannot plant hooks or config that git later runs on the host.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L285-L291",
+          "version": "repo-lines-v1:sha256:3eff0857ab730c2c9c76729532d70cb2a4ee6c8d3c41f9cf50c91b051c2798f7:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjZhMTQ1YWRlZmY4MzIxZjAwODMyMWVhODU1YTFhYTlmYmYyNzVjMDg2YTUwNDE3NzU2NmY1MzEyMDU2MWJjMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjI2Y2EwY2EwYzNlY2QyYmQ3NTI0ZjFlMGRlMWY3Y2FmYzMxYjAxYzU1ODRjMzJkZmZkMWU4YzhhNTJiMzU3OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzIwNTg5ZTFhN2YxMGE4MGI4NTAzOTg0NzdhZDA0YmNiNzA3Mzg0Mjg5NGRlNzJiMTQ3ZTI2YmRiOGZmNDcxMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTg0YWQ5OTcxOWRkNzc2NjMyMTBiOTk4ZGRmMDRjYzQ4NjEwOWI4OGE1Yjc2ODRkMjVjMjQ1MWU2NjAwMjk0ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a13ad038a184fddb5935b97a5cb48b1",
+      "statement": "Each sandboxed command runs under setsid with its process group ID written to a per-run pid file and an in-container coreutils timeout, so kill_run can kill the whole group via `kill -9 -<pgid>`.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L320-L335",
+          "version": "repo-lines-v1:sha256:723bdc060c85ea769ae591f6729fa4f8aa30256f97c0ba43a2e30011de3bc08b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYwN2I1ODlmM2FmMzBkZmZjMmZmYzc2MmFjMTE1MmYyMzRkNjI4Y2E5YjlkMjUwNGQxZThmMDk3ZTVkYjllMzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyODAxMWZiMDIwYTJkYWI0NzYwZWI3OGFmZGVkODM1NDA3ZjRmMTcxODdlYTcwYTUxM2Y1ZDczMzBmMWNiMmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxODZiMmZjNzdhYzdhOGU5OGI0YmU1MWRiYTRkZGVlMDUzMTQxNjY4MmQ2NjY5ZmE1YTQ3MTJjZTA2MDdiMWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI3M2NkZWI3MzAwNjg3MWFjMmYyNjYwZWI2ZjY4YzZlYzdiMzZhOTQ0ZDhlMzc5YTA3ZWE5ZjU2MTYyYTQ2MGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e4e805f2b34a450aa7ac7c45c385bc8e",
+      "statement": "The sandbox image comes from the project's .yach/Dockerfile if present, otherwise a built-in python:3.14-slim image with git, ripgrep, curl, procps and uv, and is tagged by a hash of the Dockerfile so it is only rebuilt when the Dockerfile changes.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L260-L266",
+          "version": "repo-lines-v1:sha256:dd264da36575ca30ad60dd13dfb0646eb71cf35468a0e3137b94ca1ab86ad80d:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmU4ZjdmYTM4NDlkNTUzNTEwZDQwYzNlYjRkOTIyYWVhYzk3ZGI0ZmZjM2U2NjI4NGY5OTY5MjJmYWIwOWNkMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTMwM2VjZGQ0YTRkMTBmMTljNzNmZDQyZmQxMjQzN2ZkMzM1NGE4MjY4MTYwNWRhNTI1NWE5N2EzOTA2OGRiYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWUxODQwNzYxMGE3YmI0NzBlNTZkMGI0OTE5YTJkNmJiNzhmMzRlNmEyZDQ0YzJjYjM2MWJhMGRhNzRiZDljZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDUyYzFlZjUyOWM0YzlmMjg4OTNlZGQxNmJkN2UxMTgyZDA3ZjdmODcwNTUyODc4NTYxYzg4ZjgzNzY1ZjYwZiJ9"
+        },
+        {
+          "resource": "repo://yach.py#L304-L318",
+          "version": "repo-lines-v1:sha256:0bd0350fa2f59a0b830b053199ad9a05d0a8b9b8863dd769c56c664312df100e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExZjZjM2M1NDc5YjJmODc1NTQ0NmNhMjE4NjBjNjhkZTZhNmM0MzY5YzcwMzFlNDRjYzFmZDA5NGVlM2E4MTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVkNTM1MWYwMzRmZjYwMGUwZDc3NmI4MTAyNTVmOWNlOTViMWMwNjY5ZTljOWZkM2RjNjIwYTkzZGIyMGFiMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxZjk3MzRiN2RlOTkzZWY2NmZkYmYxNGJkZmRkNDVhYmI1ZTQ3NjRhYjYzZjM4NmQ1OWMwM2Q3YzBlZmU4M2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0Y2YxNTgxMGE5NzQxMzBjNTg0YWUzYzNlYTNiMjRiMWFhNjM3MzgwMDJkMmYyNWI3MThhOGFhZmIyYmY3NDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a6be6e246da94849ad73820e8362794d",
+      "statement": "The container is removed with `docker rm -f` at process exit via atexit.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L302-L302",
+          "version": "repo-lines-v1:sha256:61a8c87fbc4f189740ba1f5d6e5b2a7078b5302a0dceac4d299e1b55b4a61aa1:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjFhOGM4N2ZiYzRmMTg5NzQwYmExZjVkNmU1YjJhNzA3OGI1MzAyYTBkY2VhYzRkMjk5ZTFiNTViNGE2MWFhMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjFhOGM4N2ZiYzRmMTg5NzQwYmExZjVkNmU1YjJhNzA3OGI1MzAyYTBkY2VhYzRkMjk5ZTFiNTViNGE2MWFhMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDMxYjVkMDZiZjkzZTk0ODI2NDVhNTQ4NzFjMWRmNTk1YzU0OTU2NDczNjRmNjMxM2MwNTg5OGUwY2VlZmYwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2NmN2UwZDNiNmVhODAwZjY4NmYyYTlmY2YwZjk1OWNlZmUwNTgyYjk5NWNjNTJmMTUzNzgyODdhMGYzNjgwYyJ9"
+        },
+        {
+          "resource": "repo://yach.py#L337-L339",
+          "version": "repo-lines-v1:sha256:15be4120d78beafe3c90a3f9cfaf8313575e49da38d335e59fa39fef5d9afc5f:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2RjODU5Y2JlNGNmODlhYWI1NzVkZGViNTY5MDM3NTk4N2JkZGQ5ZDgxYTZkMjIzNDJlZDQ4Yzc5ZDJlMzRhOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDA0M2ViOGE0ODMyYzFiZTc5MGI1Nzc1Njk5MWU4NjU5ZDUwNDc0YWJlYjIzNGJiMTU5NjI5NDAwYzUzZTJhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjc4MGFmY2QyOGUzOTk3N2VmNmRkMDU5ZWI0YmY2NGM4MmZmODU2YWE2MDYzYTI2YmZmOWFlOTY4NmM4ODMwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmU5ODBmMzJhZmY1Y2Y4YWFiZjZiMDFmMDNjMjEzMjkwNzQyMTgzNzMwNThiZWNkY2FmMmEzMTI4ZThhYTEzYSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_04e38551c9384173955138f487fa5547",
+      "statement": "When the sandbox is active, resolve() refuses any path outside the project root for all file tools, not just writes.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L242-L249",
+          "version": "repo-lines-v1:sha256:1782a4ca31a857d5efebddf27993dbfc2d1f4b1b4934495665cce9850d7c76ec:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzMxNGRkZDY3NmViNjkyYTE3MzZiOTZmYWZlY2VjY2M1MDU0ZDJiZWZmNTVkZjBkZTc0NDM1NzUzOWM5OTY1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDcwMTQ5ZTA2OWFkNjdlY2NmNDczNjQ2ZmYxYzc1MDA1MGQzMjlkMTEwMDE4ZGM1NzY2ODc4ZWFmYTFkNjA3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTRiZDMxYzFmYzUwMzBkZTI0ZjVkNTY2NmNkZDZmMGYxODdhODc1NzZiY2Q0M2Q4YzliMzQ2Y2ZiYzVkYmE5NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-07T00:49:17.948Z"
+  }
+}

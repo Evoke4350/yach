@@ -65,6 +65,28 @@ Fixed: `parse_date` now keeps the offset, and there's a regression test.
 - **Project instructions.** `AGENTS.md` or `CLAUDE.md` in the project root is
   added to the system prompt.
 
+## Documentation
+
+How YACH works inside, page by page, with every claim linked to the lines of
+code it describes. **Browse it at [yach.stayfresh.dev](https://yach.stayfresh.dev)**,
+an interactive graph with a reader, or read the Markdown here:
+
+- **[Wiki quickstart](openwiki/quickstart.md)**: start here; it routes you to
+  the right page for a task.
+- Pages: [architecture](openwiki/architecture/overview.md) ·
+  [agent loop](openwiki/architecture/agent-loop.md) ·
+  [tools](openwiki/tools/tool-surface.md) ·
+  [approvals & dcg](openwiki/safety/approvals-and-dcg.md) ·
+  [sandbox](openwiki/safety/sandbox.md) ·
+  [sessions](openwiki/sessions/session-storage.md) ·
+  [context & compaction](openwiki/sessions/context-and-compaction.md) ·
+  [terminal & CLI](openwiki/interface/repl-and-cli.md)
+- The site's source is the static export in
+  [`docs/openwiki-visualizer/`](docs/openwiki-visualizer/), deployed to
+  Cloudflare Pages.
+
+The wiki is generated with [OpenWiki](https://www.npmjs.com/package/openwiki).
+
 ## Install
 
 Needs Python 3.12+ and [uv](https://docs.astral.sh/uv/).
