@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:f63bc2c844c454a6b5d9cfaddd9e0760dc8b9a38e51b30bc0ee5fc7faca26c86",
+  "claims": [
+    {
+      "id": "claim_5e2ef0602f8d45d29afea1d1fad84985",
+      "statement": "read_file, grep, glob, and ask_user run without approval only when they stay inside the project; read_file or grep targeting a path outside ROOT goes through the full approval flow.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L209-L209",
+          "version": "repo-lines-v1:sha256:e14ccdd4e0103cdc7712cd1f835c13fc5c5ea4610205b5a2248e93522a64ddad:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTE0Y2NkZDRlMDEwM2NkYzc3MTJjZDFmODM1YzEzZmM1YzVlYTQ2MTAyMDViNWEyMjQ4ZTkzNTIyYTY0ZGRhZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTE0Y2NkZDRlMDEwM2NkYzc3MTJjZDFmODM1YzEzZmM1YzVlYTQ2MTAyMDViNWEyMjQ4ZTkzNTIyYTY0ZGRhZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWJjZDA0NjRlN2EwMTdiOTRmZGQ5NzhlZDJkNDJjZTk1YTdlNTYzYmQwNWY5MDRmYTc2ODhkN2JiY2RkYzU0MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTBmYmJkOTFmNmExZDg4M2JjMjI0YWY0YjcxMDNmZGRlMmVlMTM4ZmIzMmYzZjVhMjZhZmIwMjAwZWRmNzQ5MiJ9"
+        },
+        {
+          "resource": "repo://yach.py#L524-L529",
+          "version": "repo-lines-v1:sha256:0d3f2630d0ccc99b77bed7ada775be70f054d71e270de3cec6ff971ffd140318:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjVkYjE1OWMwMDY0MzVlNTA2ZjJhZjAwMDllMzhiOWNiOGQwNTUwOWM0ZTJkMmUwNjI3ZjBjNjI1NDllNzY4NyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTVjMjAzZWRmMGJjNGQ0NWZkZTViMGFhYzQ3ZTA1ZjkwMGM5YzU4MmMwMjc2OWI4OTRjNGQzYWI0MzE4ZDllMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDY5OWE3MmE0NTA1ZTQ3NzAyMjI1OWE0ZmI3ZDM4ZWU1MDNjZDhiYWExNTRkYTJhNzUxZDZmN2MwZGIwY2E4NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWU2MjhjOTYyN2QxYjVlMTk2ZTE0MmJiN2VmNDU4NWNlNzM3ZGIwZWIyOGMyODYwN2JiNTU2MDEyOWVhNjEzZCJ9"
+        },
+        {
+          "resource": "repo://yach.py#L609-L616",
+          "version": "repo-lines-v1:sha256:8d966f84ed2815f400fd1a8444d428f79a7b722a7be553a6f5767d50cd377ed2:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTEyNmEwZjNiYmJkYjgyZTQzNWQzNzMyNmI2ZTJmMzU0ZjJhNTYyNzQ4NmEwMzY4NjVmODliNGZkZDBjOTVlZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2E2MDFlNjBkN2I1MmY3NTQ3NzlhOTg2NzY3YzE3OGFjZDcyZWI5MGNkOWU0NTQ3N2VjMjNiZjVmZjlmZDc1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDJhM2U4Y2M1YjRmYWY4ZGEwNzY2YjliNGQ3ZjgyYzdhYjk2NTBhNmQxOGIwMDQ1Y2RlNjAwOTM3NWFmMmY4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjczMjJkYzNmMGZjMDg1NDk3YWM3NTU3Mzk4NWI1NzI0ODkzZjg1YjEzYmI1MGY0NmQwZmVkNWE5YmM2N2E4MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e7027771b4e74a8cab8fbc52a79e8cec",
+      "statement": "When the dcg guard is on, a shell command dcg flags requires an explicit yes at a dedicated prompt before yolo mode, the always set, or the auto reviewer are consulted, and a decline returns dcg's reason to the model.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L617-L630",
+          "version": "repo-lines-v1:sha256:51314f29f8fd17758ba919c54fdc3b20b4e03316dabcf965d364f22515f66235:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1YTEwZjM3ZDg1M2E1MTkwZWIxMTc1ZTRkNTg5Mzc4OGZkNWEyMjJiMWQzZjcyZDg0M2ZiMTc0OGE2NWYwYzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmOWZmNDg0ZDM0Mjk1OWNiMGQ5MDJiZTJkNTRjYmQ1YTRmYjAzN2IwYWU3YWE5N2UwYTViODI2OGZlNDhmMjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhhNTk2ZTlhZjAzMjA1ZTQwNzlhM2E3NTA3MDI0MTc4NzRiNGM1ZmQ1OWFjYTZiNDc5ODRjNDZkZTdiMTU1YjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk0OTVkNGNmYmI3YzcxY2U2NWFiODY1ZmM5NmU5NDNmZWMxN2U2OWQ0MTY0ZGQ0ZTA2NmE0N2YyYTBhOGM4ODUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f53de584721a4783858bee5993d1f0c6",
+      "statement": "In auto mode the reviewer's 'allow' runs the action immediately while 'ask' falls through to the interactive prompt with the reason shown; answering 'always' adds the tool to a session-scoped set that skips later prompts and reviews but not dcg.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L631-L649",
+          "version": "repo-lines-v1:sha256:142bfc561984a26fca0649bc9edf60c24690e303bdc2ac4d9e6f10e6a2e396a2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVlZDg4MTgxYWM1ZmViZDAwODRjZmY5MDEzODU3NWI1MWQ1NGRhYzJlYjIzY2FkMGY3ZDc5ZDIwNGU1MDdkZmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmOGZhMWE3MGUxZDNkMzRlZjQ1YWJkNTZkOTUyN2I0YWJkYTM1NDkxNTVjNzUxYTY0MzZiNTFkMWY5MjYzMzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI0YWI5MTk5M2ExYmRmMzc3YzFmODY3NDZjZDJhNjA2Yzg4YTRlNjNjOWNjNGIxYThkNTBiYTNmNmNkODk3ODkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiYWUwNmY0NzYzZmZlZTBhZWIwMjdjMjljZDU4N2ExOGJlOWJlMGMwNTA5NTQ4ZmYxMzNjZGM0OTFiZmZjOGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_13566e7a9b9e45f48c0ed3f6fe8035e7",
+      "statement": "The reviewer only sees the user's last three plain-string messages (truncated to 2000 chars), never tool output, agent text, or block-list shell output, so injected content cannot argue for its own approval.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L996-L1001",
+          "version": "repo-lines-v1:sha256:258fd2b8455d4783907e7172d896104af6e472d9e0d89c6b1e36810740b51a97:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzFmMDM2Yzk2MjRhOWUzOGNiMTJmMjlhMGFlZDhkYTUwZTkyZmJjMWMzZGE5NTFkNDQxZmU0MmQxNGE2NjVkZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWIxNjhkNTJiZWNmMmM2ZmE2Y2YxMmU0Njc0NzM3ZjJiZDIyYjllNTVlZTcyZDQzMTcxYzBjNDQ1YjBjY2ZhNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2Q1MDk3NjNiM2VjZDUzYzMyMDg3YzU1YmQ5M2JlMWVmYThiMzljMGRjNGE5NjY3ZjNkMTVkMTMyYmEzNWUxZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmJmZGU0NzQxNjAyN2FiZjM1OWY3ZTM3ZjU5MjUwMzZkYzViNjg0NDg0N2QzYTU1M2UxYTdlOGIzNGI5MzUwOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_288caa45632b47da88d735107ed83f33",
+      "statement": "review_action calls the reviewer model claude-sonnet-5-5 at low effort with structured output constrained to an allow/ask decision plus a reason, under a system prompt that says to answer ask when in doubt and to treat action text as data.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L32-L32",
+          "version": "repo-lines-v1:sha256:fd2cabb0605d0bc57a635a286a217463bd966ff0657d1b769376d1b803f17c98:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmQyY2FiYjA2MDVkMGJjNTdhNjM1YTI4NmEyMTc0NjNiZDk2NmZmMDY1N2QxYjc2OTM3NmQxYjgwM2YxN2M5OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmQyY2FiYjA2MDVkMGJjNTdhNjM1YTI4NmEyMTc0NjNiZDk2NmZmMDY1N2QxYjc2OTM3NmQxYjgwM2YxN2M5OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjdmNzJiNDJiYTljYjRhMzEzMWRmMmRlYjFiM2ZmODFmNmFjMjEzZjA2MGE3ZjgyMThmYzhjNmZmZmI1NWIwZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODZjMzgzOTEzYjdlNjIxMjMxNjhhNGU3MGQyMWYxMTk3ZTA4MDRhN2M4NTg5NDUyYzdjY2RjYmE2ODEwZGNiNCJ9"
+        },
+        {
+          "resource": "repo://yach.py#L473-L501",
+          "version": "repo-lines-v1:sha256:bcbbe95ac864333f638b6e804b94fcae7506c649dc8104ecebabc4b136443ea8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJmYmM2YzQxN2E4MjFmMjgyM2RlZmI3MzE2NjMzZDllZjJmNjUwZTZjNzZmZmY3YjBkYzRjNGI1NjhjZDJiY2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjViNmQ2YzQxYjIyZDkyZjg2NTZmMjZkY2JlZjZkM2ExMjJlNWM1NWIyNjQxMzc2NmJkNWI2NWI4MDJkMGZhNTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwNzJjNGUxYmE4NWRkOWQzMGUzMTJjYWYzODIwOTU2N2FkNDlhYjIyODJiYTBhOWZkMjE2NDI1N2Y5ODIzNGYifQ"
+        },
+        {
+          "resource": "repo://yach.py#L532-L549",
+          "version": "repo-lines-v1:sha256:f3674f6010e2c716a0680a8f7033e12b330e6e9f907fa18805171bac3fcab577:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3MGQ2YTA0ZGU3OWMxYmU1MjFkNWE2ZWQzMTEyODdiZmJlNGI0NzQyYjE3NWE5NTU3OTRiNTk3OGUyYmNiNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MWViOWJlOGExYmVhYzlmNTMyZTdjNDc4NDYyMTMyMjA5Mzk0YjNiMDA4MWEzZDYzZDZlNDE1NDZkZjcyMjkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwMjg5Njc0NDZjOTI2NTI2YTQ3OGJhMDMwOTk3NDY2ZTllZGFhODc5NzAxNzQ3MDI4ODJjNDhkOTRkNTdhMzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2OTE2M2YxNTIyZTFhZjQwMzk3NDcxNjc1OGUzYjA0NDgyNTYyY2NlZDhkYmJkNWMyZTI2NDg2OWYzOTZmOTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5b5baed9372746baa045fece50986b69",
+      "statement": "The approval system fails closed: a reviewer stop other than end_turn or a reviewer error yields 'ask', EOF at a prompt denies, and dcg failures (missing binary, timeout, bad JSON) are treated as a flag.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1002-L1005",
+          "version": "repo-lines-v1:sha256:f88726cb80a9b7392dd1436c5c87a0e7b36fdb40d04c8974341b55ef6f1dfc89:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU2OWNiMDkyODBlZTA3ODE5NDVlNDhkNDA0MWJkMmRmYWFlNjkxYWQyZWFiZjVkM2NiYTA4NDZjNzIxNmNhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjJmY2VmNTRiZGMyNmU4ZDIyYjA1YTNiZDRhOWE1YTBmNTgwYTk0NWQ4MDI2ODYwZGQ2N2VlMDY3YmU0MDk4OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMGM0MzBlYWU3YmFmMTZjZDU4MWZjNzUxMmM3ZTc5ZjdlYTMzNGU4MjY3ZDRjN2RhMzU1MTBiZDMzZGM0YzViYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQ0YzdhYzM1OTIwNGViM2JhYzZmNGQ0MTdmODdhMzk3MDI0MTVhOTBhNTQxYmU0ZjY1ODg4ZTdjYjcxMGJkZCJ9"
+        },
+        {
+          "resource": "repo://yach.py#L546-L547",
+          "version": "repo-lines-v1:sha256:6b179cc1e49719466359f2f617e8caf566d11c774ff9210049ef2d343a0039fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGYwNTNlMmNkYTdiOGM4YjI1ZjkzMDlmNzE0NTk2MzA3OTYwNGQwMmFjMzQ1ZDM5NTJkNDYxYjZjMWEzZTcxOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmVkNDZkOTRhNzQ1ZWM5OTI5MjI5MGJlM2E1YzliNzgwYzU2NzNkOThjZWQ0OGY5OTNkMDRlODk5NjQ4NjJkZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODQ4MGFmZDdhNmI5ZGZiMzA3MTZmZTZiNzgxMWE3OTc3ZTgwMmQ0NTgxZTk0NTNjZDBjNjJmM2JiNDVlZDdiOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOGNlODE1MTYxZDUwYWJmMzQ3MjQwN2E2ZGM5OGEwYjVlMzZiZTk3NzdmNmZhMDFlNzAwZGRiNDEzYzg5NmNiMiJ9"
+        },
+        {
+          "resource": "repo://yach.py#L555-L562",
+          "version": "repo-lines-v1:sha256:51751922f123f9ef9d00820a2e03baea44444a58d41d5d3090b5d1b63932a76f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWRhNWM2NmUxN2IxNDUzOTc4MzRiOGM4NTRkYzQxOTNlMjEyNTE4MGE4OTk2YTE0YzMxODgzMzI2YjJlZmJjZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGRmZThlNDY0MTM4MjY3NmRlOTM4NjkzYWY1YmVjYmYyODUxYmYwYWQxZGM3Y2MxOTk3NjM2OGYwNmQ2MmRhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjk1YmNlOTI4ZGQ5YjI3OTk0ZTdiYTJkNzgxZDhmY2Q5YjQ2NTUzNDBhYjE1ZGRlMWZkNTIxZWU0ZjI5NzI1NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmI3Mjg1ZWMxNjZmOGU0ZTA4OGEzOGU1MzI1MDIwOTQwNmQyN2Y0MDdlMDRhNmFlNjhiMjA5NzhhYjM1MThjZSJ9"
+        },
+        {
+          "resource": "repo://yach.py#L641-L644",
+          "version": "repo-lines-v1:sha256:98ff6fe61b8490fb98559861ed919329e74c79fb9cc1fb58a3f764b0deefce88:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU2OWNiMDkyODBlZTA3ODE5NDVlNDhkNDA0MWJkMmRmYWFlNjkxYWQyZWFiZjVkM2NiYTA4NDZjNzIxNmNhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzBjNzQ4OGVkZGYzYjEzMmQyZDA2NmQ4NGU1YWI0ZGZmN2FlYTcwYTgzMDRlNzcwMGI1Njc3NzU4MDViYWU0OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjU4YWJkMWU0ODZjMzE0YzQ2ZjY1ZjFkNTI1MTMxODhiMzQ2ZWQxODU0NmY2YmRjNTJjN2FjYjdkNTRjZmU4ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjQ5ZTQ1NDUyNDg0NjEzNmMyMzdkNWZmMGNhMDc4MDY4NzI4NmJiZTJlMzNiYTc2NDgyZTgzMzI2Y2MwNzIyNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ffa63eba4c434160a4ce8ff18294db18",
+      "statement": "dcg_check runs `dcg test --format json` from the project root and reports non-allow verdicts with the reason, rule_id, and severity.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L552-L566",
+          "version": "repo-lines-v1:sha256:983db81a5b72b1b561a55d36efc3cc87f8ea6780140ffbf2ee106d9b24a07c5e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzYmY3NGJjMjcyMTUyY2FlNjA4ZDNmNzVhOWI4NjgzZGE4YmQ3ODQ3MjZhNmQyZmRjOTA0ODdiOWYxOGE5ODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzZjA3NDNiODcxMWNmODYyMDk3MDg1YzMwZTVhOGIwNmJmYzgzMDJlM2QxYWRkNDE1Nzc4YTA5MzNkMWZhMGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU3ZjY0MTc2YmY2ZjUxYzk2ZDFkMzI1NGUzZjQ1NzMwODc4OGE2NDgxMThlZWYyNDc0ODVjNzhlZmM2M2NlY2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhZGUwMzgxN2NmNTRmOWExZjAxYzdhNTNhZGQ5NzkzNTY2NTVhNGFlMDAzYjZjM2ZjNjI0ZjQ0ZDk1NWU4YzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4aadd9c1f8014c12b8da216ef0193ab9",
+      "statement": "New-file previews show a line count and the first 12 lines (200 in ask mode), and the edit preview applies the same replacement count as edit_file so the approved diff matches what is written.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L584-L605",
+          "version": "repo-lines-v1:sha256:48d86a587d6848f45578f517bcb026c2a5d94aafef0a387fdd9f982b2925cc60:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4ZThkYTZjYTRmZTkwNzIyNGNjYjc0YzYzODY1MWI0YTAzZjEwYzQwMGE2ZDA1Y2M2MWY4NGZiMjYyZjRlYzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyMzU5MWI2MDFiMmRmZjkxZWJkNTU5ZjdhZjE4NjA2NmEwMWEzNjQ2ODdhZmJjZDg4ZDJkZTRlMjg4OGVmYjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVmMjRmNjgzYTc4MzMxZWRmZmYzN2E5Y2UwYjdhNTA3OGFmMTA5NmVmZTlmYzNhZWIyMjY0YzdlMTc3NzgyNTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAyYTNlOGNjNWI0ZmFmOGRhMDc2NmI5YjRkN2Y4MmM3YWI5NjUwYTZkMThiMDA0NWNkZTYwMDkzNzVhZjJmODEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_003ac204752e45d4beb6661c9f1623fa",
+      "statement": "describe_action gives the reviewer the shell command, or the target path with up to 4000 characters of file contents or edit text, marking replace_all edits as affecting every occurrence.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L504-L521",
+          "version": "repo-lines-v1:sha256:6e3dff85304502e28ec91220f4829c5f3ac6f45993607734c552f624fa0a9e53:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyODg2OWJkMTlkOWVjMDRiYzU1MDAxMjk1NmU2YWNlNWExNTBkMjc4ZDA1ZjliODQzZWJkODY1N2U2OTJhNWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0NjUzMzRjYzc5YTJkMjNiNzJiMGRiMjAzOTgxNjAwM2U4MTFhODMzNjI2YWYwMzY5NWNmMTk1NjA2ZDViZDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5ZjkzMDgzYzE5NzEyMWI5ODI3MDBiYThhZmFiZDE3MjJjZjFkM2U3NDA0NTA5ZTgwZWZhMjcyNDdmNjJmMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE2Zjc4NGZiOGRkYzZiNmY1M2M0MmY4ODU5OGY1YzI2ZDdlNTkwMDZjMzE5YjlmNmJiMDY5Mjg4MjNjZjhlYTQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-07T00:49:17.948Z"
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:1912bfbb44ce6977beed90150d7dfb1b5367a21b02f6b5f8c72425a7ec80e4d5",
+  "claims": [
+    {
+      "id": "claim_636ba439320e4fd884c6bc76eeab1009",
+      "statement": "YACH exposes seven tools to the model, bash, read_file, write_file, edit_file, grep, glob, and ask_user, each mapped to a Python handler in HANDLERS.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L135-L206",
+          "version": "repo-lines-v1:sha256:27e90e7c933923d363f074dd05f2366c186e8a45eccfbb4e51a15fa1de9acb94:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM1OTgwNDE1OTQwODFjNmMyOTMyODdlYzRjMzdmNWE5ZmE4NmQxNjhhMGYyOTc3YWYzNjE1MzFlNmNmYWJiNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5NDE2ZTA5Zjc4YmEzMTZjMDMyNTY4MjEzYjg1NWVlNzU2ZTQxNTY1ZDkxOGYwOTUxOWM4MWZkNjIwZjQwNjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmYmQwMDkzMTRiYzI3MDg0MTY3MzRhMDJhZTVmZjM5YTFlNDhhMDUwYmU5MWY0M2IyZmFhOTIwMDJjNjJiZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYzMTcxODVhNzI0MmQyYmY2M2ZmMTc5M2E4YTdlNTVlZWI5MTZiNmM1OTkyYjVmYjY5ZDlhNjFlZjdmMzE3YjcifQ"
+        },
+        {
+          "resource": "repo://yach.py#L460-L468",
+          "version": "repo-lines-v1:sha256:f225d9df44a6775c4c1fbd58e9965ff2ac22fcb43c351b9700ed559ce6200186:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzMxYmY5NzFkYWIwZmQ2MjU5ODcyY2Q1NWFjYTQxOTc4MGNkMDcwYzNhYzA3OGU3OTlhODc0NTExMmI3OGY2ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWI1YjUwMzU5N2Y5ODljMDYyYTNlZmUxZDkxMTEyMGZiNDlmZWJlM2E4OWUzNjVkNTU4NGNhOTYyNjJkMDZhNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTE4NDcwZTllOTNkNDE3MmM3NzgxMTVmOWI3MGU1MzA3NzM1NGRiMGNkMWNlZjgyZDUzYTI5MGI5OWYyMjc5MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_585b43a4d6d4499db836e677529dd1b2",
+      "statement": "Because tools use eager input streaming, validate_input checks tool existence, object shape, required and unknown fields, JSON types (rejecting booleans for integers), and array item types before any handler runs.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L120-L132",
+          "version": "repo-lines-v1:sha256:3872d64b55dd38317e017b28c75c39610082b9fefe6cda99f093313e95a30e23:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1OWFiNDM1ZWM5YWRlYTBkZTQwZTdhYzhlNWQ1ODUxNjFjMmJjZDIyYTQzM2IzZTk0ZmNiMWFjN2MwMWE2ZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0MDBjZDdiNDY5YzU5MTgxMWM5NWIxMmYwYmNmZjQ5ZGJkNDNjMTc3NDkwZTk0MmUzYTA5OTMzYWEzYzE0OTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmZTEyOGZlNGNjYjRmNjc5N2IzM2Y2MTYxZGFlMTIzZWZlNGYwNGEyYjFkZWZiNTcwZTgyMDJlOTRkNGM1MzEifQ"
+        },
+        {
+          "resource": "repo://yach.py#L217-L239",
+          "version": "repo-lines-v1:sha256:ff9aa04ebec32dcbfa4497895bd0cf2530ccac253a10d2c4bac43974c3542985:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhODUxNDIxNzNkNTU4MzU0NDY4YWE4NTM4MWQxMDZkMDRiZThkYjBkMzJlYzNiOWY4MmNlNzI4ODBkMDM5OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTYwMGE3M2QyZTAyZjM1MmI5MGZlZjFkOGQ2MzgxMWJhNGE4ZWUwYzFiZWFhN2FlNDY1OGYzNmFhMmUxOTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1NDEyNzMwOWZkZTJiZWUxOWQzODY1MWRkOWU5ZmJiZmQzM2E5MGM2Yjc1ODk4NjY4MzM3N2U1YmNjNzUyOWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiMjM0ZjZlOWU3M2YyMGY3NmE4MDYxMWQ4Y2FiM2UzOTAxYjNhMWIzYTJkZjYxOGJiNmFiZjFkMmNlMmU4OTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_76aeebad1fbe43c9961ee67d972a1292",
+      "statement": "resolve() refuses writes outside the project root in every mode, and refuses any access outside it when the sandbox is active.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L242-L248",
+          "version": "repo-lines-v1:sha256:1eea28ca23542f372e87a58eba24210587dc641fec3898482ee008b1b9f64e2f:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzMxNGRkZDY3NmViNjkyYTE3MzZiOTZmYWZlY2VjY2M1MDU0ZDJiZWZmNTVkZjBkZTc0NDM1NzUzOWM5OTY1MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGMwYmIyODZlOTAyNDUyM2E3NTc0ZjcyZDdiY2UzM2Q0YWM0YzA5YWE2MTAzZTFlZjMyMTlkYzI1MDAzZTE2ZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDcwMTQ5ZTA2OWFkNjdlY2NmNDczNjQ2ZmYxYzc1MDA1MGQzMjlkMTEwMDE4ZGM1NzY2ODc4ZWFmYTFkNjA3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGJhMjk5YTUxYzJkMTFhYjhlZjQyNDU0MGRiMDNjODEzMTkzNGU5MDY4ZGRjODk5OTkzODgwMTQ5NmQzNDk3OSJ9"
+        },
+        {
+          "resource": "repo://yach.py#L400-L410",
+          "version": "repo-lines-v1:sha256:0d4b86ae5eb21cf4f481dda9a68fa5b2bea934370e8e7ffe99b23c29701be240:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhZWI1MjQwY2E3YTJlZTBmZWUxOTViMzk2MjM3ODViNTI5MzZlNjhkYTIxZDUzZTAxNWU4MDg4NWMyMjJjMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU2Mzg0YTVjYzZlZjMyM2JhNzAzYjJjMmJlNjJlNzBlNWRhYTExNzM3ODJlOTZkMTNhZDY3MjI1ZTc1YTZmNDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwYmMwZThhYTE2ZmFjZjU1NmM4NzdiZjhjMGZkODllZjJjYzdhOTk0NDMwZGM5NTgzZGE4MGNiNDMxOGNiZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg4M2ZiOTFhZTkwNGY1NWI1OTcyNTA1ZWNhZDI4ZTg0MTc0ODBhZjVlMGM2NmUyM2YzOWU3YTE1NWMyMGJiZWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4284df7abe4d4bd29e1a36c14f01fb32",
+      "statement": "grep passes the model's pattern via -e and terminates options with -- so a leading-dash pattern can never be interpreted as a ripgrep option.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L421-L431",
+          "version": "repo-lines-v1:sha256:a8a8454cb6b14cd2157e790a7a36b53493c23d12e60fd1fc660b1ce5a116a045:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxZTZlMDhkYzI5MjhmOWQxNTcwNDRkNDJhMDBkN2M3OGI1ZDg2NjMzN2M2NTQ3NTY1YTAzYjJjNDAzYzdkOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3ODcxOTljMGJkMTdjYTBhMDQ4Njk0YTkzZjRjN2ZlNDM0MzY5M2FmN2ZkM2ZjODg0ZmJmYzFmNWFjN2E2NmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNkOGNkMjIzYTIzMTQyNDM4MGQ2NGUzZGViMzE1YjQzMzg1NWViYmMyMzIzZmU1OWYyMDljNTFjZTAyNmZiYTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMDc5OWVlMWY5NjQ2ZGRmODk4OWQ4MTRmNTlmZDdlM2ZiNThmOTFiMDljYjM1NjlmOTE4NDIwNjQ1ZDlmZDgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1dc658e8adfa41b5bb550b1c14a6665e",
+      "statement": "glob rejects empty, absolute, and '..' patterns and drops matches that resolve outside the project or lie in .git, returning at most 500 files newest first.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L434-L440",
+          "version": "repo-lines-v1:sha256:6ce57a936cfb751aeb964011f31fe47f85819611e57233beed2d3e9761c833a2:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTgxM2U2MDQ0NWViZDBkMTI3Y2YxMzQ4NTg0ZWE1NTEzNzVjOWE0NmU4Y2QyNDJiYzNhYzk3MDE5MWViOTMyYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmZhMGNmNTE5NWI1ZGIzY2ExNDIxOTAxNWQ0YjY4OWQzMmI0Mjg3YWE3ZjI0ZGM1YTY5MzZiOTFkNWNmMmQ3YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIyOWY3M2VhZDFkNGQ5ZjBlMDQzZTA4YmU0Y2JiNWRlNzdjNDk0ZmM5MjQwZDYwZTIwZjc5ZTg3MTdiMDhjZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjlhMWQxNTdiZDU1MDM3ZmE1NmU0NWUwYTEyZmJmNjMzMzNkZDFiMGU2ZjhiNDU1ZTU0ZmU2OWI3NWIzNDVlYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8befa38378b043e9bcceff596ae2447e",
+      "statement": "edit_file fails when old_str is absent or occurs more than once without replace_all.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L407-L418",
+          "version": "repo-lines-v1:sha256:257944abb1940ba808f3577e80f2f4c5ce4936a5b5f076229e7f578880cbc2d6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0MzgyZjhjODZkNTI3YTc4Mjc1NDZkNDFlMzJiYWRkNTk1MGQyNGEwZGI0OGM2NTBkMzZmZWQ0ZjI2OTk5ZjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyYmI4OTdmYzVmMmQ0NTliYzMwN2EwZGQ4NmI4YTIwMjhhM2U1ZDlmMWRkOGQ1NDdjZTcwNTA2ZTJiMWUwYzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNjg4OWRiODg1MWQ0MzdkMmMwYTE4ZTlkYWE1NzZiZmJjYjc4YTIyMWRmODU1YTRjMjkzNmYzNzczMzEwZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwMzUzODhhZTMxNzY0NDBiOTRlZTc4YTdhNTBhY2VjZjIyOGU3YjE5NWRhZGUyOWFmM2M4NTQxM2M3ZmU2MDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2fe03e30641b42aa94ccbd75d1eb3299",
+      "statement": "read_file returns numbered lines with a default 2000-line limit, truncates individual lines at 2000 characters, and reports how many lines remain.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L387-L397",
+          "version": "repo-lines-v1:sha256:89fdc60fcab05c4b8134906baa34934825233c770bd369b4539f3ac4a404fc19:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjMDNlNWFlZDNiZDk0MTFiMWM5OWU4NmU3YzA5MzBlODA2ODIyNzNlN2EzYmI1NjE3Yjk2NTI0ZWRhMDFiNGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5MTMzNzMzOWVkZGExOTFlMTVjNGEwODE0ZmY1Y2UwNDQ4NjM2OTFmMTQ3NjAzN2M2ODAwZWMzYTZkZDM0OTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwNWQ4NWE2YTNmMzIwOTMzMTcwOTMxNTZiOWM3ODU2NDgxMWQwODc0MWQwYjE4YTNhY2EwM2Y2NzA5ZmFlZDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhZjA4NTY3NDM0NGUzNzU3YTdiNTllY2ZhZWJhMWMzM2Q0ZWYyNjA2MjhmODI5ZjVkMDA2YTc5ZmI3ZTYzOGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_417385b370a74631a3e2f76c9e8ba09e",
+      "statement": "Tool output over 30,000 characters is cut to its first and last 15,000 characters with a note of how much was removed.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L251-L255",
+          "version": "repo-lines-v1:sha256:d60b87ca331b5ed0d7094388f91398074ef165b27d5f05629bc4372d6112595c:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmMwMTU5NWRhYjIzMzkzOWFjZDRmOTJkNWY5NDZhYWM4ODJiNWE1ZDdlZmMxMTcxZDg1NDdiYzliNDY0NzAyNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDUzOWRiZjAyOWM4Y2ZiM2E2ZDVlZjQxYmE3YzUxZTIzN2JiNjk0Y2ViNmFjOTMwMjRjZWJjMWFiYWYwZDA5OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODUyZGRmNjViYWQwN2I2OGIwMDY4MzY5NTM4ZWNkMjc0NWNmNGZmNmRlNjkxYzlmOWI4YTI3NTJlNTc2ODZjZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDczZTUyMzE5NWZjYWQ4MjYyYmFjNjFlZmMzODJhMDNmMTg4YTQ3MWYxMmFjZTg2M2M3Zjc5YmE0Zjk4YWU0MSJ9"
+        },
+        {
+          "resource": "repo://yach.py#L34-L34",
+          "version": "repo-lines-v1:sha256:3f0f4e0b005c08926dc5f7e4d88e70578928879fd5f3963b75e23ade40c29d3b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2YwZjRlMGIwMDVjMDg5MjZkYzVmN2U0ZDg4ZTcwNTc4OTI4ODc5ZmQ1ZjM5NjNiNzVlMjNhZGU0MGMyOWQzYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2YwZjRlMGIwMDVjMDg5MjZkYzVmN2U0ZDg4ZTcwNTc4OTI4ODc5ZmQ1ZjM5NjNiNzVlMjNhZGU0MGMyOWQzYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2RhYTZmNmY3ZmI3YzRjZTA4ZWMwZTFlYzBkNzY3MTZjMDA4MWUxMDVjYmI4ZDkyZmUxNjVkNWZlOTg1NTE4NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWFmNzVhZDJiNWUyODIzMTVlMjE3MDAyOWFhMTg4ODVlNTY5MjQ2ODEwOTM0ZmM0MTM4OTFiZmI3ZTFiYzk1ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a4a81c5af8fe49daac37dd361a8c3afe",
+      "statement": "run_tool converts every handler exception except KeyboardInterrupt into an error tool_result rather than letting it crash the session.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1158-L1181",
+          "version": "repo-lines-v1:sha256:f46d4afb2d9e4f57e6815009bd86b2c55e40d36a1f3e372966eb110b9437fb3d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NjljYjA5MjgwZWUwNzgxOTQ1ZTQ4ZDQwNDFiZDJkZmFhZTY5MWFkMmVhYmY1ZDNjYmEwODQ2YzcyMTZjYWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0MjQ3OGNhY2IwYzNmYTM4NDI4MGM1ODRkNDQ3Nzc1NTU2NGY5MjZkYjRjMDdjYjVmODk0YjIwOGNjY2RjYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyYTIwY2ZkMWUzM2RhNWRlYTFkODY3NDg1YzIzMGU3N2UxMGUzYWE3NTliOWNjNDlkOTA5Y2NjZmI5Njk1MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxMmU4ZjY2ODI0MTM1MGM2YTRkODBkNTgwMjdlYzVkYmY1ZWVjOWYzODJkZThiNmU3M2JiZDA4NGU1M2YwNDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_827d47221fdc4c2982caf61c7cc51e3d",
+      "statement": "ask_user maps a numeric reply to the matching suggested option, tells the model to use its best judgment on an empty reply, and returns an error when stdin is not a terminal.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L443-L457",
+          "version": "repo-lines-v1:sha256:80cfb9f77faa91af27a191540fca6f6c56a98162f084b5a4bff8dce6f6e07126:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4YjMyNWE4MTNjMDNlNTU4N2I2Y2RmM2I1ZThmZTAxZTQ3NjE1YTgzYjA4ODlmMDU3NDU2ZmUwNmMxNTlhYTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxZmNkZTc0YWU2MzU1NWI3YzAwZjExODFkZWJhMmJjYjNkNWU5MDBhYjVhNzEyNjZmMzJjNDFlNjBkZWRmMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxN2NiNDA1MDEzYjViNmFjYmJhMDlmMWUwNGQwNDFjOGM5MTY1YWQ0YzdiYWE2ZjdhMjNmMmJmMjdmNDQ3YzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjQ0YjgwNzYxNWQwYmI4ZDEyZDljODE1MDUxOWQ2NmYzNjMyNGY5NGE0N2MyYzhkNzE4ZDIwYzdjYTlhOWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0ca844684ec848439836d49e0b08db35",
+      "statement": "run_tool snapshots the target of write_file and edit_file before the handler runs and records it in the turn's checkpoint after the handler succeeds.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1162-L1175",
+          "version": "repo-lines-v1:sha256:da59ff567b0363d55fd02707c578110029952e8964efe42b1f06dc226bc3e7b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExNzQ2OWU3NjQ3MzUzMWQzNDIyMzFkYjdlNDM5NDQ2OWYzMDgxNTU0NTQ5OWNlMzk4ZDY2ZjYwNWI2OGYyZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWM1YzZiM2QwYjhiMTlkMjMwOWJhYWUxYjE5MDAyM2ZjOTkzMTI1ZjI1NTM4M2E5ZmI4ZTUxNjIxMTkzM2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0ZmNkZTI5MGE3Nzk5NDZhNmFhMDE1NDg5OWE1YmFkMzM1ODQyNzgyNjQ2MzA1MGNhZTY5NGI5YTNkOWMyMGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMDIyNzRmMTRlZDM4YmE1ZTQ3ODZiNmNlMzY0NzBjNTVkNTQ1YmJjNTExZTViZjcxNDcyMWQxMWQxYmYwMDEifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-10T01:26:12.508Z"
+  }
+}

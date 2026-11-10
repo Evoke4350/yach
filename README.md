@@ -53,6 +53,9 @@ Fixed: `parse_date` now keeps the offset, and there's a regression test.
   off the network for commands.
 - **`!` shell passthrough.** `!git status` runs in your shell and shares the
   output with the model, like Claude Code.
+- **`/undo`.** Puts back the files the last turn wrote or edited, and deletes
+  the ones it created. Run it again to go back another turn. The model is told,
+  so it doesn't keep working from files that are no longer there.
 - **Sessions.** Every conversation is saved as you go. `-c` continues the
   latest, `-r` picks from a list. Replies are stored exactly as the API
   returned them, so a resumed conversation keeps the model's earlier thinking.
@@ -64,6 +67,29 @@ Fixed: `parse_date` now keeps the offset, and there's a regression test.
   from cache. Every turn shows its cost and the session total.
 - **Project instructions.** `AGENTS.md` or `CLAUDE.md` in the project root is
   added to the system prompt.
+
+## Documentation
+
+How YACH works inside, page by page, with every claim linked to the lines of
+code it describes. **Browse it at [yach.stayfresh.dev](https://yach.stayfresh.dev)**,
+an interactive graph with a reader, or read the Markdown here:
+
+- **[Wiki quickstart](openwiki/quickstart.md)**: start here; it routes you to
+  the right page for a task.
+- Pages: [architecture](openwiki/architecture/overview.md) ·
+  [agent loop](openwiki/architecture/agent-loop.md) ·
+  [tools](openwiki/tools/tool-surface.md) ·
+  [approvals & dcg](openwiki/safety/approvals-and-dcg.md) ·
+  [sandbox](openwiki/safety/sandbox.md) ·
+  [undo](openwiki/safety/undo.md) ·
+  [sessions](openwiki/sessions/session-storage.md) ·
+  [context & compaction](openwiki/sessions/context-and-compaction.md) ·
+  [terminal & CLI](openwiki/interface/repl-and-cli.md)
+- The site's source is the static export in
+  [`docs/openwiki-visualizer/`](docs/openwiki-visualizer/), deployed to
+  Cloudflare Pages.
+
+The wiki is generated with [OpenWiki](https://www.npmjs.com/package/openwiki).
 
 ## Install
 
@@ -111,6 +137,7 @@ In the prompt:
 | `!<command>` | Run a shell command yourself; the output is shared with the model |
 | `/context` | How full the context window is |
 | `/compact` | Summarize the conversation now |
+| `/undo` | Put back the files changed in the last turn; repeat to go further back |
 | `/cost` | Token and cost breakdown |
 | `/approval [mode]` | Show or switch the approval mode |
 | `/resume` | Switch to a saved conversation |
@@ -143,6 +170,11 @@ their child processes, on the host and in the sandbox.
 The sandbox protects your machine, not your project: the model can still change
 anything inside the project folder (including build scripts you'll run later),
 and push or deploy if networking is on. Use git, and read diffs.
+
+`/undo` covers `write_file` and `edit_file` only. It can't reverse what a shell
+command did, and says so when the turn ran any. It asks before overwriting a
+file that changed after YACH wrote it. Undo history lives in memory: it is gone
+once you quit, `/clear` or `/resume`.
 
 To give the sandbox your own toolchain, put a Dockerfile at `.yach/Dockerfile`
 in your project.

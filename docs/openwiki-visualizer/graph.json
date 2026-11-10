@@ -1,0 +1,605 @@
+{
+  "root": "openwiki",
+  "generatedAt": "2026-11-10T01:28:17.705Z",
+  "types": [
+    "Section",
+    "architecture",
+    "concept",
+    "guide",
+    "interface",
+    "reference",
+    "safety"
+  ],
+  "nodes": [
+    {
+      "id": "architecture/agent-loop",
+      "title": "Agent loop",
+      "type": "architecture",
+      "description": "How Agent.send drives YACH's streaming tool-use loop against the Claude API, handles stop reasons, keeps history append-only, and accounts cost and context per turn.",
+      "tags": [
+        "agent-loop",
+        "streaming",
+        "tool-use",
+        "prompt-caching",
+        "claude-api"
+      ],
+      "body": "\n# Agent loop\n\nThe agent loop lives on the `Agent` class in `yach.py`. `Agent.send(user_text)`\nruns one user turn to completion: it calls the model, executes any tools the\nmodel asks for, feeds the results back, and repeats until the model stops\nasking for tools. `Agent.stream_turn()` makes and renders exactly one model\ncall. `Agent.run_tool()` executes one tool call; see\n[Tool surface](../tools/tool-surface.md) for the tools themselves.\n\n## One turn, step by step\n\n`send` (around `yach.py` L1232-L1303):\n\n1. **Repair, checkpoint, then maybe compact.** It first calls\n   `session.repair()` so a previous refused or interrupted turn can't leave an\n   unanswered `tool_use` behind, and starts a fresh `Checkpoint` for the turn,\n   which `run_tool` fills in as files are written\n   ([Undo and checkpoints](../safety/undo.md)). Then, if the last measured context size has reached the\n   `--compact-at` threshold, it compacts the conversation *before* adding the\n   new message. Compaction never happens mid tool loop\n   ([Context measurement and compaction](../sessions/context-and-compaction.md)).\n2. **Append the user message** through `add_message`, which also persists it\n   to the session file ([Session storage](../sessions/session-storage.md)).\n3. **Loop:** call `stream_turn()`, append the assistant reply, account cost\n   and context, then decide what to do from `stop_reason`.\n\n### Stop-reason handling\n\n| Outcome | What `send` does |\n|---|---|\n| `pause_turn` | Re-sends immediately (the reply is already appended). |\n| `refusal` | Prints a notice, answers any `tool_use` blocks in the refused reply via `session.repair()` without running them, and ends the turn. |\n| No `tool_use` blocks | Ends the turn; on `max_tokens` it tells the user to reply \"continue\". |\n| `max_tokens` with `tool_use` | Never runs the tools: a truncated input can parse as a plausible partial object. Every call gets an error `tool_result` asking the model to split the work, and the loop continues. |\n| Otherwise | Runs each tool in order via `run_tool`, then appends **all** results in a single user message so parallel tool use keeps working. |\n\nCtrl-C while tools are running stops the loop. Results already produced are\nkept, every remaining `tool_use` gets an \"Interrupted by the user.\" error\nresult, and those are appended before returning, so the history stays valid.\n\n### Malformed tool JSON\n\nTool inputs are streamed eagerly (each tool definition sets\n`eager_input_streaming: true`), so the server no longer validates them. If the\nSDK can't parse the streamed JSON at all it raises `ValueError` from the stream;\n`send` re-issues the turn, giving up after more than two consecutive failures.\nInputs that parse but are wrong are caught later by `validate_input` in\n`run_tool` and returned to the model as an `INVALID_INPUT` error result.\n\n## The model call\n\n`stream_turn` (around L1080-L1143) sends one streaming request to\n`client.beta.messages.stream` with:\n\n- `model`, `max_tokens=64000`, the session's `system` prompt and the full\n  `TOOLS` list;\n- `thinking` from `thinking_config()`: adaptive thinking with\n  `display: \"summarized\"`, plus `block_binding.prefix_mismatch_behavior:\n  \"drop_block\"` (and its beta header) only for resumed sessions;\n- `output_config.effort` from `--effort`;\n- top-level `cache_control: {\"type\": \"ephemeral\"}`, so the cache breakpoint\n  moves forward each turn and every request reads the previous prefix from\n  cache;\n- `fallbacks=\"default\"` with the `server-side-fallback-2026-07-01` beta, so a\n  safety-classifier refusal is retried server-side on a fallback model;\n- the compaction beta when the history starts with a compaction summary\n  (an assistant-role first message).\n\nWhile streaming it prints summarized thinking in dim text and response text\nnormally, both passed through `clean()`. For tool calls it shows a spinner line\nthat names the tool, the target (`path`, `command`, `pattern` or `question`\nfrom the partial input snapshot) and how many characters of input have\narrived, then replaces it with `● <tool>` when the block completes. A\n\"waiting for Claude\" spinner covers the gap before the first event.\n\n## Append-only history in wire form\n\nEach assistant reply is stored as `[b.to_dict() for b in response.content]`,\nexactly the blocks the API returned, including thinking and fallback blocks.\nYACH never edits earlier messages. That keeps three things valid:\n\n- **Prompt caching:** the request prefix is byte-identical turn to turn.\n- **Preserved thinking:** replayed thinking blocks are only accepted against\n  the exact history they were produced under.\n- **Resume:** a saved session replays the same bytes it originally sent.\n\n## Cost and context per turn\n\nAfter each reply `send` calls:\n\n- `add_usage(usage)`: adds top-level token counts plus any `compaction`\n  entries from `usage.iterations` (which the API excludes from the top-level\n  counts), prices them from the `PRICES` table, and accumulates the session\n  total. Fallback turns are priced at the primary model's rate, an\n  approximation. Responses without `iterations` (for example the reviewer's\n  non-beta responses) are handled.\n- `measure(usage)`: records the context size as input + output + cache\n  creation + cache read tokens from the last non-compaction iteration.\n\nIt then prints a status line with the turn cost, session cost, cached tokens\nand `ctx used/window (pct%)`. The context figure turns yellow at 60% and red at\n85%, where a warning says the conversation will be compacted before the next\nmessage.\n\n## Related\n\n- [Architecture overview](overview.md)\n- [Tool surface](../tools/tool-surface.md)\n- [Undo and checkpoints](../safety/undo.md)\n- [Context measurement and compaction](../sessions/context-and-compaction.md)\n- [Session storage and resume](../sessions/session-storage.md)\n",
+      "size": 5808,
+      "links": [
+        "tools/tool-surface",
+        "safety/undo",
+        "sessions/context-and-compaction",
+        "sessions/session-storage",
+        "architecture/overview"
+      ],
+      "backlinks": [
+        "architecture/index",
+        "architecture/overview",
+        "quickstart",
+        "safety/undo",
+        "sessions/context-and-compaction",
+        "sessions/session-storage",
+        "tools/tool-surface"
+      ]
+    },
+    {
+      "id": "architecture/index",
+      "title": "Architecture",
+      "type": "Section",
+      "description": "",
+      "tags": [],
+      "body": "# Files\n\n- [Agent loop](agent-loop.md) - How Agent.send drives YACH's streaming tool-use loop against the Claude API, handles stop reasons, keeps history append-only, and accounts cost and context per turn.\n- [Architecture overview](overview.md) - YACH is a single-file Python coding agent on the Claude API; this page maps yach.py's sections, its main classes, global state, and how one user message flows through the model, approvals, and tools.\n",
+      "size": 448,
+      "links": [
+        "architecture/agent-loop",
+        "architecture/overview"
+      ],
+      "backlinks": []
+    },
+    {
+      "id": "architecture/overview",
+      "title": "Architecture overview",
+      "type": "architecture",
+      "description": "YACH is a single-file Python coding agent on the Claude API; this page maps yach.py's sections, its main classes, global state, and how one user message flows through the model, approvals, and tools.",
+      "tags": [
+        "architecture",
+        "overview",
+        "single-file",
+        "python"
+      ],
+      "body": "\n# Architecture overview\n\nYACH (\"Yet Another Coding Harness\") is a terminal coding agent written as one\nPython module, `yach.py`, with one runtime dependency: the `anthropic` SDK\n(`pyproject.toml`). The package exposes a single console script, `yach`, that\ncalls `yach:main`. Python 3.12+ is required.\n\n## Layout of `yach.py`\n\nThe file is divided into sections by `# ----- <name>` banner comments, in\ndependency order:\n\n| Section | Contents |\n|---|---|\n| config | Model IDs (`DEFAULT_MODEL` Opus 5.5, `REVIEW_MODEL` Sonnet 5.5), beta flags, `PRICES`, `ROOT`, terminal colors, `clean()`, `prompt()`, `Spinner` |\n| tools | `TOOLS` schemas, `validate_input`, `resolve`, `truncate`, the sandbox, and the tool handlers (`HANDLERS`) |\n| sandbox | `Sandbox` (Docker) and `run_bash` |\n| permissions | Reviewer prompt and schema, `review_action`, `dcg_check`, `Permissions`, `print_diff` |\n| undo | `Checkpoint`: what one turn wrote, for `/undo` |\n| agent | `build_system_prompt` and `sandbox_note` |\n| sessions | `Session` persistence, the session picker |\n| agent (class) | `Agent`: the model loop, compaction, cost and context accounting |\n| repl | `HELP`, `!` shell passthrough, `main()` |\n\n## Main objects\n\n- **`Agent`**: owns the API client, the current `Session`, the system prompt,\n  cost and token counters, and context measurements. `send()` runs a user turn;\n  see [Agent loop](agent-loop.md).\n- **`Session`**: the conversation's message list and its JSONL file on disk;\n  see [Session storage and resume](../sessions/session-storage.md).\n- **`Permissions`**: decides whether a tool call may run (ask, auto or yolo\n  mode, plus dcg); see [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md).\n- **`Sandbox`**: an optional Docker container that runs shell commands; see\n  [Docker sandbox and command execution](../safety/sandbox.md).\n- **`Checkpoint`**: the files one turn wrote or edited and their earlier\n  contents, kept in memory so `/undo` can restore them; see\n  [Undo and checkpoints](../safety/undo.md).\n\n## Global state\n\nTwo module-level values shape everything:\n\n- **`ROOT`** is the current working directory, resolved once at import. It is\n  the project root: file writes are confined to it, the sandbox mounts it,\n  sessions are stored per `ROOT`, and the system prompt names it.\n- **`SANDBOX`** is `None` unless `--sandbox` was passed, in which case `main()`\n  assigns a running `Sandbox`. `run_bash`, `resolve` and `sandbox_note` all\n  check it.\n\n## How a message flows\n\n1. `main()` reads a line at the `>` prompt. Lines starting with `!` or `/` are\n   handled locally ([Terminal interface and CLI](../interface/repl-and-cli.md));\n   anything else goes to `agent.send(text)`.\n2. `send` appends the message to the session and calls `stream_turn`, which\n   streams one request to the Claude API with the system prompt, all tools,\n   and the full history.\n3. For each `tool_use` in the reply, `run_tool` validates the input, asks\n   `Permissions.allow` (which may consult dcg, the reviewer model, or the user),\n   and then calls the handler in `HANDLERS`\n   ([Tool surface](../tools/tool-surface.md)). File writes are recorded in the\n   turn's `Checkpoint` first.\n4. The results go back as one user message and the loop repeats until the\n   model replies without tool calls.\n\n## The system prompt\n\n`build_system_prompt()` builds the prompt once per session from the project\nroot, platform, a sandbox description when the sandbox is on, today's date, a\nshort set of working rules, and the contents of `AGENTS.md` and `CLAUDE.md`\nfrom the project root if they exist. It must stay byte-stable for the whole\nsession because it is the front of the cached prompt prefix. Sessions save the\nprompt they were started with and reuse it on resume when only the date has\nchanged.\n\n## Related\n\n- [Agent loop](agent-loop.md)\n- [Tool surface](../tools/tool-surface.md)\n- [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)\n- [Undo and checkpoints](../safety/undo.md)\n- [Terminal interface and CLI](../interface/repl-and-cli.md)\n",
+      "size": 4045,
+      "links": [
+        "architecture/agent-loop",
+        "sessions/session-storage",
+        "safety/approvals-and-dcg",
+        "safety/sandbox",
+        "safety/undo",
+        "interface/repl-and-cli",
+        "tools/tool-surface"
+      ],
+      "backlinks": [
+        "architecture/agent-loop",
+        "architecture/index",
+        "interface/repl-and-cli",
+        "quickstart"
+      ]
+    },
+    {
+      "id": "index",
+      "title": "Home",
+      "type": "Section",
+      "description": "",
+      "tags": [],
+      "body": "\n# Files\n\n- [Quickstart](quickstart.md) - What YACH is, how to run it, and which wiki page to read for common changes such as adding a tool, changing approval policy, touching sessions or compaction, or debugging the sandbox.\n\n# Directories\n\n- [architecture](architecture/)\n- [interface](interface/)\n- [safety](safety/)\n- [sessions](sessions/)\n- [tools](tools/)\n",
+      "size": 362,
+      "links": [
+        "quickstart"
+      ],
+      "backlinks": []
+    },
+    {
+      "id": "interface/index",
+      "title": "Interface",
+      "type": "Section",
+      "description": "",
+      "tags": [],
+      "body": "# Files\n\n- [Terminal interface and CLI](repl-and-cli.md) - How YACH's main() parses flags, sets up the sandbox, dcg and resumed sessions, and runs the interactive prompt with slash commands, the ! shell passthrough, Ctrl-C handling, and safe terminal output.\n",
+      "size": 259,
+      "links": [
+        "interface/repl-and-cli"
+      ],
+      "backlinks": []
+    },
+    {
+      "id": "interface/repl-and-cli",
+      "title": "Terminal interface and CLI",
+      "type": "interface",
+      "description": "How YACH's main() parses flags, sets up the sandbox, dcg and resumed sessions, and runs the interactive prompt with slash commands, the ! shell passthrough, Ctrl-C handling, and safe terminal output.",
+      "tags": [
+        "cli",
+        "repl",
+        "terminal",
+        "slash-commands",
+        "shell-passthrough"
+      ],
+      "body": "\n# Terminal interface and CLI\n\nEverything the user touches goes through `main()` at the bottom of `yach.py`.\nIt parses flags, prepares the session, sandbox and approval policy, then either\nruns one prompt and exits or enters the interactive loop.\n\n## Flags\n\n| Flag | Default | Effect |\n|---|---|---|\n| `prompt...` | none | Run one prompt non-interactively, then exit |\n| `--model` | `claude-opus-5-5` | Model for the main loop |\n| `--effort` | `high` | `low` `medium` `high` `xhigh` `max`, sent as `output_config.effort` |\n| `--approval` | `auto` | `ask`, `auto` or `yolo` ([Approvals](../safety/approvals-and-dcg.md)) |\n| `--yolo` | | Shortcut for `--approval yolo` |\n| `--sandbox` | off | Run shell commands in Docker ([Sandbox](../safety/sandbox.md)) |\n| `--sandbox-network` | `bridge` | `none` disables the sandbox's network |\n| `--no-dcg` | | Skip destructive_command_guard checks |\n| `--compact-at` | `150000` | Auto-compact threshold in tokens; `0` disables it |\n| `-c`, `--continue` | | Resume the most recent session for this project |\n| `-r`, `--resume [ID]` | | Resume by ID, or pick from a list when no ID is given |\n\n## Startup order\n\n1. **Resume selection.** `-c` loads the newest session file, and exits with an\n   error if there is none. `-r ID` loads that session, and exits if the file\n   doesn't exist. Bare `-r` opens the picker, and exits if the user cancels.\n2. **Sandbox.** `--sandbox` requires `docker` on `PATH` and starts the\n   container before anything else runs. A failed `docker build` or `docker run`\n   exits with a message.\n3. **dcg detection.** The guard is on when `--no-dcg` isn't given and `dcg` is\n   found on `PATH`. If it's missing, YACH prints a warning with the install\n   link and continues without it.\n4. **Agent.** An `Agent` is created with the chosen model, effort,\n   `Permissions(mode, guard)` and compaction threshold.\n\nWith a positional prompt, YACH resumes quietly (if asked), calls `send` once\nand returns. Otherwise it prints a banner showing the model, effort, approval\nmode, sandbox and dcg status and the project root, then resumes the session\nvisibly, which prints the model's last reply.\n\n## The prompt loop\n\nEach line is stripped and dispatched:\n\n- **`!<command>`**: run in the user's shell (below).\n- **`/exit`, `/quit`**: leave the loop.\n- **`/help`**: print the command list (`HELP`).\n- **`/compact`**: summarize the conversation now.\n- **`/undo`**: put back the files the most recent file-changing turn wrote\n  or edited; repeat to go back further\n  ([Undo and checkpoints](../safety/undo.md)).\n- **`/context`**: show context used, the window size, a 30-cell bar, message\n  count, the auto-compact setting and the number of compactions. If the size\n  hasn't been measured yet, it counts tokens via the API first.\n- **`/cost`**: show cumulative input, output, cache-write and cache-read\n  tokens and the dollar total.\n- **`/approval [mode]`**: show or switch the approval mode for the rest of the\n  session.\n- **`/clear`**: start a new session; the old one stays on disk.\n- **`/resume`**: pick a saved session and switch to it.\n- Anything else goes to `agent.send(text)`.\n\nOn exit YACH prints the session cost and, if the session was saved, the\n`yach -r <id>` command to resume it.\n\n### Errors and Ctrl-C\n\n`send` is wrapped so API problems don't end the session. Rate limits, other\nstatus errors and connection errors print a message and return to the prompt.\nAn authentication failure exits with a hint to set `ANTHROPIC_API_KEY`.\n\nCtrl-C has two meanings:\n\n- **At the prompt** (and Ctrl-D), it quits.\n- **During a turn**, it stops the turn and returns to the prompt. A partially\n  streamed reply is discarded; the user message stays in history and the next\n  message is simply appended after it.\n\n## `!` shell passthrough\n\n`run_user_shell` runs the command on the host with `shell=True` in the project\nroot. It never goes through the sandbox, approvals or dcg, because the user\ntyped it. stdin stays attached so interactive prompts work. Output is read in\nraw 4 KB chunks rather than lines, so prompts without a trailing newline\nappear, and is echoed live while also being captured. Ctrl-C lets the child\nexit for up to 3 seconds, then kills it.\n\nThe captured output is passed through `clean()`, truncated, and added to the\nconversation by `shell_context` as a user message saying which command ran and\nits exit status (or that it was interrupted). The message content is a list of\nblocks rather than a plain string on purpose: the auto-approval reviewer only\nreads plain-string user messages as the user's intent, so pasted shell output\ncan't sway it. Before appending, the loop calls `session.repair()` so a dangling\ntool call can't be followed directly by this message. The model sees the output\nwith the next request.\n\n## Terminal output hygiene\n\n- **Color** is on only when stdout is a TTY, `TERM` isn't `dumb` and\n  `NO_COLOR` is unset; otherwise all color codes are empty strings.\n- **`clean()`** strips CSI, OSC and two-byte escape sequences, then every\n  remaining C0 control character except tab and newline. It is applied to\n  model text, tool output, diffs, previews and shell output before display.\n  Removing `\\r` also flattens progress-bar redraws.\n- **`prompt()`** wraps `input()` and marks color codes as non-printing\n  (`\\001`…`\\002`) so readline measures the prompt width correctly.\n\n## Spinner\n\n`Spinner` draws a one-line indicator (braille frames, a label and elapsed\nseconds) from a background thread every 100 ms. Each frame starts with\n`\\r\\033[K`, so it overwrites itself in place. It does nothing when stdout isn't\na TTY. `stop()` joins the thread and erases the line, and callers must stop it\nbefore printing anything else. A single global `SPINNER` is used for:\n\n- waiting for the model\n- streaming tool input\n- the reviewer's check\n- running shell commands\n\n## Related\n\n- [Architecture overview](../architecture/overview.md)\n- [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)\n- [Session storage and resume](../sessions/session-storage.md)\n- [Undo and checkpoints](../safety/undo.md)\n",
+      "size": 6090,
+      "links": [
+        "safety/approvals-and-dcg",
+        "safety/sandbox",
+        "safety/undo",
+        "architecture/overview",
+        "sessions/session-storage"
+      ],
+      "backlinks": [
+        "architecture/overview",
+        "interface/index",
+        "quickstart",
+        "safety/approvals-and-dcg",
+        "safety/undo",
+        "sessions/session-storage"
+      ]
+    },
+    {
+      "id": "quickstart",
+      "title": "Quickstart",
+      "type": "guide",
+      "description": "What YACH is, how to run it, and which wiki page to read for common changes such as adding a tool, changing approval policy, touching sessions or compaction, or debugging the sandbox.",
+      "tags": [
+        "quickstart",
+        "overview",
+        "onboarding"
+      ],
+      "body": "\n# Quickstart\n\nYACH is a terminal coding agent for the Claude API. It is one Python file,\n`yach.py`, whose only dependency is the `anthropic` SDK. It streams a tool-use\nloop with seven tools and checks every shell command and file write with an\napproval policy. Behind the policy sit a reviewer model, destructive_command_guard\nand an optional Docker sandbox. Conversations are saved per project and can be\nresumed, and long ones are compacted automatically. `/undo` puts back the\nfiles a turn wrote.\n\n## Run it\n\n```sh\nuv tool install .                 # from a clone; installs the `yach` command\nexport ANTHROPIC_API_KEY=sk-ant-...\ncd ~/code/some-project && yach    # the current directory is the project root\n```\n\n`yach \"prompt\"` runs once and exits; `yach -c` continues the last conversation\nin this project. All flags and in-session commands are on\n[Terminal interface and CLI](interface/repl-and-cli.md).\n\n## Where to look\n\n| If you want to… | Read |\n|---|---|\n| Understand the file layout and how a message flows | [Architecture overview](architecture/overview.md) |\n| Change how turns, stop reasons, caching or cost work | [Agent loop](architecture/agent-loop.md) |\n| Add or change a tool, or tighten path handling | [Tool surface](tools/tool-surface.md) |\n| Change what gets approved, the reviewer prompt, or dcg behavior | [Approvals, auto mode and dcg](safety/approvals-and-dcg.md) |\n| Debug sandboxed commands, timeouts or orphaned processes | [Docker sandbox and command execution](safety/sandbox.md) |\n| Change what `/undo` restores or how file changes are tracked | [Undo and checkpoints](safety/undo.md) |\n| Change how conversations are saved, repaired or resumed | [Session storage and resume](sessions/session-storage.md) |\n| Change the context readout or compaction | [Context measurement and compaction](sessions/context-and-compaction.md) |\n| Add a slash command, flag or change terminal output | [Terminal interface and CLI](interface/repl-and-cli.md) |\n\n## Invariants to keep in mind\n\n- **History is append-only.** Never edit or remove earlier messages. Prompt\n  caching, preserved thinking and resume all depend on replaying identical\n  bytes.\n- **The system prompt and tool list must be stable within a session.**\n  Changing either mid-session breaks the cache and invalidates replayed\n  thinking.\n- **Every `tool_use` needs a `tool_result`** before the next user message;\n  `Session.repair()` enforces this.\n- **Untrusted text goes through `clean()`** before it reaches the terminal.\n- **A tool that writes files must be snapshotted** in `run_tool`, or `/undo`\n  silently won't cover it.\n- **Safety checks fail closed:** when the reviewer or dcg can't decide, the\n  user is asked.\n\n## Testing\n\nThe repository has no automated test suite. Changes have been verified with\nad-hoc scripts that stub the API client, and with a real Docker daemon for the\nsandbox. When changing behavior, exercise the affected path directly, ideally\nin a throwaway project directory with `XDG_DATA_HOME` pointed somewhere\ndisposable so real sessions aren't touched.\n",
+      "size": 3068,
+      "links": [
+        "interface/repl-and-cli",
+        "architecture/overview",
+        "architecture/agent-loop",
+        "tools/tool-surface",
+        "safety/approvals-and-dcg",
+        "safety/sandbox",
+        "safety/undo",
+        "sessions/session-storage",
+        "sessions/context-and-compaction"
+      ],
+      "backlinks": [
+        "index"
+      ]
+    },
+    {
+      "id": "safety/approvals-and-dcg",
+      "title": "Approvals, auto mode and dcg",
+      "type": "safety",
+      "description": "How YACH decides whether a tool call may run, covering ask, auto and yolo modes, the reviewer model, destructive_command_guard checks that override every mode, approval for reads outside the project, and fail-closed defaults.",
+      "tags": [
+        "permissions",
+        "approvals",
+        "auto-mode",
+        "dcg",
+        "security"
+      ],
+      "body": "\n# Approvals, auto mode and dcg\n\nEvery tool call passes through `Permissions.allow(name, args, review)` before\nits handler runs (called from `Agent.run_tool`). It returns\n`(allowed, note)`; on denial, the note is appended to the error result the\nmodel receives, so the model can adjust instead of retrying blindly.\n\n## Decision order\n\n`allow` checks, in this order:\n\n1. **Free read-only tools.** `read_file`, `grep`, `glob` and `ask_user` run\n   with no approval, *unless* `read_file` or `grep` targets a path outside the\n   project root. Those go through approval like a write, because reading\n   `~/.ssh`, `~/.aws` or another project's `.env` is a common exfiltration\n   step. (`glob` can't leave the project; see [Tool surface](../tools/tool-surface.md).)\n2. **Preview.** The action is shown before any decision:\n   - shell commands in yellow;\n   - a unified diff for edits and overwrites;\n   - for a brand-new file, a line count and the first 12 lines (up to 200 in\n     `ask` mode, where you're approving by hand);\n   - an \"outside the project\" line for out-of-root reads.\n3. **dcg** (shell commands only, when the guard is on). Anything dcg flags\n   needs an explicit `y` at a red prompt, and nothing else can approve it:\n   not `yolo`, not an \"always\" answer, not the reviewer. Declining sends dcg's\n   reason and rule back to the model.\n4. **`yolo` mode or \"always\".** Approve.\n5. **`auto` mode.** Ask the reviewer model. `allow` runs immediately and\n   prints the reason; `ask` falls through to the prompt with the reason shown.\n6. **Prompt.** `[y]es / [n]o / [a]lways this session`. \"Always\" adds the tool\n   name to the session's `always` set, so later calls to that tool skip the\n   reviewer and the prompt, though not dcg. EOF (no terminal) means no.\n\nThe mode can be changed mid-session with `/approval`; \"always\" answers are not\nsaved with the session.\n\n## The reviewer (auto mode)\n\n`Agent.review` gathers context and calls `review_action`, which sends one\nrequest to `REVIEW_MODEL` (`claude-sonnet-5-5`) with:\n\n- **`REVIEW_SYSTEM`**: allow routine, in-scope work (inspecting, tests and\n  builds, edits inside the project, installing declared dependencies, local\n  git that doesn't discard work); ask for anything that:\n  - deletes or discards data, or pushes, publishes or deploys;\n  - touches secrets, `.env` files or SSH keys;\n  - downloads and runs code, uses `sudo`, or changes system config;\n  - edits CI config, git hooks or files outside the project;\n  - goes beyond the request, or is obfuscated.\n\n  \"When in doubt, answer ask.\" The action text is declared to be data, not\n  instructions.\n- **The user's last three plain-string messages**, each cut to 2,000\n  characters. Tool output, the agent's own text, and `!` shell output (stored\n  as block lists) are excluded on purpose, so injected content in a file or\n  webpage can't argue for its own approval.\n- **The action** from `describe_action`: the command, the path plus up to\n  4,000 characters of contents, both sides of an edit (marked \"every\n  occurrence\" for `replace_all`), or the out-of-project read target.\n\nThe request uses `effort: low` and structured output constrained to\n`{\"decision\": \"allow\"|\"ask\", \"reason\": ...}`. Its cost is added to the session\ntotal at the reviewer model's prices.\n\n### Fail-closed behavior\n\n- A reviewer `stop_reason` other than `end_turn` (refusal, `max_tokens`)\n  returns `ask`.\n- API errors and unparseable output return `ask` with \"reviewer unavailable\".\n- `dcg_check` treats a missing binary, a timeout (10 s) or invalid JSON as a\n  flag, so the user is asked rather than the command running unchecked.\n\n## dcg integration\n\n`dcg_check` runs `dcg test --format json <command>` from the project root, so\nproject-level dcg allowlists and config apply. A `decision` of `allow` passes;\nanything else returns dcg's reason with its `rule_id` and severity, which is\nshown to the user and, on denial, to the model. `main()` turns the guard on\nonly when `dcg` is on `PATH` and `--no-dcg` wasn't given.\n\n## Diffs\n\n`print_diff` renders a unified diff with two lines of context and a 200-line\ncap. Headers are bold, hunk markers cyan, additions green and removals red.\nEvery line goes through `clean()`. The edit preview applies the same\nreplacement count as `edit_file` (all occurrences for `replace_all`), so the\ndiff approved is the change written.\n\n## Related\n\n- [Tool surface](../tools/tool-surface.md)\n- [Docker sandbox and command execution](sandbox.md)\n- [Terminal interface and CLI](../interface/repl-and-cli.md)\n",
+      "size": 4528,
+      "links": [
+        "tools/tool-surface",
+        "safety/sandbox",
+        "interface/repl-and-cli"
+      ],
+      "backlinks": [
+        "architecture/overview",
+        "interface/repl-and-cli",
+        "quickstart",
+        "safety/index",
+        "safety/sandbox",
+        "safety/undo",
+        "tools/tool-surface"
+      ]
+    },
+    {
+      "id": "safety/index",
+      "title": "Safety",
+      "type": "Section",
+      "description": "",
+      "tags": [],
+      "body": "# Files\n\n- [Approvals, auto mode and dcg](approvals-and-dcg.md) - How YACH decides whether a tool call may run, covering ask, auto and yolo modes, the reviewer model, destructive_command_guard checks that override every mode, approval for reads outside the project, and fail-closed defaults.\n- [Docker sandbox and command execution](sandbox.md) - How YACH runs the model's shell commands, on the host or in a hardened throwaway Docker container, including timeouts, process-group cleanup, the read-only .git mount, custom images, and what the sandbox does not protect.\n- [Undo and checkpoints](undo.md) - How /undo restores the files a turn wrote or edited through write_file and edit_file, using an in-memory Checkpoint per turn; what it asks about, what it cannot reverse (shell commands), and how the model learns of the undo.\n",
+      "size": 830,
+      "links": [
+        "safety/approvals-and-dcg",
+        "safety/sandbox",
+        "safety/undo"
+      ],
+      "backlinks": []
+    },
+    {
+      "id": "safety/sandbox",
+      "title": "Docker sandbox and command execution",
+      "type": "safety",
+      "description": "How YACH runs the model's shell commands, on the host or in a hardened throwaway Docker container, including timeouts, process-group cleanup, the read-only .git mount, custom images, and what the sandbox does not protect.",
+      "tags": [
+        "sandbox",
+        "docker",
+        "bash",
+        "process-management",
+        "security"
+      ],
+      "body": "\n# Docker sandbox and command execution\n\nThe model's `bash` tool is handled by `run_bash`. By default commands run on\nthe host. With `--sandbox`, `main()` creates a `Sandbox` and every command runs\ninside it via `docker exec`. Only the model's commands are sandboxed: YACH\nitself, its API key and the user's own `!` commands stay on the host.\n\n## Running a command\n\n`run_bash(command, timeout=120)`:\n\n1. **Clamps the timeout** to 1-1800 seconds. The model chooses it, and `0`\n   would disable coreutils' `timeout` inside the container.\n2. **Starts the process.**\n   - *Host:* `shell=True` in the project root, in a **new session**\n     (`start_new_session=True`), with `PLAIN_ENV` (`TERM=dumb`, `NO_COLOR=1`,\n     `PAGER=cat`, `GIT_PAGER=cat`) layered over the user's environment, so\n     tools print plain output and never block on a pager.\n   - *Sandbox:* the argv from `Sandbox.exec_argv`.\n   stdin is `/dev/null`, and stdout and stderr are merged.\n3. **Waits** for the timeout, plus 15 s of slack in the sandbox, where the\n   in-container `timeout` normally fires first.\n4. **On timeout or Ctrl-C**, kills the whole command, not just its shell:\n   `os.killpg` on the host process group, or `Sandbox.kill_run` in the\n   container. It then kills the client process and collects whatever output\n   arrived (giving up after 5 s if a detached grandchild still holds the pipe).\n   Ctrl-C is re-raised to the agent loop; a timeout becomes a `ToolError` with\n   the partial output.\n5. **Returns** cleaned output, with `[exit code N]` appended for non-zero exits.\n   In the sandbox, exit code 124 (coreutils' timeout) is reported as a\n   timeout.\n\nBecause host commands run in their own session, the terminal's Ctrl-C reaches\nYACH rather than the command. YACH then kills the group itself.\n\n## The container\n\n`Sandbox.__init__` starts one long-lived container per YACH process, named\n`yach-<pid>-<random>` and running `sleep infinity` under `--init`, with:\n\n| Setting | Why |\n|---|---|\n| `--user <uid>:<gid>` | Files it creates belong to you; it isn't root |\n| `--cap-drop ALL`, `--security-opt no-new-privileges` | No capabilities, no setuid escalation |\n| `--read-only` + `--tmpfs /tmp` | Root filesystem immutable; scratch space in `/tmp`, also `HOME` |\n| `--pids-limit 1024` | Caps fork bombs |\n| `--network bridge\\|none` | From `--sandbox-network`; `none` cuts all network access |\n| `-v ROOT:ROOT` | Only the project is mounted, at the same path as on the host |\n| `-v ROOT/.git:ROOT/.git:ro` | `.git` is read-only (below) |\n\nNothing from the user's environment is passed in, so `ANTHROPIC_API_KEY` and\nother secrets are not visible to sandboxed commands. The container is removed\nwith `docker rm -f` at exit (registered with `atexit`). `rm -f` waits for\nremoval, where a plain `kill` would return before `--rm` finishes.\n\n### Read-only `.git`\n\nGit runs hooks and config-driven commands (`core.fsmonitor`, `core.pager`, …)\non the host. If the sandbox could write `.git`, a command could plant code that\nlater runs outside the container with the user's full environment. So `.git` is\nmounted read-only when it's a directory. As a result, the model can't commit\nfrom inside the sandbox; `sandbox_note()` tells it so in the system prompt.\n\n### Process groups inside the container\n\nKilling the `docker exec` client doesn't stop the command inside the container.\n`exec_argv` therefore runs each command as:\n\n```\nsetsid -w bash -c 'echo $$ > /tmp/yach-run-<id>.pid; exec timeout -k 5 <t> bash -c \"$1\"' yach <command>\n```\n\n`setsid` gives the run its own process group, whose ID is written to a pid\nfile. `kill_run` sends `kill -9 -<pgid>` through `docker exec`. The container's\n`sh` is dash, whose `kill` doesn't accept `--`. The in-container `timeout`\nhandles the normal case.\n\n### Images\n\n`build_image` uses `.yach/Dockerfile` from the project if it exists, otherwise a\nbuilt-in image: `python:3.14-slim` with git, ripgrep, curl, ca-certificates,\nprocps and uv. Images are tagged `yach-sandbox:<sha256 of Dockerfile>[:12]` and\nbuilt only if that tag doesn't exist yet, so editing the Dockerfile triggers a\nrebuild and unchanged ones are reused.\n\n## What the sandbox does not protect\n\n- **The project itself.** It is mounted read-write, so the model can still\n  change or delete project files, including build scripts the user will run\n  later on the host.\n- **Remote systems,** when the network is on: pushes, uploads and API calls\n  still work. Approvals and dcg apply to sandboxed commands exactly as on the\n  host ([Approvals, auto mode and dcg](approvals-and-dcg.md)).\n\nWith the sandbox on, `resolve()` also confines the host-side file tools\n(`read_file`, `grep`) to the project, matching what the container can see\n([Tool surface](../tools/tool-surface.md)).\n\n## Related\n\n- [Approvals, auto mode and dcg](approvals-and-dcg.md)\n- [Tool surface](../tools/tool-surface.md)\n",
+      "size": 4871,
+      "links": [
+        "safety/approvals-and-dcg",
+        "tools/tool-surface"
+      ],
+      "backlinks": [
+        "architecture/overview",
+        "interface/repl-and-cli",
+        "quickstart",
+        "safety/approvals-and-dcg",
+        "safety/index",
+        "tools/tool-surface"
+      ]
+    },
+    {
+      "id": "safety/undo",
+      "title": "Undo and checkpoints",
+      "type": "concept",
+      "description": "How /undo restores the files a turn wrote or edited through write_file and edit_file, using an in-memory Checkpoint per turn; what it asks about, what it cannot reverse (shell commands), and how the model learns of the undo.",
+      "tags": [
+        "undo",
+        "checkpoints",
+        "safety",
+        "file-edits",
+        "rollback"
+      ],
+      "body": "\n# Undo and checkpoints\n\n`/undo` puts back the files the most recent file-changing turn wrote or\nedited, and deletes the files that turn created. It exists because auto mode\napproves most edits without the user reading them closely; it is a cheap way\nback when a turn goes wrong. It is not a replacement for git: it covers only\nthe two file tools and lives in memory.\n\n## What is recorded\n\nA `Checkpoint` (the `undo` section of `yach.py`, around L668-L732) holds what\none turn changed:\n\n| Field | Meaning |\n|---|---|\n| `request` | The user message that started the turn, shown when undoing |\n| `before` | Each written path mapped to its bytes before the turn; `None` means the file didn't exist |\n| `written` | A SHA-256 digest of each file as YACH last left it, to detect later changes |\n| `new_dirs` | The topmost directory each write had to create |\n| `commands` | How many shell commands the turn ran |\n\n`Agent.send` starts a new `Checkpoint` for every user message. `Agent.run_tool`\nfills it in, after the call has been approved:\n\n1. For `write_file` and `edit_file`, `Checkpoint.snapshot(path)` reads the\n   file's current bytes and finds the topmost missing parent directory,\n   *before* the handler runs.\n2. If the handler succeeds, `record()` stores the snapshot. A failed or denied\n   call records nothing.\n3. The first recorded write adds the checkpoint to `Agent.checkpoints`, the\n   undo stack. Turns that wrote no files never enter the stack.\n\n`before` keeps the oldest version: if a turn writes the same file several\ntimes, undo returns it to how it was when the turn began. Contents are handled\nas bytes, so files that aren't valid text survive a round trip.\n\n`bash` calls only increment `commands`. Nothing a shell command changes is\nrecorded.\n\n## What `/undo` does\n\n`Agent.undo` pops the newest checkpoint and calls `Checkpoint.undo`, which for\neach file:\n\n- skips it silently if it already matches its earlier contents;\n- **asks first** if the file no longer matches what YACH last wrote, meaning\n  the user or a shell command changed it afterwards (or deleted it). Declining,\n  Ctrl-C or Ctrl-D leaves the file alone;\n- otherwise deletes it if the turn created it, or writes the earlier bytes\n  back, recreating parent directories if needed.\n\nA file that was declined, or that failed with an `OSError`, stays in the\ncheckpoint, and the checkpoint goes back on the stack, so running `/undo`\nagain retries just those files. Directories the turn created are removed if\nthey are now empty.\n\nEach `/undo` handles one turn; repeating it walks back through earlier turns\nthat changed files. When the turn ran shell commands, the output says how many\nand that their effects were not undone.\n\n## Telling the model\n\nHistory is append-only ([Agent loop](../architecture/agent-loop.md)), so an\nundo can't remove the turn from the conversation. Instead, when anything was\nrestored or deleted, `Agent.undo` appends a user message listing what was done,\nstating that the files are back to their earlier state, and telling the model\nto read a file again before editing it. If the turn ran shell commands, the\nnote adds that those were not undone.\n\nThe note is stored as a block list rather than a plain string, like `!` shell\noutput. The auto-mode reviewer only reads plain-string user messages, so the\nnote is never treated as a request\n([Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)).\n`session.repair()` runs first so the note never follows an unanswered tool\ncall.\n\n## Limits\n\n- **Shell commands are not reversed.** Files changed by `bash` (formatters,\n  code generators, `git`, `rm`) stay changed.\n- **In memory only.** The stack is lost on exit, and is cleared by `/clear`\n  and by resuming a session, since the checkpoints belong to the conversation\n  being left.\n- **File modes:** a file that was deleted after the turn and then restored is\n  recreated with default permissions, so an executable bit is lost.\n- **Empty-directory cleanup** can also remove an empty directory that\n  something else created inside a directory the turn made.\n\n## Related\n\n- [Tool surface](../tools/tool-surface.md)\n- [Agent loop](../architecture/agent-loop.md)\n- [Terminal interface and CLI](../interface/repl-and-cli.md)\n- [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)\n",
+      "size": 4294,
+      "links": [
+        "architecture/agent-loop",
+        "safety/approvals-and-dcg",
+        "tools/tool-surface",
+        "interface/repl-and-cli"
+      ],
+      "backlinks": [
+        "architecture/agent-loop",
+        "architecture/overview",
+        "interface/repl-and-cli",
+        "quickstart",
+        "safety/index",
+        "sessions/session-storage",
+        "tools/tool-surface"
+      ]
+    },
+    {
+      "id": "sessions/context-and-compaction",
+      "title": "Context measurement and compaction",
+      "type": "concept",
+      "description": "How YACH tracks how full the context window is and shrinks long conversations with the API's on-demand compaction, automatically between turns or via /compact, including cost accounting and failure handling.",
+      "tags": [
+        "context-window",
+        "compaction",
+        "tokens",
+        "claude-api"
+      ],
+      "body": "\n# Context measurement and compaction\n\nYACH keeps an up-to-date estimate of how many tokens the conversation occupies.\nWhen that crosses a threshold, it replaces the history with a summary written\nby the API (on-demand compaction, beta `compact-2026-09-04`).\n\n## Measuring context\n\n- **After every reply**, `Agent.measure(usage)` sets `context_tokens` to input\n  + output + cache-creation + cache-read tokens. If `usage.iterations` is\n  present, it uses the last *non-compaction* entry. A compaction iteration\n  reports the summarizer's own work, not the size of the conversation, so it\n  must never be used for this.\n- **The context window** comes from `client.models.retrieve(model).max_input_tokens`,\n  fetched once and cached on the agent. If that call fails or returns nothing,\n  YACH assumes 1,000,000.\n- **On demand**, `count_context()` asks the free token-counting endpoint for\n  the current history, with the same system prompt, tools and thinking\n  settings as a real request and the compaction beta, so a summary block can be\n  counted. It returns `0` for an empty history and `None` on API errors.\n  `/context` uses it when nothing has been measured yet (fresh start, just\n  resumed, or just compacted).\n\n`context_tokens` is reset to `None` whenever the session changes (`/clear`,\nresume), because the old measurement no longer applies.\n\n## When compaction happens\n\n- **Automatically:** at the start of `Agent.send`, before the new user message\n  is appended, if `compact_at` is non-zero and `context_tokens >= compact_at`\n  (the `--compact-at` flag, default 150,000). It runs only between user turns,\n  never inside a tool loop. The whole history is summarized and nothing older\n  is replayed, which sidesteps the rules for splitting tool calls and keeping\n  older thinking blocks valid.\n- **Manually:** `/compact`.\n\nThe status line after each reply warns at 85% of the window that compaction\nwill run before the next message. A single very long turn can still grow past\nthe threshold before the next check, because nothing compacts mid-turn.\n\n## How compaction works\n\n`Agent.compact()`:\n\n1. Does nothing if there's nothing to summarize: an empty history, or one that\n   is already just a summary.\n2. Sends `client.beta.messages.create` with `compaction={\"type\": \"summarize\"}`,\n   the same model, system prompt, tools and thinking settings as the\n   conversation, `max_tokens=16000`, and the compaction beta. Matching the\n   system prompt and tools keeps thinking produced after the summary valid.\n3. First tries with top-level `cache_control` so the history is read from the\n   prompt cache. If the API rejects that with a 400, it retries once without\n   it.\n4. Adds the cost with `add_usage`. Compaction tokens appear only under\n   `usage.iterations` (top-level counts are zero), and `add_usage` includes\n   them.\n5. Checks for `stop_reason == \"compaction\"` and a `compaction` block with\n   non-empty content. If either is missing, or the API call fails, it prints a\n   message and **keeps the full conversation**.\n6. On success, calls `Session.compact()` with an assistant message containing\n   the compaction block in wire form. That block becomes the first message of\n   the history, and the next user message follows it.\n7. Re-measures with `count_context()` and prints `compacted N messages into a\n   summary → X tokens ($cost)`.\n\n### After compaction\n\nWhile the history starts with an assistant-role summary, `stream_turn` adds\nthe compaction beta to every request so the API can read the block. On disk,\n`Session.compact` writes a `{\"yach_compaction\": ...}` marker line followed by\nthe summary, keeping the full transcript. `Session.load` discards everything\nbefore the latest marker, so a resumed session starts from the summary\n([Session storage and resume](session-storage.md)).\n\n## Related\n\n- [Agent loop](../architecture/agent-loop.md)\n- [Session storage and resume](session-storage.md)\n",
+      "size": 3914,
+      "links": [
+        "sessions/session-storage",
+        "architecture/agent-loop"
+      ],
+      "backlinks": [
+        "architecture/agent-loop",
+        "quickstart",
+        "sessions/index",
+        "sessions/session-storage"
+      ]
+    },
+    {
+      "id": "sessions/index",
+      "title": "Sessions",
+      "type": "Section",
+      "description": "",
+      "tags": [],
+      "body": "# Files\n\n- [Context measurement and compaction](context-and-compaction.md) - How YACH tracks how full the context window is and shrinks long conversations with the API's on-demand compaction, automatically between turns or via /compact, including cost accounting and failure handling.\n- [Session storage and resume](session-storage.md) - How YACH saves every conversation as an append-only JSONL file per project, recovers from crashes and dangling tool calls, lists sessions without touching them, and resumes with the right system prompt and thinking settings.\n",
+      "size": 563,
+      "links": [
+        "sessions/context-and-compaction",
+        "sessions/session-storage"
+      ],
+      "backlinks": []
+    },
+    {
+      "id": "sessions/session-storage",
+      "title": "Session storage and resume",
+      "type": "concept",
+      "description": "How YACH saves every conversation as an append-only JSONL file per project, recovers from crashes and dangling tool calls, lists sessions without touching them, and resumes with the right system prompt and thinking settings.",
+      "tags": [
+        "sessions",
+        "persistence",
+        "jsonl",
+        "resume",
+        "crash-recovery"
+      ],
+      "body": "\n# Session storage and resume\n\nEvery conversation is a `Session`: an in-memory list of API messages plus a\nJSONL file that mirrors it. `Agent.messages` is just `session.messages`, and\n`Agent.add_message` writes through to disk. No separate save step exists.\n\n## Where and how it's stored\n\nFiles live in\n`$XDG_DATA_HOME/yach/sessions/<project>/<id>.jsonl`, defaulting to\n`~/.local/share/yach/sessions/...`. `<project>` is the project root path with\nevery non-alphanumeric character replaced by `-`, so each project has its own\nlist. Session IDs are `YYYYMMDD-HHMMSS-<4 hex>`.\n\nEach file contains:\n\n1. **A metadata line** written with the first entry: `yach_session` (format\n   version 1), `id`, `root`, the **system prompt** the session was started\n   with, and `created`. Files are created lazily, so a session with no messages\n   leaves nothing on disk.\n2. **One line per message**, exactly as sent to the API. Assistant messages are\n   the response's blocks in wire form, including thinking blocks.\n3. **Compaction markers**, `{\"yach_compaction\": {\"at\": ..., \"replaced_messages\": N}}`,\n   each followed by the summary message\n   ([Context measurement and compaction](context-and-compaction.md)).\n\nSaving is a single append because the history is append-only: YACH never edits\nor removes a message once written, except that compaction swaps the in-memory\nlist while the file keeps the full transcript. Replaying identical bytes is what\nkeeps preserved thinking and the prompt cache valid on resume.\n\nSession files hold everything said in the conversation, including tool output,\nso they should be treated as sensitive.\n\n## Loading and crash recovery\n\n`Session.load(id)`:\n\n- Reads the system prompt from the metadata line.\n- Parses lines until the first invalid one. A marker line clears the messages\n  collected so far, so the result starts from the latest compaction summary.\n- Records the first plain-string user message as the session's `title`, which\n  survives compaction because it is read from the whole file.\n- **Truncates a partial last line**, left when YACH was killed mid-write,\n  together with anything after it, so new appends don't get glued onto broken\n  JSON.\n- Calls `repair()`.\n\n`repair()` handles the other crash shape: the last message is an assistant\n`tool_use` with no result. It appends an error `tool_result` for each pending\ncall (\"Not run: the turn ended before this tool call ran.\") so the history can\nbe sent again. Besides `load`, it runs at the start of every `Agent.send`,\nafter a refusal, and before a `!` shell message is added. A tool call can never\nbe followed by a plain user message, which the API would reject with a 400 on\nevery later request.\n\n### Read-only loading for the picker\n\n`pick_session()` lists the 20 most recently modified sessions with age,\nmessage count and title, using `Session.load(..., readonly=True)`. Read-only\nloading skips both truncation and repair, so browsing never modifies a file,\nincluding one another running YACH is writing to. Only the session the user\nchooses is then loaded normally.\n\n## Resume flows\n\n| Entry point | Behavior |\n|---|---|\n| `yach -c` | Load the most recently modified session; exit if none |\n| `yach -r <id>` | Load that session; exit if its file doesn't exist |\n| `yach -r` / `/resume` | Picker; cancel exits (CLI) or does nothing (REPL) |\n| `/clear` | Start a fresh `Session`; the old one stays on disk |\n\n`Agent.resume(session)` then:\n\n- **Chooses the system prompt.** It reuses the saved prompt if it equals a\n  freshly built one with the `Date:` line ignored, which preserves the cache\n  and thinking blocks across days. Otherwise it uses the current prompt, so\n  the model's description of its environment matches reality, for example\n  when the sandbox was on when the session started and is off now.\n- **Marks the session as resumed.** `thinking_config()` then adds\n  `block_binding.prefix_mismatch_behavior: \"drop_block\"` (with the\n  `thinking-binding-controls-2026-08-01` beta). The API drops replayed\n  thinking blocks that no longer match their prefix, for example after a\n  system prompt or tool-definition change, instead of failing the request.\n- **Resets context measurement**, and unless quiet, prints the session ID,\n  message count and the last few lines of the model's last reply.\n\nNot carried over: the cost counters, \"always allow\" answers, and the approval\nmode. Undo history is dropped as well: both `/clear` and a resume empty the\n`/undo` stack ([Undo and checkpoints](../safety/undo.md)).\n\nOn exit, YACH prints `resume with: yach -r <id>` if the session was saved.\n\n## Related\n\n- [Agent loop](../architecture/agent-loop.md)\n- [Context measurement and compaction](context-and-compaction.md)\n- [Terminal interface and CLI](../interface/repl-and-cli.md)\n- [Undo and checkpoints](../safety/undo.md)\n",
+      "size": 4813,
+      "links": [
+        "sessions/context-and-compaction",
+        "safety/undo",
+        "architecture/agent-loop",
+        "interface/repl-and-cli"
+      ],
+      "backlinks": [
+        "architecture/agent-loop",
+        "architecture/overview",
+        "interface/repl-and-cli",
+        "quickstart",
+        "sessions/context-and-compaction",
+        "sessions/index"
+      ]
+    },
+    {
+      "id": "tools/index",
+      "title": "Tools",
+      "type": "Section",
+      "description": "",
+      "tags": [],
+      "body": "# Files\n\n- [Tool surface](tool-surface.md) - The seven tools YACH gives the model (bash, read_file, write_file, edit_file, grep, glob, ask_user), how their inputs are validated, how paths are confined to the project, how output is bounded, and how to add a tool.\n",
+      "size": 263,
+      "links": [
+        "tools/tool-surface"
+      ],
+      "backlinks": []
+    },
+    {
+      "id": "tools/tool-surface",
+      "title": "Tool surface",
+      "type": "reference",
+      "description": "The seven tools YACH gives the model (bash, read_file, write_file, edit_file, grep, glob, ask_user), how their inputs are validated, how paths are confined to the project, how output is bounded, and how to add a tool.",
+      "tags": [
+        "tools",
+        "tool-use",
+        "validation",
+        "path-confinement",
+        "security"
+      ],
+      "body": "\n# Tool surface\n\nYACH declares its tools in `TOOLS` and maps each name to a Python function in\n`HANDLERS`. `Agent.run_tool` connects them: validate, approve, run, bound the\noutput, and return a `tool_result` ([Agent loop](../architecture/agent-loop.md)).\nAround `write_file` and `edit_file` it also snapshots the file so `/undo` can\nrestore it ([Undo and checkpoints](../safety/undo.md)).\n\n## The tools\n\n| Tool | Handler | Approval | Behavior |\n|---|---|---|---|\n| `bash` | `run_bash` | Yes | Runs a command in the project root (or the sandbox); each call is a fresh shell, so `cd` and env vars don't persist. Optional `timeout`, default 120 s, clamped to 1-1800. See [Docker sandbox and command execution](../safety/sandbox.md). |\n| `read_file` | `read_file` | Only outside the project | Numbered lines (`%6d\\t`), `offset` (1-based) and `limit` (default 2,000); lines cut at 2,000 chars; says how many lines remain. |\n| `write_file` | `write_file` | Yes | Creates parent directories, writes full contents; refuses paths outside the project. |\n| `edit_file` | `edit_file` | Yes | Exact string replace; fails if `old_str` is missing, or appears more than once without `replace_all`. Refuses paths outside the project. |\n| `grep` | `grep` | Only outside the project | ripgrep with line numbers, no headings, 300-column cap, optional `--glob` filter. |\n| `glob` | `glob_files` | No | Relative patterns only; up to 500 files inside the project, newest first, skipping `.git`. |\n| `ask_user` | `ask_user` | No | Asks the user a question with optional numbered suggestions. |\n\nApproval rules are in [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md).\n\n## Input validation\n\nEvery tool definition sets `eager_input_streaming: true`, so large inputs such\nas file contents stream as they're generated. The trade-off is that the server\nno longer validates them. `validate_input` does it locally before anything\nruns. It checks that:\n\n- the tool exists and the input is an object;\n- required fields are present and there are no unknown fields;\n- each value's JSON type matches the schema, rejecting booleans where an\n  integer is expected (`bool` is a subclass of `int` in Python);\n- arrays contain only items of the declared type.\n\nA failure becomes an `INVALID_INPUT` error result that includes the received\ninput, so the model can correct itself. Truncated inputs from a `max_tokens`\nstop are caught earlier, in `send`.\n\n## Path confinement\n\n`resolve(path)` expands `~`, joins the path to `ROOT` and resolves it,\nfollowing symlinks and `..`:\n\n- **Writes** (`write_file`, `edit_file`) outside the project root raise a\n  `ToolError`, in every approval mode.\n- **With the sandbox on**, any path outside the root is refused, because the\n  container can't see it either.\n- **Without the sandbox**, reads outside the root are allowed but need\n  approval; `outside_root()` flags them for `Permissions`.\n\n`glob` is confined differently: it rejects empty, absolute and `..` patterns,\nand drops any match whose resolved path leaves the root (for example through a\nsymlink).\n\n## Hardening\n\n- **grep option injection:** the model's pattern is passed as `-e <pattern>`\n  and options are ended with `--` before the path, so a pattern such as\n  `--pre=bash`, which would make ripgrep run a command on every file, is only\n  ever searched for as text.\n- **Crashes:** `run_tool` catches every handler exception except Ctrl-C and\n  returns it as an error result instead of crashing the session (for example\n  a NUL byte in a path). `ToolError` and `OSError` messages are passed through\n  as-is; other exceptions are prefixed with their type name.\n\n## Output\n\n- **Bounded:** results over 30,000 characters (`MAX_TOOL_OUTPUT`) keep the\n  first and last 15,000 with a note of how much was cut, so the model sees both\n  the start and the end of long output.\n- **Cleaned:** bash output has terminal escape sequences and control characters\n  removed before it reaches the model.\n- **Preview:** the user sees the target path (or pattern) in bold before the\n  call, and the first three lines of output afterwards. `bash` shows its command\n  in the approval preview instead, and `ask_user` output isn't echoed because\n  the user just typed it.\n\n## `ask_user`\n\nIt prints the question and numbered options, all passed through `clean()`, and\nreads an answer. A number picks that option; anything else is returned as\ntyped; an empty answer tells the model to use its best judgment. When stdin\nisn't a terminal (one-shot runs with piped input), it returns an error telling\nthe model no user is available. Ctrl-C at the question cancels the turn.\n\n## Adding a tool\n\n1. Add a `_tool(name, description, properties, required)` entry to `TOOLS`.\n   Only `string`, `integer`, `boolean` and `array` property types are\n   supported by `validate_input` (`JSON_TYPES`).\n2. Write the handler and register it in `HANDLERS`. Raise `ToolError` for\n   expected failures.\n3. If the tool writes files, snapshot them in `run_tool` the way `write_file`\n   and `edit_file` are, or `/undo` won't cover it.\n4. Decide on approval. Add the name to `NO_APPROVAL` only for side-effect-free\n   tools, and extend `outside_root` / `describe_action` / `Permissions.preview`\n   if it touches paths.\n5. Adding a tool changes the request prefix, so the first request after an\n   upgrade misses the prompt cache, and resumed sessions drop older thinking\n   blocks.\n\n## Related\n\n- [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)\n- [Docker sandbox and command execution](../safety/sandbox.md)\n- [Undo and checkpoints](../safety/undo.md)\n- [Agent loop](../architecture/agent-loop.md)\n",
+      "size": 5632,
+      "links": [
+        "architecture/agent-loop",
+        "safety/undo",
+        "safety/sandbox",
+        "safety/approvals-and-dcg"
+      ],
+      "backlinks": [
+        "architecture/agent-loop",
+        "architecture/overview",
+        "quickstart",
+        "safety/approvals-and-dcg",
+        "safety/sandbox",
+        "safety/undo",
+        "tools/index"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "architecture/agent-loop",
+      "target": "tools/tool-surface"
+    },
+    {
+      "source": "architecture/agent-loop",
+      "target": "safety/undo"
+    },
+    {
+      "source": "architecture/agent-loop",
+      "target": "sessions/context-and-compaction"
+    },
+    {
+      "source": "architecture/agent-loop",
+      "target": "sessions/session-storage"
+    },
+    {
+      "source": "architecture/agent-loop",
+      "target": "architecture/overview"
+    },
+    {
+      "source": "architecture/index",
+      "target": "architecture/agent-loop"
+    },
+    {
+      "source": "architecture/index",
+      "target": "architecture/overview"
+    },
+    {
+      "source": "architecture/overview",
+      "target": "architecture/agent-loop"
+    },
+    {
+      "source": "architecture/overview",
+      "target": "sessions/session-storage"
+    },
+    {
+      "source": "architecture/overview",
+      "target": "safety/approvals-and-dcg"
+    },
+    {
+      "source": "architecture/overview",
+      "target": "safety/sandbox"
+    },
+    {
+      "source": "architecture/overview",
+      "target": "safety/undo"
+    },
+    {
+      "source": "architecture/overview",
+      "target": "interface/repl-and-cli"
+    },
+    {
+      "source": "architecture/overview",
+      "target": "tools/tool-surface"
+    },
+    {
+      "source": "index",
+      "target": "quickstart"
+    },
+    {
+      "source": "interface/index",
+      "target": "interface/repl-and-cli"
+    },
+    {
+      "source": "interface/repl-and-cli",
+      "target": "safety/approvals-and-dcg"
+    },
+    {
+      "source": "interface/repl-and-cli",
+      "target": "safety/sandbox"
+    },
+    {
+      "source": "interface/repl-and-cli",
+      "target": "safety/undo"
+    },
+    {
+      "source": "interface/repl-and-cli",
+      "target": "architecture/overview"
+    },
+    {
+      "source": "interface/repl-and-cli",
+      "target": "sessions/session-storage"
+    },
+    {
+      "source": "quickstart",
+      "target": "interface/repl-and-cli"
+    },
+    {
+      "source": "quickstart",
+      "target": "architecture/overview"
+    },
+    {
+      "source": "quickstart",
+      "target": "architecture/agent-loop"
+    },
+    {
+      "source": "quickstart",
+      "target": "tools/tool-surface"
+    },
+    {
+      "source": "quickstart",
+      "target": "safety/approvals-and-dcg"
+    },
+    {
+      "source": "quickstart",
+      "target": "safety/sandbox"
+    },
+    {
+      "source": "quickstart",
+      "target": "safety/undo"
+    },
+    {
+      "source": "quickstart",
+      "target": "sessions/session-storage"
+    },
+    {
+      "source": "quickstart",
+      "target": "sessions/context-and-compaction"
+    },
+    {
+      "source": "safety/approvals-and-dcg",
+      "target": "tools/tool-surface"
+    },
+    {
+      "source": "safety/approvals-and-dcg",
+      "target": "safety/sandbox"
+    },
+    {
+      "source": "safety/approvals-and-dcg",
+      "target": "interface/repl-and-cli"
+    },
+    {
+      "source": "safety/index",
+      "target": "safety/approvals-and-dcg"
+    },
+    {
+      "source": "safety/index",
+      "target": "safety/sandbox"
+    },
+    {
+      "source": "safety/index",
+      "target": "safety/undo"
+    },
+    {
+      "source": "safety/sandbox",
+      "target": "safety/approvals-and-dcg"
+    },
+    {
+      "source": "safety/sandbox",
+      "target": "tools/tool-surface"
+    },
+    {
+      "source": "safety/undo",
+      "target": "architecture/agent-loop"
+    },
+    {
+      "source": "safety/undo",
+      "target": "safety/approvals-and-dcg"
+    },
+    {
+      "source": "safety/undo",
+      "target": "tools/tool-surface"
+    },
+    {
+      "source": "safety/undo",
+      "target": "interface/repl-and-cli"
+    },
+    {
+      "source": "sessions/context-and-compaction",
+      "target": "sessions/session-storage"
+    },
+    {
+      "source": "sessions/context-and-compaction",
+      "target": "architecture/agent-loop"
+    },
+    {
+      "source": "sessions/index",
+      "target": "sessions/context-and-compaction"
+    },
+    {
+      "source": "sessions/index",
+      "target": "sessions/session-storage"
+    },
+    {
+      "source": "sessions/session-storage",
+      "target": "sessions/context-and-compaction"
+    },
+    {
+      "source": "sessions/session-storage",
+      "target": "safety/undo"
+    },
+    {
+      "source": "sessions/session-storage",
+      "target": "architecture/agent-loop"
+    },
+    {
+      "source": "sessions/session-storage",
+      "target": "interface/repl-and-cli"
+    },
+    {
+      "source": "tools/index",
+      "target": "tools/tool-surface"
+    },
+    {
+      "source": "tools/tool-surface",
+      "target": "architecture/agent-loop"
+    },
+    {
+      "source": "tools/tool-surface",
+      "target": "safety/undo"
+    },
+    {
+      "source": "tools/tool-surface",
+      "target": "safety/sandbox"
+    },
+    {
+      "source": "tools/tool-surface",
+      "target": "safety/approvals-and-dcg"
+    }
+  ]
+}

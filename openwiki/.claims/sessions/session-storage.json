@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:1952c2611db9e18b83ad11296df53ca9855da5d4387c7c3b0b518642e19c5ccc",
+  "claims": [
+    {
+      "id": "claim_0b5cb8d1975c45d4ae00e53dad8bdb49",
+      "statement": "Sessions are stored as JSONL files under $XDG_DATA_HOME (default ~/.local/share)/yach/sessions/<project root with non-alphanumerics replaced by '-'>/<id>.jsonl, giving each project its own session list.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L773-L774",
+          "version": "repo-lines-v1:sha256:9dd906a93b2e6e4eff16a6c1bdb102d1e4f7cb3b15eb59cb2af7e86ff11d9615:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTMzOTVlOGFkYTYwODgxMWE0MjhmN2E1YTgyZjAyZWZmMDVjNzFjOWNjZmUxYWZhMzAxMGZjYzJkMGM1YWU5MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFhZGJlMTVmYTljNTJhNjZlNTU1MDczNmFiOGY2ZDFmNWFkNTNkZTAyYTVhNGVkMjg4NDdmY2ExNWRjMGYyOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjc1NjUzZDYyMDMxNTJiYjMzZjljNzY2Mzc4ZTFkYWNjMjkyMTdlMWQyYjEyMTU2NWFhNTZjZWIxMWNlN2FiZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjdhOTJjMGI5YzYzZGExNDg5YmNlOTYwZjFiMzM1OWY3ZmVjNWVkZTdhNDdjZjU2NmM5MjBkOGRlNjFjNWI4ZCJ9"
+        },
+        {
+          "resource": "repo://yach.py#L790-L792",
+          "version": "repo-lines-v1:sha256:b81342df968a836cee3a04ece99489c0d080ce3d7917acc6f510afbffdb553d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMGFkNjdlNzQwZDkwMzAxNjEzZDg5MGQ0MzM0NWMxNzYxZTA3Y2NkNmM3MmI4ZDc3NDY3ODQ0MzY2ZjEwNDk2OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzdiNWVlNDFiMTViNjA1ZWUyYmRjNTM0ZWFlOWExOTllODFmZDg3MzdkNmI3ZDFjMTJhN2MxNTBhMGNhYjA4ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTU1MjdjODBmYWU1MGFiMTBmZWUzYmQ2NjYyMGNlOTgwY2EzMjAzODk5Mjg2OTFkODBiMDJiNDRlNTdiNDczOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWQzOTU4YmMyZDU2OWEwMWJkYmU5YTdmOWQzYmIxMmJhYTEyNzY5Yzk5MzZkMmRmNjRlYWZlODYwZThiY2I2NCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9ed58e0d60d2489a9cbbd9800669227c",
+      "statement": "A session file is created lazily on the first write, beginning with a metadata line that records the format version, id, project root, the session's system prompt, and creation time.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L797-L807",
+          "version": "repo-lines-v1:sha256:c3aafcea0d8bda0ec99166ddf2cad90096aabca9f8448f9836dcd43eccb86bad:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0ZjFkZTM5Y2U2NGY4YjA2YzJhOGMzYTgxNTNlODM0OGUzZmVjMzg1MGY2MWYyODhiYmMyNzNiNmNkYTA5MmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4YWNmYzI2NGEyZWZkOTg1NjgyNTBmMzJkNzlmOWRjNzg3MTc4ZjkxYmE4NDdkZWIzYzY2MzViZDkwMjhmNzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0YjRjYzAyNTJkMzIzMjNhZmYzNGIxMzgxMzFiYzJkMDZhOWY1OWY5YTk0MzFjYzNiYmUyNzM0OWM4MGJhMWEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhYzg5OWQ4MjMzNWU2Yjc2YzZmOWIzMjU2OWMxMjkyMzJmYTc0Y2RhYTRkMTM2ZWFiNjVhNGY5NGU0YjhhZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1989b48064aa49aaa07333af451ff74a",
+      "statement": "Every message added through Agent.add_message is appended to the session file immediately, so there is no separate save step.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L809-L813",
+          "version": "repo-lines-v1:sha256:58bc1ebd3dcaa6bfe8313d9fa044aff51cdce02e7c3fd5a9f56839bdfc21c7e1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmFjOWZhODdmMjkzMzAzNTY4OTZkYmEzY2I0NzhjM2FhY2MwZmVmNTEyMGEzNjEzNmJhOTg1M2IyZWJkNTBlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGQ3YTNkYzkxYzI5NmExYzk1OGJhMDJjZDUxN2Q2YWZiNWNmZmM1OWQ3NzEyNTNkY2JjYTk5MWExZjc5NmY2MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWFjNjVlYTQ0YzE3OWU5OTU1YWM5NDBhOTE5YjQyOGU0ZGMxM2Y1N2EzZWZlZDZjYzQ0ZDBjMDIxYzgzY2JiZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODhiZDJmZTYyOTI3MjA2NzgyN2Q0NGFmNzUzNWUwYjNmN2Y0NzAxMDgzM2Y2MDgzN2MzZGU4ZjU0MzBiNzA0NiJ9"
+        },
+        {
+          "resource": "repo://yach.py#L930-L935",
+          "version": "repo-lines-v1:sha256:a8df378e5f82562f95401aeaf7017e0e5ac71c869221b66ce925a5436f9b58fc:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjNkMDBjZjI3MDk2NGQ0NGExM2RmYWM4NzUyYjA5ZmNjNDM1YjBmMTliMzE2YWJjZjgxYTdhYTY0YmIxMjJkNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTVmNzEyMzZlMDI4ZmNjZTVhZjUyNTIzMDg0Y2QwOGU1NDE4ZjMxNzFjOTU3YTc4NGViY2I3YjIxMjM2MTc5YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWFlZmJhNWFjN2E1YjkyYTRiN2VmNmQ0MDM2YWZiOTZhZDViN2IwNjc1MmM3YWYwODU3M2Y3ZDVkMjE4NDFhOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWZmMjA3ZmRlOGIzYTMyNmNjNTY2MDcxYmFiOWE0ZTQ1MzRlYjJkZmI0ODg2OWE0ZGNiMzRjY2FjMjBkYmFlOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c88392078be04b54b02da534e8bfdf00",
+      "statement": "Loading stops at the first unparseable line and, unless read-only, truncates that partial line and anything after it so later appends are not glued to broken JSON, then repairs a dangling tool call.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L822-L848",
+          "version": "repo-lines-v1:sha256:ed567bf3bf32b66e8faf6a6dd896607f57e15bd3bdb3a8690ec1b7e874fdbb8e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhiZDk5YzgxNDMyYzFlOWI1NDg4YjJlMGZjZTVkMzVkYTdmOTY5OGI1OTY4MjFjNjQzNDEyYWRiMTVjOTVmMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkxMGRkZjlhMGYwOTYyNTc0ZWEzZGQ5ZmI2NDNlOWI4MGZkZTZjNWExNWQwYWJkM2Y2NTZkZjA0NWJmYWI1MDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBkNDdjZGMxMGNmODBmNWRiY2IyZmM4Mzk2ODIxZjEzZmY2NzgyYTEwMTQxYzY5YThlMzhjYmNlODJhZmIxYTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhiMjE3MGU1Y2Y5MmMxMjE5OTFjZTJhZTU1YzcxOTNkNWM4OGRjNWFmNzEzMjViMTE0MTAwYWU2MjA5YjQxM2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_048550a6be334c428e3b940809972ade",
+      "statement": "repair() answers every unanswered tool_use in a trailing assistant message with an error tool_result so the history remains valid to send.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L850-L860",
+          "version": "repo-lines-v1:sha256:ddd5a14272cd7b315387455fe9e607161eb4185ec166afdd11d718e57f68bdeb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1MmM2NDAxY2YwZTZmOTQ4YzI3NmQ1ZDNhMzY2ZThiZGZiNjliMjQwZTFiM2Q3Njg3NTNmNmQyMjY3NGNjODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyMjUzZGNjMmVjNTkxODliNWE1MjUxMGU3YTk3MTI2MTQ2MTQ3YWQ4MzFhZTU5Y2NhYzhhZjE1YjViMWE1MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzZmY4NTUyNzFmZDEwYzFhMjZjZWQ0YmE2ZjJhM2Y1YjFmMDgyZTU2MTgwZjhkMWI2YzM2ZGFmMGNkZTRhNTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMjI1NjU0ZWE0NGU3OGY4ZGI2M2YyYmI3NjZjMWM4MTBhNzEzM2FiMmU3MjBiM2VlY2Q5OWYwNzFjYTQ0OWUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2de690bc4fd24c5985cf0accef750138",
+      "statement": "The session picker lists up to 20 most recently modified sessions using read-only loads that never modify files, and only fully loads the session the user selects.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L873-L875",
+          "version": "repo-lines-v1:sha256:a5ce06528688ccdaab0fbe980a4248c85b9f6c3c8cf01274f15b164f43e9360f:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDFhYmNkMGNjNjkxM2Q0ZjUxZWIyMWU0ZjVhZmMyZTkwZjg2ZDM2YTQ1MGJiNDJjYjA1YzZmM2UwZDcwNmY4YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGExMDdlODkzYThhMGQ2Y2RiODM0MGMzYWRjYTdjZjg3MzRhNDAwY2E3ZjljN2EyZDAyYTAyZjE3MDRiNmU2OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmQ5ZmQxZDAxZmZiNjczMGE1Mzk4OGU4ZWY4OTQyNTQzNTk2MjQ1ZDdmMDVjNmUyM2JiZTljMzViYTk1ZGE4NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDY4YjY1YjNkNWIzYTQ4OTFjNzc1YzI5YWQwMjY3NDc1MmEwZWU1MTk4ZGUwNDRiYjkyNjEzYWZiZDY5OWZiYSJ9"
+        },
+        {
+          "resource": "repo://yach.py#L886-L901",
+          "version": "repo-lines-v1:sha256:e8c35831754956f36b310575c20dd990f46d8293cb87ad7e092d4a51ca5cdaff:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMzA4OTMxNWQ4MzM5MGE4ZDVkN2ZmOGZmZTE1MjRiMDQxYTA5YTNjMDZhMGE0MTE0ZTUzY2Y3MzIyYWQ5NGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTYwMGE3M2QyZTAyZjM1MmI5MGZlZjFkOGQ2MzgxMWJhNGE4ZWUwYzFiZWFhN2FlNDY1OGYzNmFhMmUxOTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmNWYzODIzM2QwYzIyNDlkOGI1ODgxMWM0Zjg3MDk4Nzk2NjRiMmIzNzBiOTkwYmIxOWYxYjBkZjIwMWNjODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyZGNjNzFiMWM4MDJhMWJkNDRmODcyNDk5YjBiNjg0YzYzNWI1NDk1NmNmNjJlZDFjOTZlMTczNzNjMDA5NmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5e9c59e971d64d4bb57e063855a0badb",
+      "statement": "The session title is the first plain-string user message across the whole file, so it survives compaction.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L809-L813",
+          "version": "repo-lines-v1:sha256:58bc1ebd3dcaa6bfe8313d9fa044aff51cdce02e7c3fd5a9f56839bdfc21c7e1:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmFjOWZhODdmMjkzMzAzNTY4OTZkYmEzY2I0NzhjM2FhY2MwZmVmNTEyMGEzNjEzNmJhOTg1M2IyZWJkNTBlNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGQ3YTNkYzkxYzI5NmExYzk1OGJhMDJjZDUxN2Q2YWZiNWNmZmM1OWQ3NzEyNTNkY2JjYTk5MWExZjc5NmY2MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWFjNjVlYTQ0YzE3OWU5OTU1YWM5NDBhOTE5YjQyOGU0ZGMxM2Y1N2EzZWZlZDZjYzQ0ZDBjMDIxYzgzY2JiZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODhiZDJmZTYyOTI3MjA2NzgyN2Q0NGFmNzUzNWUwYjNmN2Y0NzAxMDgzM2Y2MDgzN2MzZGU4ZjU0MzBiNzA0NiJ9"
+        },
+        {
+          "resource": "repo://yach.py#L835-L840",
+          "version": "repo-lines-v1:sha256:e8c5aadc88aac571da8b1ed2b07034be5ebce7db35be94574b23aac46931a16f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmRmOTAzZDYzM2EwNGZhYTgxZjUwYzZlOWU5ZTdkMTEzZDdmMDcwMDBlMDMyNmEwNzU5OTJhYTEwMjExZmEyNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDI4OGIwOWNhMjhhYWM2YjI0ZTIyNDMwN2MwOTI2NDNhNTZkZTEzNmUwNzk4NjRlNjQ3ZTU0OTFmMGJiODg3NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzAwODQ3YjhkN2JhZjcxYjA3OTFlN2MwNzA0ZTMxYjc3MDVjMDYzYzQ2NGM2M2EyYTY4YjAxNDFiMWEzMmUxOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQyMjg5YTE0YjI2YmFlYjA2NTg3NTBhMjFhZjhlY2NkNzMzZmZiZTlmYmJkMTFjY2FiYmZhY2MzMTk1OGE1MyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_0125cd260f1f4f63a3f688090c21702a",
+      "statement": "On resume, the saved system prompt is reused only when it matches a freshly built prompt ignoring the Date line; otherwise the current prompt is used.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L944-L956",
+          "version": "repo-lines-v1:sha256:7398f12bb7025cb6d85af23391cb8dd050c40816a7cf4c74bb65e632f9348e86:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YmE3MzQwZGQxYjE5OThiYjgxMTg1M2QzNDFhNzdkMWM2Yjc3OTVlMjU0MjY4YWVjZmJjYWYwZGQ2YjAzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4MTc0NzVlMGEwYWFjMWZmZTlkMTg1ZDExMjVhNTdlOThmMmM5ZWFmMzBmMTA4MGY4MGJhNDVlNTZjYTQ2MmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxOGE0MGQ5ZjRlMzMxNjk5OTMxOTgyZTNlMmE5MjE4NzhlOTlhMDczYTY3MGY2MmUxZGE3ZDQzY2MyZjMzMGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxOTcwYzYyMTU1ZTJlZjZmNzU3OWM4MWZjMzdhMTBmMGMyMDhhN2ZlYjQ0ZTc4NGEzMzM4MDg4NTIyYWVlZmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_53b2e79621a94daa8cba1b910d4e3cac",
+      "statement": "Resumed sessions send thinking block_binding prefix_mismatch_behavior drop_block so the API drops mismatched replayed thinking blocks instead of failing the request.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L957-L957",
+          "version": "repo-lines-v1:sha256:d9bd6d01804936561c2a3747ebc0981dc947b2e7426f33d72020f4d1f54f55fe:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDliZDZkMDE4MDQ5MzY1NjFjMmEzNzQ3ZWJjMDk4MWRjOTQ3YjJlNzQyNmYzM2Q3MjAyMGY0ZDFmNTRmNTVmZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDliZDZkMDE4MDQ5MzY1NjFjMmEzNzQ3ZWJjMDk4MWRjOTQ3YjJlNzQyNmYzM2Q3MjAyMGY0ZDFmNTRmNTVmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmFjNzM1YjczMzkwY2EzY2IwODc2MzhhYTM1ZTg1NzA3NGUxNWY5YTRjODhmZmU4NjE1N2NkYzdmY2JlMzU0YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmY4MzhmZGFiYWRlODAzYjc0YzZmNmJiMmI2OWUzMjExYTA3OWFjZTBiMDBmYmVkNzRiNzQ1MzkxMmE0NjUyMyJ9"
+        },
+        {
+          "resource": "repo://yach.py#L968-L977",
+          "version": "repo-lines-v1:sha256:5de6bcd20fdb0df284c51ea029955fe11009013917a66c2739aec36e93aa4cbe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkN2U2OGIxZTg0ZjJmNTBlYmMxNjY0NTJiMzZjMjdmMDBlYTBkNjk4ZTNiZWMzOTQzMmNmOTQ2OWM4ZTQ1OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkODQzMDhkMzAxZWZkODdjYTNiMDE0YmUzMWU2MTgzYWVmZmY4MzdhMjFjNmE0MDU0MmVmZmVlZWM1NjQxNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlODQ2NmEzNzI1OWFlYWRjMWU1Y2QyNDY4ZTEzMWRiNmE4MWFhOTAxY2E3ZjA5ZDMxOWY5NWZkODI4NDdjNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5Mzg0NTA0MmExOGIxYzU3ZWNjNTlkZjYwNDVkZjBmNjE4M2YxNjczMmY4ZDE4YzhjYTI5OGRhYzY1N2IxM2QifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4a140967c8f64a1bbdf6c0384db47cc6",
+      "statement": "/clear starts a new Session with a freshly built system prompt and resets resume state, the undo stack and context measurement, leaving the old session file on disk.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L937-L942",
+          "version": "repo-lines-v1:sha256:3aa49effe556c6d7d639726127dc89c9fc8ebb0df9fd43f48d4889eaa646224f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FhMGFkYTdhMzczMTFmNDIyYmY3NzdhZTBkNDk0OTI3NDc0Mjg4YmZlY2MwNzkxOTI0NzdiMjYxM2VjMjk4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzI3MGQ0ZjExY2MwY2M4NTAyY2E4MTNhMzgwOWM0YzNhNGMyNmU3ZWU1ZDA0NGQ3ODZkNjkzZGRiYWYyY2ZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2U4Yjc4YWNjODk4MTMxNGY5NGQzNmNlODA5NzAyOWEzZDQ4ZDhiNWRmZWUwMWNhMmY4MTcxNzFlOWNlNTYwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDI2NGQyZGUzYTE2ZTU5ZDc5ZWVhZmQzNDQwM2Q5MTc3OTgwMmIyMGIwY2IwNjA4Y2VjNmEyNDZmMmM0YWQ1NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_927a1ce71f6645d6b8d04e85aedc5b9c",
+      "statement": "Resuming a session empties the undo stack, because the checkpoints belong to the conversation being left.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L956-L959",
+          "version": "repo-lines-v1:sha256:ae41dbe031d8adbf4f9b95d65401beb3199aa7a130ce09b30eea82913e06d9bd:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDgxNzQ3NWUwYTBhYWMxZmZlOWQxODVkMTEyNWE1N2U5OGYyYzllYWYzMGYxMDgwZjgwYmE0NWU1NmNhNDYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzI3MGQ0ZjExY2MwY2M4NTAyY2E4MTNhMzgwOWM0YzNhNGMyNmU3ZWU1ZDA0NGQ3ODZkNjkzZGRiYWYyY2ZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGVhY2UyM2ZhN2FlZjc0YmFjNzcxZGUwY2U3NjFhOTdhNzIxYjdmNDkzMzI3NGQ2YjMzNjgyN2ZkZDRjMWM3YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGJhZjJlNDZlMmUxZmU2MmI0OWYwYzZkYmE4NmY0ZGRkMTY0OGU1MWQyOWVlZjFkOTJiNGNkOWI2ZGE4ZTg3NiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-10T01:26:12.508Z"
+  }
+}
