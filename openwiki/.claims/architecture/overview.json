@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:fb7bf7735e552e0f7f532711a2aca6d8556e56b31a1de7ace1e71270b3b2b93d",
+  "pageVersion": "sha256:d56b4516e6066d311c8668a1d14819519aa4d5be71ba5cb27d431372bf913e86",
   "claims": [
     {
       "id": "claim_f066f805dba9450386bd22f5cf77091a",
@@ -25,7 +25,7 @@
           "version": "repo-lines-v1:sha256:3c8d421a9c845f41088c9c83f7135ae752cac77c90b7f86787cacbc4a1a3b4c5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2M4ZDQyMWE5Yzg0NWY0MTA4OGM5YzgzZjcxMzVhZTc1MmNhYzc3YzkwYjdmODY3ODdjYWNiYzRhMWEzYjRjNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2M4ZDQyMWE5Yzg0NWY0MTA4OGM5YzgzZjcxMzVhZTc1MmNhYzc3YzkwYjdmODY3ODdjYWNiYzRhMWEzYjRjNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzdiZWZjZWJkNDAxNjBkZWJmNmQ1MzZkNjM1MThkY2MzZjhlZmZmMTgwZDEwMzM4MjFhNjY1MjliOGZjMDg5OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODEyZWJjOWQ3NjlmMDgzYzBkYWNmZTFiMDNiZThlOTA0NjcwZmVkY2Q0YzFiZmYxMTU0ZTg2MThmZTIyZDI1YSJ9"
         },
         {
-          "resource": "repo://yach.py#L706-L707",
+          "resource": "repo://yach.py#L773-L774",
           "version": "repo-lines-v1:sha256:9dd906a93b2e6e4eff16a6c1bdb102d1e4f7cb3b15eb59cb2af7e86ff11d9615:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTMzOTVlOGFkYTYwODgxMWE0MjhmN2E1YTgyZjAyZWZmMDVjNzFjOWNjZmUxYWZhMzAxMGZjYzJkMGM1YWU5MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFhZGJlMTVmYTljNTJhNjZlNTU1MDczNmFiOGY2ZDFmNWFkNTNkZTAyYTVhNGVkMjg4NDdmY2ExNWRjMGYyOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjc1NjUzZDYyMDMxNTJiYjMzZjljNzY2Mzc4ZTFkYWNjMjkyMTdlMWQyYjEyMTU2NWFhNTZjZWIxMWNlN2FiZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjdhOTJjMGI5YzYzZGExNDg5YmNlOTYwZjFiMzM1OWY3ZmVjNWVkZTdhNDdjZjU2NmM5MjBkOGRlNjFjNWI4ZCJ9"
         }
       ]
@@ -35,7 +35,7 @@
       "statement": "The module-level SANDBOX is None unless --sandbox is passed, in which case main() assigns a running Sandbox instance that run_bash, resolve, and sandbox_note consult.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1273-L1281",
+          "resource": "repo://yach.py#L1398-L1406",
           "version": "repo-lines-v1:sha256:39a376d94b614ce1965d4697a3421fde07437fa09f1e4e8ce380fe9669447a45:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTA3MjQ0OWI3MWJjMTVhM2QwYTA2NDkyZjc4OGNjNzczYWU1M2Q5NDkyMDNiMmEyNDdiMzRmYzhlOTM2MjgyZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmM3OGM3YzM3OGMyNDdiMTYxMDE5MGFjMWJjN2NmOGUxMmVhOTgzYTdjZTM0NzA4MDJkNTNlM2JmNDQzNjg4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTU2ZDk4ZDM2NWUwY2ViNTBlMzBhOTMyZWMzMzJiYzVhNjM2MzEyODlmNjNkMjhiZmUwNGYyMGFjYzRjZDJhOSJ9"
         },
         {
@@ -43,7 +43,7 @@
           "version": "repo-lines-v1:sha256:5621371dec0c0307fe008bb0a0113cdcd492f22f5e0aeba39a4ca8cdce63b7d5:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTYyMTM3MWRlYzBjMDMwN2ZlMDA4YmIwYTAxMTNjZGNkNDkyZjIyZjVlMGFlYmEzOWE0Y2E4Y2RjZTYzYjdkNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTYyMTM3MWRlYzBjMDMwN2ZlMDA4YmIwYTAxMTNjZGNkNDkyZjIyZjVlMGFlYmEzOWE0Y2E4Y2RjZTYzYjdkNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiY2JmOTA4ZGQ3YmQyZWZmNmQyYTk3OTRkNjVjNTMxYzQyMTFjODdjZmMwNTY3NjU3NDdhZWJkZTJkMzMzNTI0ZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGY5NDIxZWExYzAzZWI4ODNmY2IzNWY1OTEyZTZhY2MxM2FmZjlhYmNiNjExY2JhOWNkMzQwMmFmMGE5ODYzMiJ9"
         },
         {
-          "resource": "repo://yach.py#L671-L678",
+          "resource": "repo://yach.py#L738-L745",
           "version": "repo-lines-v1:sha256:641f434c7f067d5d78ae4ffcfa14fb3ceacc2c448c4a743376bf6a44e0830338:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDhiZjk2MThiZWFhMmQxMmRhODMyZWRlZmRhZjQ3NThhNzhkNzI1NzAyYjkzMmU3ODQwNTU3NWVlZmFmNjkzNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTRiODdiYjM5YThkMTZhY2NlNDY5YjcwYTAyMDBiMjIxMzMxNTkzZTU1ZDU5YTVmMjAxNjI2YzFmZjE2MjgzMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDdlZDYyZjFkOWQyYThlY2IxYmI0NDJjNDEwMGIzYzgxNmMyMzgxOWI4MWE3NjAxMmMyM2FiNDU0YWYzNzI3YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGIwMDIzMjg2MDE1NzU2MzNhMTUzMGFiMTJhYzJjOGVmNDFlMjk1NWI5ZjYxNmQ2OGI4MTg4YWEyNjQ4YTNlNCJ9"
         }
       ]
@@ -53,7 +53,7 @@
       "statement": "The system prompt is built once per session from the project root, platform, an optional sandbox note, the date, working rules, and any AGENTS.md or CLAUDE.md in the project root, and must stay byte-stable because it heads the cached prefix.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L681-L701",
+          "resource": "repo://yach.py#L748-L768",
           "version": "repo-lines-v1:sha256:45a4637869121dc5927a76081cfea266a3126ed159e2f03b939411acd91da732:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5MTZhNjQ4MTk1MGZjYWNiMDBlY2M4NzIwMzhhYjc3YjJjNDgxYmRhZDI3YjU3OWI5NTc1YmU4ZjIyYzBhMzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlNzBiNzJhNzgyMmUzZjczMTg4OTJkNWZkOWU3ZDNmNmMzODBhYzAyZjY2ZDAyNmY3YmJiY2I1NTY4M2YyNzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmMTZkNjRmNTQ4YmFmN2M3MWQ5N2NkMWE1MWQ0YmJlN2JlYmJhZWRiMGU4MzVlMDU1NjM3ZmVhMDE1YzFmOTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhYWI4YmJlMDc2ODFhNjc3OTcxYTlhYjJlYjk5MTM4NTMwNDJkMDZiNDhkYTFhN2Q1OGU3NmNjODVmZGFjODkifQ"
         }
       ]
@@ -63,8 +63,8 @@
       "statement": "In the REPL, lines starting with ! or / are handled locally while all other input is sent to Agent.send.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1310-L1365",
-          "version": "repo-lines-v1:sha256:695f4398f19a7ad04fa46a5f76732c75cf1214710aa8bbbdd0d9048d8b58948c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0NDQyNmU1MWMwZmNkYzA0YTA0ZDQ1YTEzM2NkMjI3MWVhZWMyOThlMGU3ZTI3NTE5YTdlNjE1MmUzYjlmNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNTBiYjBkMjNmZTgxNmZjODM0NTg5OTUxOTMwMDRkYWUxMGVhNDdlNmYzOGI2ODEwMGZmOWZkZWMyYTNjZDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxNjRkYTE1NDkwZDhjODQyOTcxNGRmNDJiYmE1M2NhMzE2ODM1NjAxNmEwNDFmNzI1YjYwZWI2N2U3MjU1ZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2NWQzZWUzYTU3OWEzZTRlOWFlYzA0NzE2ZTE2YWRhNDdmNmM3MzRiY2U3NmM5NzgxODgzYWI1MjExZjU2NGIifQ"
+          "resource": "repo://yach.py#L1435-L1493",
+          "version": "repo-lines-v1:sha256:e6625769840cc7b11888d6c4ea7402a9740e7409247b87c98fd8b6deafb1a3ea:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0NDQyNmU1MWMwZmNkYzA0YTA0ZDQ1YTEzM2NkMjI3MWVhZWMyOThlMGU3ZTI3NTE5YTdlNjE1MmUzYjlmNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNTBiYjBkMjNmZTgxNmZjODM0NTg5OTUxOTMwMDRkYWUxMGVhNDdlNmYzOGI2ODEwMGZmOWZkZWMyYTNjZDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxNjRkYTE1NDkwZDhjODQyOTcxNGRmNDJiYmE1M2NhMzE2ODM1NjAxNmEwNDFmNzI1YjYwZWI2N2U3MjU1ZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2NWQzZWUzYTU3OWEzZTRlOWFlYzA0NzE2ZTE2YWRhNDdmNmM3MzRiY2U3NmM5NzgxODgzYWI1MjExZjU2NGIifQ"
         }
       ]
     },
@@ -73,14 +73,24 @@
       "statement": "On resume the saved system prompt is reused only if it differs from a freshly built one by the Date line alone; otherwise the current prompt is used.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L874-L887",
+          "resource": "repo://yach.py#L944-L957",
           "version": "repo-lines-v1:sha256:11d37aff9a9d226997808da09607e9fedd72778141a1c8dc04cf947c966d4a7c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YmE3MzQwZGQxYjE5OThiYjgxMTg1M2QzNDFhNzdkMWM2Yjc3OTVlMjU0MjY4YWVjZmJjYWYwZGQ2YjAzMDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5YmQ2ZDAxODA0OTM2NTYxYzJhMzc0N2ViYzA5ODFkYzk0N2IyZTc0MjZmMzNkNzIwMjBmNGQxZjU0ZjU1ZmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxOGE0MGQ5ZjRlMzMxNjk5OTMxOTgyZTNlMmE5MjE4NzhlOTlhMDczYTY3MGY2MmUxZGE3ZDQzY2MyZjMzMGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJmODM4ZmRhYmFkZTgwM2I3NGM2ZjZiYjJiNjllMzIxMWEwNzlhY2UwYjAwZmJlZDc0Yjc0NTM5MTJhNDY1MjMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4e59c1f783d144f38e7ea295c93f101e",
+      "statement": "yach.py has an undo section between permissions and the system-prompt code that defines the Checkpoint class used by /undo.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L668-L675",
+          "version": "repo-lines-v1:sha256:dd1a4ab342bad6f5596cad9e8bc59890a068d66b4565f60eb6a9e3a2df17bae5:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTk0NDY4Y2E4NjQ2ODRlMWViNjU4ZTM0YjQ0MmYyYjhhNmZmYmJiYWMzNmRjOWNmNjUwMjQ4MDJkZDY0Y2EyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWM5MGQwMWE1Mjc3YTUzZTFkOWE3NjBlM2Q4OWE3MTAwNGNlOWMxODdlY2U5MWQ0NTk3NTMwZTVjMjllNTJkYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjg1MzkzZDI1ZjI3YTgzOWUxNTM2NGVkMjZiNWNkNWZmZjRjZTI2NWJiNDQ0ZWJjN2NmMTgxYTcxNTNjNDdhYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODc0NzFhZDI4OTcyN2IzYTEwMDZkNmM1ZjVmNTAyNTdlOGE1ZWE5ZjZjMWRlMjgwMDI2NTQ4ZmI0NTVhY2MyMCJ9"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-07T00:49:17.948Z"
+    "at": "2026-11-10T01:26:12.508Z"
   }
 }

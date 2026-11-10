@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:389f92268eb50c649f4c34678d0b9749c6a78ec0e005bece2cc9b622affec31f",
+  "pageVersion": "sha256:1912bfbb44ce6977beed90150d7dfb1b5367a21b02f6b5f8c72425a7ec80e4d5",
   "claims": [
     {
       "id": "claim_636ba439320e4fd884c6bc76eeab1009",
@@ -103,8 +103,8 @@
       "statement": "run_tool converts every handler exception except KeyboardInterrupt into an error tool_result rather than letting it crash the session.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1087-L1102",
-          "version": "repo-lines-v1:sha256:035969b1178233ff3629a79cfb023cfd9d2d1916e2bf8970ea44c3035025a5f7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NjljYjA5MjgwZWUwNzgxOTQ1ZTQ4ZDQwNDFiZDJkZmFhZTY5MWFkMmVhYmY1ZDNjYmEwODQ2YzcyMTZjYWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0MjQ3OGNhY2IwYzNmYTM4NDI4MGM1ODRkNDQ3Nzc1NTU2NGY5MjZkYjRjMDdjYjVmODk0YjIwOGNjY2RjYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyYTIwY2ZkMWUzM2RhNWRlYTFkODY3NDg1YzIzMGU3N2UxMGUzYWE3NTliOWNjNDlkOTA5Y2NjZmI5Njk1MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxMmU4ZjY2ODI0MTM1MGM2YTRkODBkNTgwMjdlYzVkYmY1ZWVjOWYzODJkZThiNmU3M2JiZDA4NGU1M2YwNDQifQ"
+          "resource": "repo://yach.py#L1158-L1181",
+          "version": "repo-lines-v1:sha256:f46d4afb2d9e4f57e6815009bd86b2c55e40d36a1f3e372966eb110b9437fb3d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1NjljYjA5MjgwZWUwNzgxOTQ1ZTQ4ZDQwNDFiZDJkZmFhZTY5MWFkMmVhYmY1ZDNjYmEwODQ2YzcyMTZjYWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA0MjQ3OGNhY2IwYzNmYTM4NDI4MGM1ODRkNDQ3Nzc1NTU2NGY5MjZkYjRjMDdjYjVmODk0YjIwOGNjY2RjYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYyYTIwY2ZkMWUzM2RhNWRlYTFkODY3NDg1YzIzMGU3N2UxMGUzYWE3NTliOWNjNDlkOTA5Y2NjZmI5Njk1MWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxMmU4ZjY2ODI0MTM1MGM2YTRkODBkNTgwMjdlYzVkYmY1ZWVjOWYzODJkZThiNmU3M2JiZDA4NGU1M2YwNDQifQ"
         }
       ]
     },
@@ -117,10 +117,20 @@
           "version": "repo-lines-v1:sha256:80cfb9f77faa91af27a191540fca6f6c56a98162f084b5a4bff8dce6f6e07126:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4YjMyNWE4MTNjMDNlNTU4N2I2Y2RmM2I1ZThmZTAxZTQ3NjE1YTgzYjA4ODlmMDU3NDU2ZmUwNmMxNTlhYTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxZmNkZTc0YWU2MzU1NWI3YzAwZjExODFkZWJhMmJjYjNkNWU5MDBhYjVhNzEyNjZmMzJjNDFlNjBkZWRmMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIxN2NiNDA1MDEzYjViNmFjYmJhMDlmMWUwNGQwNDFjOGM5MTY1YWQ0YzdiYWE2ZjdhMjNmMmJmMjdmNDQ3YzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjQ0YjgwNzYxNWQwYmI4ZDEyZDljODE1MDUxOWQ2NmYzNjMyNGY5NGE0N2MyYzhkNzE4ZDIwYzdjYTlhOWIifQ"
         }
       ]
+    },
+    {
+      "id": "claim_0ca844684ec848439836d49e0b08db35",
+      "statement": "run_tool snapshots the target of write_file and edit_file before the handler runs and records it in the turn's checkpoint after the handler succeeds.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1162-L1175",
+          "version": "repo-lines-v1:sha256:da59ff567b0363d55fd02707c578110029952e8964efe42b1f06dc226bc3e7b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExNzQ2OWU3NjQ3MzUzMWQzNDIyMzFkYjdlNDM5NDQ2OWYzMDgxNTU0NTQ5OWNlMzk4ZDY2ZjYwNWI2OGYyZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWM1YzZiM2QwYjhiMTlkMjMwOWJhYWUxYjE5MDAyM2ZjOTkzMTI1ZjI1NTM4M2E5ZmI4ZTUxNjIxMTkzM2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0ZmNkZTI5MGE3Nzk5NDZhNmFhMDE1NDg5OWE1YmFkMzM1ODQyNzgyNjQ2MzA1MGNhZTY5NGI5YTNkOWMyMGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMDIyNzRmMTRlZDM4YmE1ZTQ3ODZiNmNlMzY0NzBjNTVkNTQ1YmJjNTExZTViZjcxNDcyMWQxMWQxYmYwMDEifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-07T00:49:17.948Z"
+    "at": "2026-11-10T01:26:12.508Z"
   }
 }

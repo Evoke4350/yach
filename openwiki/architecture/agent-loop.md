@@ -5,11 +5,11 @@ description: How Agent.send drives YACH's streaming tool-use loop against the Cl
 tags: [agent-loop, streaming, tool-use, prompt-caching, claude-api]
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-07T00:49:17.948Z
+    at: 2026-11-10T01:26:12.508Z
 sources:
   - id: openwiki-source-d3fe2c58a00acb98c6319084
     resource: repo://yach.py
-generated: { by: "claude-code", at: "2026-11-07T00:49:17.948Z" }
+generated: { by: "claude-code", at: "2026-11-10T01:26:12.508Z" }
 ---
 
 # Agent loop
@@ -23,11 +23,13 @@ call. `Agent.run_tool()` executes one tool call; see
 
 ## One turn, step by step
 
-`send` (around `yach.py` L1109-L1179):
+`send` (around `yach.py` L1232-L1303):
 
-1. **Repair, then maybe compact.** It first calls `session.repair()` so a
-   previous refused or interrupted turn can't leave an unanswered `tool_use`
-   behind. Then, if the last measured context size has reached the
+1. **Repair, checkpoint, then maybe compact.** It first calls
+   `session.repair()` so a previous refused or interrupted turn can't leave an
+   unanswered `tool_use` behind, and starts a fresh `Checkpoint` for the turn,
+   which `run_tool` fills in as files are written
+   ([Undo and checkpoints](../safety/undo.md)). Then, if the last measured context size has reached the
    `--compact-at` threshold, it compacts the conversation *before* adding the
    new message. Compaction never happens mid tool loop
    ([Context measurement and compaction](../sessions/context-and-compaction.md)).
@@ -61,7 +63,7 @@ Inputs that parse but are wrong are caught later by `validate_input` in
 
 ## The model call
 
-`stream_turn` (around L1009-L1072) sends one streaming request to
+`stream_turn` (around L1080-L1143) sends one streaming request to
 `client.beta.messages.stream` with:
 
 - `model`, `max_tokens=64000`, the session's `system` prompt and the full
@@ -118,5 +120,6 @@ message.
 
 - [Architecture overview](overview.md)
 - [Tool surface](../tools/tool-surface.md)
+- [Undo and checkpoints](../safety/undo.md)
 - [Context measurement and compaction](../sessions/context-and-compaction.md)
 - [Session storage and resume](../sessions/session-storage.md)

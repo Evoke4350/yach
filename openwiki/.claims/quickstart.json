@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:ba6832ca427ebac8c28a419df4c6a83a138420b87d2da59b48ed17ea7e92b779",
+  "pageVersion": "sha256:61689e7e049e14a618457ccf847a292af39fb22ce8d555ab629472cc122256cf",
   "claims": [
     {
       "id": "claim_d74171f01b6b452c889dd82cb25e794e",
@@ -21,11 +21,11 @@
       "statement": "Conversation history is append-only so prompt caching, preserved thinking, and resume replay identical bytes.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1129-L1132",
+          "resource": "repo://yach.py#L1253-L1256",
           "version": "repo-lines-v1:sha256:4b2dddc33aa38fa0eb4b467b1299003567706256843c705acf785775466c437b:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTM1N2I5YmJjNGJkYTU1Mjk1M2MyYTczMmVhYWNhYTI1ZTZiMjdhYTI3NmFlYjgxMTQwMzE0NWQyYzZiNTJjMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2YyNTgyZTU0NWMyY2FjZjA0OTVhYjllZjgwNTlmMjJhMjAxYjQ5NWQ1MzMyZjE0NWJiZmM2YzdmZjVkMGZhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjU0MzVkODBmMTc0NTBjMGM0ZTAzNmZkODA5M2VjZTE1MjEyMjFhZThjMGEyYzQwNWY1OTViNTNjMzFlNDAyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWEwMWRmNDhhOTYyNTc4NGQxOGYyNzRkOGRlNTIwZGJjODhmZjhlYjA0YjQ4OGYwNzU4Nzg1NTMzZDcwNTFmZSJ9"
         },
         {
-          "resource": "repo://yach.py#L710-L721",
+          "resource": "repo://yach.py#L777-L788",
           "version": "repo-lines-v1:sha256:c13a6a5315bc941495ec3fdb0d0ab0c5dc51cf01f608811351fb5ca2a6627353:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4NmRkN2FiZTc4ODM0MzQ1NmJiM2FkMDQ4MzY2ZTA1YmM3MTE1NGVmZjkzZThlMTk3ZmMxODU3NmI3ZmUwOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE2YTcxNTI1NzJlZTg0ZjEwOTA2Yzc0YjlmMmE5MjQzNGRkYWIwZTNjNDI4MTNiMDRlNTk3ZWZjZWM5NTFiMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2MDY5OWQ5MDk4ODQzZTcxMDgzNDY4MDI2OTFhNjJiMjY5NTFjYTE5ZjAwZDg3ZGMwZjAxMWZlZWE5NmQzNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ1Yjc5Y2UxYTRmZGJjNmRkM2NmNTdmZDdmZTI5MGZmNzUxZGI1ZjA3ODQ4MTQ0ZjMyZDNiOTI2NTQ1NzM0Y2EifQ"
         }
       ]
@@ -35,32 +35,38 @@
       "statement": "Before each new user message, any tool_use left without a tool_result is answered by Session.repair().",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1109-L1110",
+          "resource": "repo://yach.py#L1232-L1233",
           "version": "repo-lines-v1:sha256:36a8ecdd7b5b87cc51facc3cb4884eaa09c9e18b2ddbb618d6f2b1c070606d4d:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTkwZGU3MzYzMzk3MzA0OTY3YmY1YWQwMzU5NjE1NjU5NDZjNTZkNTFlNDA5YTczZWZhNWE2MzEzMzJmYWZmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTgwZjM1MDY5MGQzNWQ1YjU1M2U1NTZkYWZmN2I4MGI5Y2ZhMWM5NTQ1MDU4NDliY2VhNDkwZjkwOGIyNjc4ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2Y1ZjNiMzM4NjUxZGNhMzZiMzA5MGI1MWRlOTRiMDJlYTMyYjEzNjA3NmFkZDRjODZiZmRlYmRiZWJmMGY4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDgzMWQ5YTRiNTFjYTkwNDA0MTlhOTc5NmU5YjAwZjI2NWJlYWRiZDM4YTk3NTRlNjkzNzE4YjJkZDQ3ZmJhNyJ9"
         },
         {
-          "resource": "repo://yach.py#L783-L793",
+          "resource": "repo://yach.py#L850-L860",
           "version": "repo-lines-v1:sha256:ddd5a14272cd7b315387455fe9e607161eb4185ec166afdd11d718e57f68bdeb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1MmM2NDAxY2YwZTZmOTQ4YzI3NmQ1ZDNhMzY2ZThiZGZiNjliMjQwZTFiM2Q3Njg3NTNmNmQyMjY3NGNjODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyMjUzZGNjMmVjNTkxODliNWE1MjUxMGU3YTk3MTI2MTQ2MTQ3YWQ4MzFhZTU5Y2NhYzhhZjE1YjViMWE1MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzZmY4NTUyNzFmZDEwYzFhMjZjZWQ0YmE2ZjJhM2Y1YjFmMDgyZTU2MTgwZjhkMWI2YzM2ZGFmMGNkZTRhNTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxMjI1NjU0ZWE0NGU3OGY4ZGI2M2YyYmI3NjZjMWM4MTBhNzEzM2FiMmU3MjBiM2VlY2Q5OWYwNzFjYTQ0OWUifQ"
         }
       ]
     },
     {
       "id": "claim_6844b1cc7e3f4501914f43137dbb1b02",
-      "statement": "The repository contains no automated test suite; the only tracked files are the module, its packaging metadata, lockfile, and README.",
+      "statement": "The repository contains no automated test suite: the package builds from yach.py alone and declares no test dependencies.",
       "evidence": [
-        {
-          "resource": "repo://README.md",
-          "version": "repo-file-v1:sha256:679d125aaaa2e593759ffdd9183888537806e0c3fd47280bcae346ca02f103a1"
-        },
         {
           "resource": "repo://pyproject.toml",
           "version": "repo-file-v1:sha256:ec8b0a8baca7800a143bcfbaf025575cfd6e59e2de22eb7a72ce387eaaaf201b"
+        }
+      ]
+    },
+    {
+      "id": "claim_9df2ae21c7094a84b59a626d0f9078f3",
+      "statement": "File writes are covered by /undo only because run_tool snapshots write_file and edit_file targets by tool name, so a new file-writing tool must be added there to be undoable.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1162-L1175",
+          "version": "repo-lines-v1:sha256:da59ff567b0363d55fd02707c578110029952e8964efe42b1f06dc226bc3e7b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExNzQ2OWU3NjQ3MzUzMWQzNDIyMzFkYjdlNDM5NDQ2OWYzMDgxNTU0NTQ5OWNlMzk4ZDY2ZjYwNWI2OGYyZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWM1YzZiM2QwYjhiMTlkMjMwOWJhYWUxYjE5MDAyM2ZjOTkzMTI1ZjI1NTM4M2E5ZmI4ZTUxNjIxMTkzM2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0ZmNkZTI5MGE3Nzk5NDZhNmFhMDE1NDg5OWE1YmFkMzM1ODQyNzgyNjQ2MzA1MGNhZTY5NGI5YTNkOWMyMGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMDIyNzRmMTRlZDM4YmE1ZTQ3ODZiNmNlMzY0NzBjNTVkNTQ1YmJjNTExZTViZjcxNDcyMWQxMWQxYmYwMDEifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-07T00:49:17.948Z"
+    "at": "2026-11-10T01:26:12.508Z"
   }
 }

@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:ac7f03c6e1ac3bd01034374b46a910684377c73b479d4a1e1a04c47a28f57954",
+  "pageVersion": "sha256:a7997ea1a3d3b515a21ec7042b2693dcae0b70b64bc43c1a9cf0eeb235b01c4b",
   "claims": [
     {
       "id": "claim_43955b1b6acd4d8595516f65ed0d16a9",
-      "statement": "Agent.send repairs any unanswered tool_use and, if the last measured context size has reached the compact_at threshold, compacts the conversation before appending the new user message, so compaction never happens mid tool loop.",
+      "statement": "Agent.send repairs any unanswered tool_use, starts a new Checkpoint for the turn and, if the last measured context size has reached the compact_at threshold, compacts the conversation before appending the new user message, so compaction never happens mid tool loop.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1109-L1115",
-          "version": "repo-lines-v1:sha256:db2875d4bdcabd405a92e30c20c9a58fdc89d3f9d1b514119fd3e556e568a190:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTkwZGU3MzYzMzk3MzA0OTY3YmY1YWQwMzU5NjE1NjU5NDZjNTZkNTFlNDA5YTczZWZhNWE2MzEzMzJmYWZmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmYzMDcyNDIzMWM5MzVkZjRlMGI2YTZhMDQyMDExNzZlMWZhMzA4NTUwZjQ3YTIwNTQyNTVkNWFjMTY5YzI1NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2Y1ZjNiMzM4NjUxZGNhMzZiMzA5MGI1MWRlOTRiMDJlYTMyYjEzNjA3NmFkZDRjODZiZmRlYmRiZWJmMGY4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjg5MzRmMWRiYjhkNWUwZTQzOWFhZDliZmQ2OTJhOWM4MDJiZGI4MzQzOGQyNDAyODMwZDdhYmYyOWU2MjVmNCJ9"
+          "resource": "repo://yach.py#L1232-L1239",
+          "version": "repo-lines-v1:sha256:40fbc0999063aba58582fe2361be5323259e47442b3e039ce8ae4f2706803561:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTkwZGU3MzYzMzk3MzA0OTY3YmY1YWQwMzU5NjE1NjU5NDZjNTZkNTFlNDA5YTczZWZhNWE2MzEzMzJmYWZmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmYzMDcyNDIzMWM5MzVkZjRlMGI2YTZhMDQyMDExNzZlMWZhMzA4NTUwZjQ3YTIwNTQyNTVkNWFjMTY5YzI1NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWEyNmExYTg3MDQxNDUyYzE1NzBlY2RkMzgwOTRhMDU0Y2FkYjNmNGQ5NTc0MTVjOTM1YzBkYjQ2ZWNiMzAxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjg5MzRmMWRiYjhkNWUwZTQzOWFhZDliZmQ2OTJhOWM4MDJiZGI4MzQzOGQyNDAyODMwZDdhYmYyOWU2MjVmNCJ9"
         }
       ]
     },
@@ -17,7 +17,7 @@
       "statement": "On stop_reason max_tokens with tool_use blocks present, the loop never runs the tools and instead answers every tool_use with an error tool_result asking the model to split the work, then continues.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1156-L1164",
+          "resource": "repo://yach.py#L1280-L1288",
           "version": "repo-lines-v1:sha256:bdae07156f27b6691ebabc16c03d3c3f5ec64887b35877258731752721091d3d:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjUwZDI5ZjM5MjNlODI2Y2YyOTNlNzgzYzgxNTczOTQxYjQzNDFlNmU3MGM2ZDQyMTI0Y2JhZDExNGJiZGE0NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ4YTllOWMzMjUyODIwYzY1YTgxNjUyMGI4ZGI0OTMyMjgwODQ5ZWM4YzdkMmViNjI3MmFmZGZlYmUwNTljMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzMxYjVhMmQ5YmZiMmQwZjMxZWZhNjVhNjhmMWQ1YWMxNzU2YTVhNmRjYzRkYmQ3NDJjNDY0M2NkZGU0NWM3NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTVkNGUwMmI2N2I5OGMxZTY2ZDIxNzBjM2M3ZmEzNzQxZjBhNjEzM2UxMTRhOGQ0MTk4N2ZmYjNlNTBmMWE0ZiJ9"
         }
       ]
@@ -27,7 +27,7 @@
       "statement": "A refused turn's tool calls are never executed; send prints a notice, answers them through session.repair(), and ends the turn.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1147-L1150",
+          "resource": "repo://yach.py#L1271-L1274",
           "version": "repo-lines-v1:sha256:afa412c55a8072237138c2d74de18ac39594b3446e38608256c3045f08363b48:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDJjODI2NjJmM2IxM2ZjNGYxYTQyZDc3YTI1YWM5ODFlMjY4NDM5YjM3MzNhNzIzYmJhMTgzMDQ4MDE3ZGE3MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjJhYjU2YWMwYTg2OWJmODA5ZWVlMWJkZGNlMzg4YWYwNzdjOWZiMzY3MjUyMWRjN2ZjOTVlMjA5YTExNzdjYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2E2ZTNiOTYzZmMxMTY0OWY3N2JmOTdiNWM5Yzk2YTBmYmIzMzk0MGJlYjA3NjY5NDQ4Mzc4MTM2YmQ0NTc4ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzYxZjMyNjAyNWY5Y2E4YzRmYWE5MjMyY2VhOTkxYWY5OGZkODY4ODJjMzBhZmJiZjYzZjU5ZmNiODU1ZjM0MyJ9"
         }
       ]
@@ -37,7 +37,7 @@
       "statement": "All tool results from one assistant turn are appended back as a single user message, and on Ctrl-C the remaining tool calls receive 'Interrupted by the user.' error results so the history stays valid.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1166-L1179",
+          "resource": "repo://yach.py#L1290-L1303",
           "version": "repo-lines-v1:sha256:1e093c1ebd7827cb3ad9909a3ba8b70276f7e5f6f5ce76b0692466912bad6e4f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5MTdkZTNmZjkyZjc3M2IwNjdhMmIwZWI0Nzg4NTI5NDYwNjdjZmMxZGNmMmQ0M2FmMzFjZjVlYmQ2ZDcwZTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MGVkOGI3NmEzNmNlODA5YmVjZDczY2I0YTA1MTBiZDNhODc2ZjhjNjc2ZTYxMmI2NWY5YmFiNDVkZmNjYWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhOWRkZWM4ZThhOWU5YjNjZmQwZjA2ZjBiMzU0MGEzYjI4ZDk3ZTVhNDg5YTdjNjE2NmI2MGU4NmI1MjIzNTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0MDcxNTExNzlkODc2MmM4MDllZjcwMzZhNjM3OGFhNDhmYjBhNWI3ZDRmNmY5NGFlMmQzZmJlNjI0YWU0MzUifQ"
         }
       ]
@@ -47,7 +47,7 @@
       "statement": "If the SDK raises ValueError on unparseable streamed tool-input JSON, send re-issues the turn and re-raises after more than two consecutive failures.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1116-L1127",
+          "resource": "repo://yach.py#L1240-L1251",
           "version": "repo-lines-v1:sha256:7ed5f2a458500bf5ccbdc070387563e40e3f2eaf4b8b9b3c74476ef34a261f38:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJmMzgzZTZiODhmMmNjYWUwMmU2ODUwZDZjMjM0NGJiMzc5MTY3NmI4NjczYmZmYzMzZmRmNWExZjU2Zjg3NGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkOGE5ZTljMzI1MjgyMGM2NWE4MTY1MjBiOGRiNDkzMjI4MDg0OWVjOGM3ZDJlYjYyNzJhZmRmZWJlMDU5YzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1YjNmZWZmMTVkOTY0M2M5NzFmZjUwYzVhYzgxMDc1N2QyNWJmODBhMzg1OTlhNjNkYzhiN2Q3NjQxODU0ODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxNTcwZTg1NDRiNzc0NTg3ZDNkMmQxYzhlODMxODY2ZmFmOTgzZTVlNTJjMTRiZTRiZDEyMWI1YmEzMWJjNWIifQ"
         }
       ]
@@ -57,7 +57,7 @@
       "statement": "Assistant replies are stored in their API wire form via to_dict() and earlier messages are never edited, keeping prompt caching, preserved thinking, and resume byte-identical.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1129-L1132",
+          "resource": "repo://yach.py#L1253-L1256",
           "version": "repo-lines-v1:sha256:4b2dddc33aa38fa0eb4b467b1299003567706256843c705acf785775466c437b:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTM1N2I5YmJjNGJkYTU1Mjk1M2MyYTczMmVhYWNhYTI1ZTZiMjdhYTI3NmFlYjgxMTQwMzE0NWQyYzZiNTJjMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiN2YyNTgyZTU0NWMyY2FjZjA0OTVhYjllZjgwNTlmMjJhMjAxYjQ5NWQ1MzMyZjE0NWJiZmM2YzdmZjVkMGZhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjU0MzVkODBmMTc0NTBjMGM0ZTAzNmZkODA5M2VjZTE1MjEyMjFhZThjMGEyYzQwNWY1OTViNTNjMzFlNDAyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWEwMWRmNDhhOTYyNTc4NGQxOGYyNzRkOGRlNTIwZGJjODhmZjhlYjA0YjQ4OGYwNzU4Nzg1NTMzZDcwNTFmZSJ9"
         }
       ]
@@ -67,7 +67,7 @@
       "statement": "Each model call streams via client.beta.messages.stream with top-level ephemeral cache_control, server-side fallbacks='default', the effort from output_config, and adds the compaction beta when the history starts with an assistant-role compaction summary.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1009-L1029",
+          "resource": "repo://yach.py#L1080-L1100",
           "version": "repo-lines-v1:sha256:f3a77cae0eca192280afb0688442fea799b1912ebc79cc2e98c56bbc63090a22:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwMzAzNmQ4ZmQ4ZWM1OWQ2Zjk3NmQ1MWQ3ODgyNTk1OGU1MmFlOGYzNzMzMTgyMDhhMjE1NzM1YTJjMTUxYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjczYzkzYTgwOGYxYzBlN2I4MGFjMWMxM2ZiNTIzZjIwNGQ1MWJjYjc0Y2Q4OTRmOWNjMThiZDU2NjVjZTNjM2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0NGM3YWMzNTkyMDRlYjNiYWM2ZjRkNDE3Zjg3YTM5NzAyNDE1YTkwYTU0MWJlNGY2NTg4OGU3Y2I3MTBiZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjYjdiZWQyOGUxMGM2YTc5ODMwODM2ZjQwYjNiYWMwNDQ0MzFjOTRkOWM2ZDg1ZTA5YzNiN2E5YjJhYzdhNTQifQ"
         },
         {
@@ -81,7 +81,7 @@
       "statement": "Thinking is adaptive with summarized display; only resumed sessions add block_binding prefix_mismatch_behavior drop_block with the thinking-binding-controls beta.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L897-L906",
+          "resource": "repo://yach.py#L968-L977",
           "version": "repo-lines-v1:sha256:5de6bcd20fdb0df284c51ea029955fe11009013917a66c2739aec36e93aa4cbe:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkN2U2OGIxZTg0ZjJmNTBlYmMxNjY0NTJiMzZjMjdmMDBlYTBkNjk4ZTNiZWMzOTQzMmNmOTQ2OWM4ZTQ1OTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkODQzMDhkMzAxZWZkODdjYTNiMDE0YmUzMWU2MTgzYWVmZmY4MzdhMjFjNmE0MDU0MmVmZmVlZWM1NjQxNTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlODQ2NmEzNzI1OWFlYWRjMWU1Y2QyNDY4ZTEzMWRiNmE4MWFhOTAxY2E3ZjA5ZDMxOWY5NWZkODI4NDdjNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5Mzg0NTA0MmExOGIxYzU3ZWNjNTlkZjYwNDVkZjBmNjE4M2YxNjczMmY4ZDE4YzhjYTI5OGRhYzY1N2IxM2QifQ"
         }
       ]
@@ -91,7 +91,7 @@
       "statement": "Tool definitions enable eager_input_streaming, and run_tool validates each parsed input against the tool schema, returning an INVALID_INPUT error result instead of running the tool.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1074-L1081",
+          "resource": "repo://yach.py#L1145-L1152",
           "version": "repo-lines-v1:sha256:3dccd13298ac95d8232e5ef1f4b235e96b36b4197d8592383c6b4bb9e51e23db:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTI0ODU3NzM3NjBlZjZmZWY2ZDAzMzA1ZjU1MmJjZWFiNDdmZWE5OTMzMjUyM2FlNzdiNDI5NDEwYmNjNDY4OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjNkZDAxNjc5ZDhjZTQxMTJhZGQwYmFlOTZjMzM4ZGI1NDk4ZTEwMDcyZDJiM2MwNTYyZGI3YzJhY2I2ODM1MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGZhOTJmMjM3YTlkMTM2NjM4OGMzN2RlYWY2MGVmYmViZDk5NmE4MGM0OTcxMzU5YjVjOGViNGFlMzMyNjVhMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmRiY2VlY2M1YzBiOWE4OTk1NzU4ZjZkZGQ0NTRmNjdhNTZhZTFjMDhiYmVmZjRjZjI0NjZjNmU1NDhhNmY1OCJ9"
         },
         {
@@ -105,7 +105,7 @@
       "statement": "add_usage adds compaction iteration tokens (excluded from top-level usage) to the totals, prices them from the PRICES table at the primary model's rate, and tolerates usage objects without an iterations field.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L978-L994",
+          "resource": "repo://yach.py#L1049-L1065",
           "version": "repo-lines-v1:sha256:5f3d13da284319d18fde7cd15d421de276d23e7b09fa468c1476eb5b552941e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWU2ZWZkNTU2Y2MxMGMxMDE3M2E0ZDIwYzNkNjI5ZGY5ZWE4ODBkNThkYTlhMmY3M2Y4NjUyNTY5MGMzYzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzNTMzMDI2NjY2OTljODM5ZjVkNGY4Y2UyZWEzOWM4MGExOGQwNDM1MzU1YWRlOWEzZTE1M2RkN2EzMGYwYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5MWFhMjAzMDg0OGMxMGE4MGZkZjM1ZGM2NzJhNDFmMmI2NTQzMjNhNDU0MWIyNTgyNmNhYjhlZmM3MGI3N2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1MWJmMDcwZDY1MjEwNjk0YzE2MWQ4ZWMxZDRjNzRlODM0MTQ3MjBiODQ3MTM3ZDgyOTExNDE3YTQwYzkzZmQifQ"
         }
       ]
@@ -115,11 +115,11 @@
       "statement": "Context size is measured as input + output + cache-creation + cache-read tokens of the last non-compaction usage iteration, and the per-turn status line colors it yellow at 60% and red with a compaction warning at 85% of the context window.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1133-L1143",
+          "resource": "repo://yach.py#L1257-L1267",
           "version": "repo-lines-v1:sha256:3f19fc8d43780bcfc6067d7e98f8773f71728e455975b1d48fa6b5e6e41f3493:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiNTAxMDhiYzE1ODBkMDBmNDlhOGE1ODY2NDU5MzQxNGRhMWVhYjIyOTA0MWViODU0OTUwM2E2ZDYxZGE0ODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyYmVjNzUwMTUwZTdiMDY1MDI2MmVkM2E4M2ZjNTQ0YTEwMjJjMzgxMGQ1NDZiN2U1YWU2YjZlMjZlY2IyMjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ5ZjMwNzg4ZGQyZDhkNmJhNmI3ZDhlM2QxOTA2ZWMxNjRmMDMyOWViNTMzMDgyOGY5ZjliMjA4NjcxY2ExYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhNmUzYjk2M2ZjMTE2NDlmNzdiZjk3YjVjOWM5NmEwZmJiMzM5NDBiZWIwNzY2OTQ0ODM3ODEzNmJkNDU3OGQifQ"
         },
         {
-          "resource": "repo://yach.py#L916-L922",
+          "resource": "repo://yach.py#L987-L993",
           "version": "repo-lines-v1:sha256:098557dc9b65f78371ce714ea492f8324d211f49ca0cc716262a220e0a1583b5:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjdmYjIxZTRiYzVjMDU1YjE5MmFjMjg1ZGIwODJmOTFkMDM1OTVlY2EzNmQ1ZThhZDZkOTU0NjAwZTdlNzYyOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWU1NjM2ZDVlMWM5NTAzY2U2MmU4YmIyNzY3YzBjNTc1ODljMWJjNmZhMTNhYTc0MmIwMDgzYjU3MDcxMDk5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmZmYmQ3NWI1MDM0ZThjZTdkZDFkZDZkMjE4OGUyNGUyMmI3NGFkYTllYjMyY2EzYmMwYWIwOTBmMDM0OGI4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzgwMTY2ZTVlZjBlOGY3ODI5Njc0NWJmYWM4ZDdhMTc3MmVjMjA4YTkyN2MxMTk3OTg1ZjllY2EwMjY1Zjk4NSJ9"
         }
       ]
@@ -127,6 +127,6 @@
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-07T00:49:17.948Z"
+    "at": "2026-11-10T01:26:12.508Z"
   }
 }

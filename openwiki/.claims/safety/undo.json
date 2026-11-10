@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ec10fae8e40a333175fe21d7bc8db7dadee5178ec71d19ce739359eb6fe0b285",
+  "claims": [
+    {
+      "id": "claim_4a1c9ce9a3534ed7869f42328493bdb3",
+      "statement": "A Checkpoint records, for one turn, each written file's earlier bytes (None if it did not exist), a digest of what YACH last wrote, the directories created, and a count of shell commands; it is kept in memory only.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L670-L680",
+          "version": "repo-lines-v1:sha256:91cce609638c673ade990d1f899cc42c3dfc8986c27a2f9a174f5ecf0234ea7b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3N2NhMzQ5NTU1YTY1MmY5NDMzZmQzZGJmZDVkYmI4NDdhYzdjMGNjOTUzNjkwYjc4Y2JjMGI2NjJjMzlhNWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxYTYyNmI1N2ZkOTVlOTA0MmQ5YjZmYjY3ZGFkZTYwYTM4YzBhZTVmZjFhNDg1ODllNTgwZTgyMDMyOGIwZTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY5Yjg5MDQ4NWQ1MzFiMWJlZmEwMDQxNzkwYTIyYmZhYjk3MjkxYWVkNmViMjA2OGM5ZDQ2MWEyZTc1YTEwZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzNjFkYzNhYTNjYmZlMTkzMmI3OTZmM2ViYTkzNzU4OGNlMjk2NmYwY2ZhMjNlZTk2NWFjMTY3ZTA5MWFhMzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cd577b93e989456bb199dd8f817f4bd5",
+      "statement": "run_tool snapshots a file before the write_file or edit_file handler runs and records the snapshot only if the handler succeeds, adding the turn's checkpoint to the undo stack on its first recorded write; bash calls only increment a command counter.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1162-L1175",
+          "version": "repo-lines-v1:sha256:da59ff567b0363d55fd02707c578110029952e8964efe42b1f06dc226bc3e7b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExNzQ2OWU3NjQ3MzUzMWQzNDIyMzFkYjdlNDM5NDQ2OWYzMDgxNTU0NTQ5OWNlMzk4ZDY2ZjYwNWI2OGYyZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWM1YzZiM2QwYjhiMTlkMjMwOWJhYWUxYjE5MDAyM2ZjOTkzMTI1ZjI1NTM4M2E5ZmI4ZTUxNjIxMTkzM2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0ZmNkZTI5MGE3Nzk5NDZhNmFhMDE1NDg5OWE1YmFkMzM1ODQyNzgyNjQ2MzA1MGNhZTY5NGI5YTNkOWMyMGYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQwMDIyNzRmMTRlZDM4YmE1ZTQ3ODZiNmNlMzY0NzBjNTVkNTQ1YmJjNTExZTViZjcxNDcyMWQxMWQxYmYwMDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7f68b866d29d40e9a0c45ccec0dc7e88",
+      "statement": "When a turn writes the same file more than once, the checkpoint keeps the oldest contents, so undo restores the file to its state at the start of the turn.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L694-L698",
+          "version": "repo-lines-v1:sha256:36b2f4f565bfad2fa052ef620e048966c83be87d28529d2f1189482c5ed17254:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDljMThhMTJlYjA2MzFjZjgwZjA4MDljMTliYzI1ZTNlMmMyNzViZTc0NGExNDY1MDQ1ODMxZjQ0YTVhYzJkNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2M0NTk0YmYyODNmN2MzNGNhZjhiMzIwNWExZWYxODljYWVkMTRlMjgwMTc2YjhjY2MyOGJlMzZmMzVjNzZlYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzJjMzA4Y2JiNzRlMGE2YjQ4Y2VjNDNjMmI2N2E1Y2Q3YmRmOWRmZDQ1NjQzNjgzZWFkNDQxYTc0MzAxYWRiYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTQzZTk2MjEwYjI3MWNjZGM4Y2JlYTA1MzVjM2RmNzQ5OTM5NTM3MTQ5YmY0NTY4MWM5MzU3ZGU5MDg0ZjA1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2ff77c73268a48f9aceca4e109cf8eab",
+      "statement": "Checkpoint.undo asks for confirmation before overwriting a file whose current contents differ from what YACH last wrote, leaves declined or failed files in the checkpoint for a retry, deletes files the turn created, and removes directories the turn created when they are empty.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L700-L732",
+          "version": "repo-lines-v1:sha256:9524b0331d4bf1eda02fbc52a60e20214652007aaaadc99ec86fd129c63d107a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjMTUwMDIxMTUwZjJlNTdiMTkzODFmOWI2ZWRiM2JmZjhiYjFjZDYzMTQ2MzhjNWQ2ZjNmNjM2NTBiYjY0MTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyMWQxNjMwYTFiYzgwYmUwMzllOWE3MjdkM2FhN2VmZWFlMWUyNzk2Y2FmYzljNzAyMWM4MWYzYzQ4OTg3MzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjZmMxZmY3M2IxOWE0ODEzZWM5Y2Q2ZmNhZjkxYTkzNDhiNmEyYzNhYmM3NjVlMjUwZTJmMTZhNjVlNjE0YmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE1NTNlYWYzNTJjNjM2MWFkNjI2N2Q0NWQxNmFhMGM2M2Y5OTYwY2UyMDNhMWNlNzdlNDY0NjcyMzFhNmMzZTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e4cd22493b38495193ddde14e3bef969",
+      "statement": "After restoring or deleting files, Agent.undo appends a block-list user message telling the model what was undone and that shell commands from that turn were not reversed, after repairing any unanswered tool call.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1188-L1230",
+          "version": "repo-lines-v1:sha256:c294422f244016f0857328f4c097b82c6456f8fb26840fd7ea3f75ddc9539fad:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMzEyZGJmYzllMjY5MTNiZmYyZmRhZDlkODVmNmUyNzM2MzYyY2E3N2VjMGFhYzJmYzMwMmEwZjBmNzJlOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4MzkwZGIxZmZlODA4MDVlMmJmZDQ4MDgwZGE2MmE3OGFlMTI4NmY5Zjk0NDA1Mzk5OGYwYTJlMzY5ZGU4ZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdmNWYzYjMzODY1MWRjYTM2YjMwOTBiNTFkZTk0YjAyZWEzMmIxMzYwNzZhZGQ0Yzg2YmZkZWJkYmViZjBmODEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0OWNkZGY3ZjQzMmU5ZDhhZjgxYTU3YmRjMmNmMWUzY2E5NTIxNzliNzViNWIxODMzYjgwNzg4MTZiY2RmZjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f4044257eaed4492bfb495ffeb6f3a27",
+      "statement": "The undo stack is cleared when a new session is started and when a session is resumed.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L937-L942",
+          "version": "repo-lines-v1:sha256:3aa49effe556c6d7d639726127dc89c9fc8ebb0df9fd43f48d4889eaa646224f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2FhMGFkYTdhMzczMTFmNDIyYmY3NzdhZTBkNDk0OTI3NDc0Mjg4YmZlY2MwNzkxOTI0NzdiMjYxM2VjMjk4YSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzI3MGQ0ZjExY2MwY2M4NTAyY2E4MTNhMzgwOWM0YzNhNGMyNmU3ZWU1ZDA0NGQ3ODZkNjkzZGRiYWYyY2ZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2U4Yjc4YWNjODk4MTMxNGY5NGQzNmNlODA5NzAyOWEzZDQ4ZDhiNWRmZWUwMWNhMmY4MTcxNzFlOWNlNTYwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDI2NGQyZGUzYTE2ZTU5ZDc5ZWVhZmQzNDQwM2Q5MTc3OTgwMmIyMGIwY2IwNjA4Y2VjNmEyNDZmMmM0YWQ1NiJ9"
+        },
+        {
+          "resource": "repo://yach.py#L956-L959",
+          "version": "repo-lines-v1:sha256:ae41dbe031d8adbf4f9b95d65401beb3199aa7a130ce09b30eea82913e06d9bd:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDgxNzQ3NWUwYTBhYWMxZmZlOWQxODVkMTEyNWE1N2U5OGYyYzllYWYzMGYxMDgwZjgwYmE0NWU1NmNhNDYyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzI3MGQ0ZjExY2MwY2M4NTAyY2E4MTNhMzgwOWM0YzNhNGMyNmU3ZWU1ZDA0NGQ3ODZkNjkzZGRiYWYyY2ZlNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGVhY2UyM2ZhN2FlZjc0YmFjNzcxZGUwY2U3NjFhOTdhNzIxYjdmNDkzMzI3NGQ2YjMzNjgyN2ZkZDRjMWM3YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGJhZjJlNDZlMmUxZmU2MmI0OWYwYzZkYmE4NmY0ZGRkMTY0OGU1MWQyOWVlZjFkOTJiNGNkOWI2ZGE4ZTg3NiJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-10T01:26:12.508Z"
+  }
+}

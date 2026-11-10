@@ -5,11 +5,11 @@ description: How YACH's main() parses flags, sets up the sandbox, dcg and resume
 tags: [cli, repl, terminal, slash-commands, shell-passthrough]
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-07T00:49:17.948Z
+    at: 2026-11-10T01:26:12.508Z
 sources:
   - id: openwiki-source-d3fe2c58a00acb98c6319084
     resource: repo://yach.py
-generated: { by: "claude-code", at: "2026-11-07T00:49:17.948Z" }
+generated: { by: "claude-code", at: "2026-11-10T01:26:12.508Z" }
 ---
 
 # Terminal interface and CLI
@@ -61,6 +61,9 @@ Each line is stripped and dispatched:
 - **`/exit`, `/quit`**: leave the loop.
 - **`/help`**: print the command list (`HELP`).
 - **`/compact`**: summarize the conversation now.
+- **`/undo`**: put back the files the most recent file-changing turn wrote
+  or edited; repeat to go back further
+  ([Undo and checkpoints](../safety/undo.md)).
 - **`/context`**: show context used, the window size, a 30-cell bar, message
   count, the auto-compact setting and the number of compactions. If the size
   hasn't been measured yet, it counts tokens via the API first.
@@ -135,3 +138,4 @@ before printing anything else. A single global `SPINNER` is used for:
 - [Architecture overview](../architecture/overview.md)
 - [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)
 - [Session storage and resume](../sessions/session-storage.md)
+- [Undo and checkpoints](../safety/undo.md)

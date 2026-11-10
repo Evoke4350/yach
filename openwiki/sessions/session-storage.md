@@ -5,11 +5,11 @@ description: How YACH saves every conversation as an append-only JSONL file per 
 tags: [sessions, persistence, jsonl, resume, crash-recovery]
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-07T00:49:17.948Z
+    at: 2026-11-10T01:26:12.508Z
 sources:
   - id: openwiki-source-d3fe2c58a00acb98c6319084
     resource: repo://yach.py
-generated: { by: "claude-code", at: "2026-11-07T00:49:17.948Z" }
+generated: { by: "claude-code", at: "2026-11-10T01:26:12.508Z" }
 ---
 
 # Session storage and resume
@@ -101,7 +101,8 @@ chooses is then loaded normally.
   message count and the last few lines of the model's last reply.
 
 Not carried over: the cost counters, "always allow" answers, and the approval
-mode.
+mode. Undo history is dropped as well: both `/clear` and a resume empty the
+`/undo` stack ([Undo and checkpoints](../safety/undo.md)).
 
 On exit, YACH prints `resume with: yach -r <id>` if the session was saved.
 
@@ -110,3 +111,4 @@ On exit, YACH prints `resume with: yach -r <id>` if the session was saved.
 - [Agent loop](../architecture/agent-loop.md)
 - [Context measurement and compaction](context-and-compaction.md)
 - [Terminal interface and CLI](../interface/repl-and-cli.md)
+- [Undo and checkpoints](../safety/undo.md)

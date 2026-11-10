@@ -5,13 +5,13 @@ description: YACH is a single-file Python coding agent on the Claude API; this p
 tags: [architecture, overview, single-file, python]
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-07T00:49:17.948Z
+    at: 2026-11-10T01:26:12.508Z
 sources:
   - id: openwiki-source-05ccef8d4cf1698187f20464
     resource: repo://pyproject.toml
   - id: openwiki-source-d3fe2c58a00acb98c6319084
     resource: repo://yach.py
-generated: { by: "claude-code", at: "2026-11-07T00:49:17.948Z" }
+generated: { by: "claude-code", at: "2026-11-10T01:26:12.508Z" }
 ---
 
 # Architecture overview
@@ -32,6 +32,7 @@ dependency order:
 | tools | `TOOLS` schemas, `validate_input`, `resolve`, `truncate`, the sandbox, and the tool handlers (`HANDLERS`) |
 | sandbox | `Sandbox` (Docker) and `run_bash` |
 | permissions | Reviewer prompt and schema, `review_action`, `dcg_check`, `Permissions`, `print_diff` |
+| undo | `Checkpoint`: what one turn wrote, for `/undo` |
 | agent | `build_system_prompt` and `sandbox_note` |
 | sessions | `Session` persistence, the session picker |
 | agent (class) | `Agent`: the model loop, compaction, cost and context accounting |
@@ -48,6 +49,9 @@ dependency order:
   mode, plus dcg); see [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md).
 - **`Sandbox`**: an optional Docker container that runs shell commands; see
   [Docker sandbox and command execution](../safety/sandbox.md).
+- **`Checkpoint`**: the files one turn wrote or edited and their earlier
+  contents, kept in memory so `/undo` can restore them; see
+  [Undo and checkpoints](../safety/undo.md).
 
 ## Global state
 
@@ -71,7 +75,8 @@ Two module-level values shape everything:
 3. For each `tool_use` in the reply, `run_tool` validates the input, asks
    `Permissions.allow` (which may consult dcg, the reviewer model, or the user),
    and then calls the handler in `HANDLERS`
-   ([Tool surface](../tools/tool-surface.md)).
+   ([Tool surface](../tools/tool-surface.md)). File writes are recorded in the
+   turn's `Checkpoint` first.
 4. The results go back as one user message and the loop repeats until the
    model replies without tool calls.
 
@@ -90,4 +95,5 @@ changed.
 - [Agent loop](agent-loop.md)
 - [Tool surface](../tools/tool-surface.md)
 - [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)
+- [Undo and checkpoints](../safety/undo.md)
 - [Terminal interface and CLI](../interface/repl-and-cli.md)

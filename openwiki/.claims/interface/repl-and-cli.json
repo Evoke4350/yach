@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:0b995b9c4802a28d404866f3d29fac11b031ddfcd6687fb5e5ce4b4fef5baf27",
+  "pageVersion": "sha256:7a4a99b614e0417aa190913520de9642d115e9dca604c7c884552a46e41ed18e",
   "claims": [
     {
       "id": "claim_ad9b3df25f014d168fa0d7aa4dc31ca1",
       "statement": "The CLI defaults to model claude-opus-5-5, effort high, approval mode auto, sandbox network bridge, and an auto-compact threshold of 150000 tokens where 0 disables auto-compaction.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1234-L1257",
+          "resource": "repo://yach.py#L1359-L1382",
           "version": "repo-lines-v1:sha256:7d29245522df02443c0648778d3a52fd648fd565cfbf8b6b473fa7012255a162:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwYmM1MTI2NWRhM2M0OTRiZGQyOTQwOGMwZTE3NzY2NWJmZWFkNmZkMjc5MzZmMDU5ZDJjNTU3YjE5YTNjZTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxZGVkZmIyYTQwZTdhYWNmYzhjNjQ1NDg5MDBjMjQ0OThhY2I0NWE3MTc1YWI2NzFkOTlhMzc5MjBiNDIxY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg5NzEzMDZhNDg5YzQ3NTFiYWQzNDczZjllMzhkNzQzNDk3ODlhM2JjZTkxMTVkMWZkNTVmN2M1M2ZhZDlkM2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiYWNlYmIxZmI3ZjhkMjUwYzE1MjhjNTJkYjdhZGRmNjJiZTg3M2QyYzRhOTdmMThlNWJhN2NiMzFhOWFjZjAifQ"
         }
       ]
@@ -17,7 +17,7 @@
       "statement": "At startup YACH resolves -c/-r resume targets first (exiting if none exist or the picker is cancelled), then starts the Docker sandbox if requested (exiting if docker is missing or fails), then enables dcg only when --no-dcg is absent and dcg is on PATH, warning otherwise.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1259-L1287",
+          "resource": "repo://yach.py#L1384-L1412",
           "version": "repo-lines-v1:sha256:614ecc569178f528d31407b6d4d56084946272632f36b83b640603f46909bb02:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUxMDEzYjVmYzhjMDY1ZjM3NTE5NjUyY2M3NThlMTE2OGUzODNkODM2MTQ2YzMyZjhhYjYyN2QwOTI0ZGM3N2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlNGNkMGNkYmVhOGU1YjNhNTQ0YTNmZjQ0YjU3OTI3OWQ0NWEwOWY5Mzg4MDdlY2I2NDA3MWYwMjZmNjg1YzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQyYjEyYTAyNWZmMGRmNTY0NzcyZTcxYmIyM2RhZWMxMjUwZWVjNTJiNzZhOTVhM2RkYThhZTc4M2I1MjMyYjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwOTE5NDkyY2M4NzU1MjhjZTQ4MjY3OWQ4Y2VhZTJkODA4NGQ5YzZjZThkZTAzMjAyNjJkM2FiY2EwZjE1YjEifQ"
         }
       ]
@@ -27,7 +27,7 @@
       "statement": "With a positional prompt YACH runs a single send and exits; otherwise it prints a status banner and enters the interactive loop.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1289-L1301",
+          "resource": "repo://yach.py#L1414-L1426",
           "version": "repo-lines-v1:sha256:9b5c009e076f5a7684afb4ad5b85065c8039a0bfe0aa02fe611fd1b32f56beaf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2NmYzYjdiZTc3M2ZiZDVkODEyOWFhN2ZlZmU4YzNlZjQxNjk3N2Y5ODllN2ZlMmRiZGE3ZjY3ODM2OTUwNTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkYzNjMzk5YWMzMDNjYjkxMWNmNjlhYzUxZTBmZTIxYjA3MjRmZDdlNGU0NDc2NjAwNWMzNDlkMGIzODlmNWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc3MWJkODNlNjk0OGU1YmUwODA2YmJkOTlkYWY3YzljZTIwNTVmMGFkNmYzMDNhMDY4ZmNhNWQyZmJhN2E1MTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY3NzkzODQ2ZjQ1NWJmMzhjZGI3MWJkMGE3ZDU4ZDA0ZmU0NDg3NWE5YWQ3YWYwYzVmM2EwMDY3MWRmODU4Y2IifQ"
         }
       ]
@@ -37,11 +37,11 @@
       "statement": "Ctrl-C or Ctrl-D at the prompt quits, while Ctrl-C during a turn only stops that turn and returns to the prompt.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1302-L1307",
+          "resource": "repo://yach.py#L1427-L1432",
           "version": "repo-lines-v1:sha256:2c9c464d8ababd301b0b47170df2b0e07ed9bfe57c839fec6378d04dfa6a077a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU2OWNiMDkyODBlZTA3ODE5NDVlNDhkNDA0MWJkMmRmYWFlNjkxYWQyZWFiZjVkM2NiYTA4NDZjNzIxNmNhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTQxYzMwYTc3ZDY2ZmJlMzA2MzFkZTRjMmRhNDQ4MjgxZWYyM2EzZmRmZWRjZjVmZmJkMTdmYmRmY2MxMmJlOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTgzZDBjOTAzNGM0ZGFlYWU3OTUyMmVjY2IwZGIzZjQ3MDkyZjBiMWI1NzcyYWM4Yzc3ZmQyN2Y1NGQyNmFkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjY4YzU3ZWU3MjY0YTg2MjhlNzhmYzYzMWMyODQ0ZDc0N2QwYzUyNGM5ZWZkYTU0NjZhODc2NzI0Nzk0MTc5NSJ9"
         },
         {
-          "resource": "repo://yach.py#L1364-L1369",
+          "resource": "repo://yach.py#L1492-L1497",
           "version": "repo-lines-v1:sha256:7e76a7357265710c3c1e45c9b04955c2c3cf0c64ea7e85b3751f42aad488de63:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU2OWNiMDkyODBlZTA3ODE5NDVlNDhkNDA0MWJkMmRmYWFlNjkxYWQyZWFiZjVkM2NiYTA4NDZjNzIxNmNhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTY0NWNhZTZiMDg0NzFlYjg5YjY0NmQ2NGJkMzgwYTEzODk4Y2UzM2FjZTQ0M2FmNDhkNDljYzEyMWFkYTI1MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmI3NmNiZDUxNzY2N2Y5MWRhNTRlY2MwYjA0Y2Y0OTg3NzU2ODk4NTFkYzVkY2M1NjQzMDExOGE1NGVkMGQyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGU1MzQwZmVjZWRkY2Q3OTg0NDU4NGY5MmZjMjYwZTNlODU3NDg1YjNjM2VkNTAxMjI3YjY1MmQ1NWIyNjBjMSJ9"
         }
       ]
@@ -51,7 +51,7 @@
       "statement": "API rate-limit, status, and connection errors during a turn are reported without ending the session, while an authentication failure exits with a hint to set ANTHROPIC_API_KEY.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1370-L1377",
+          "resource": "repo://yach.py#L1498-L1505",
           "version": "repo-lines-v1:sha256:711a6c40c7ea21f2fbaad2128cad125316e3f715a901f99438a8d9765f234f10:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGVlNTNjOGI5YmI3MjMxN2RhOWEzYjkxZGNlOWIwZjRkZjY2NjRhZjYyMzI3YmY5YmI5MDA1NDM4ZTVmMzI0ZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjc1MjFjOGYzYjljMzFjZjVmNTdjYzYzM2MxYWUzZjJhOTA4ODE2ZGU0YzcwZjA3NDU5ZWFmY2UxZDU3MzU3NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTY4MGIyNTU4ZThjOWNlYjRjZjM0OWM2NTVhNTRlNDUyYmJlMGI1NGQyNTRjYTE4M2FmY2ZhZTdkNDJlZGVlYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDQwYmFkNjgzOTcwNmFlOGEzOWRmYmVlNjlmOGExZDdlNzNjZTdhNjBkMDdkOTZiMDdiZjAyODIwYzA1MTViMCJ9"
         }
       ]
@@ -61,7 +61,7 @@
       "statement": "/clear starts a new session without deleting the old one, and /approval switches the approval mode for the rest of the session.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1348-L1359",
+          "resource": "repo://yach.py#L1476-L1487",
           "version": "repo-lines-v1:sha256:a1435d3684c7696f2ca76c0fd00a09c1431a3df4998218856f11fb527344f970:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxZGUxNmM5NjkzYzQ3NDFhN2ZlNGFhZWU3ZTU1OWUyZGY2MmUzNDA4NWM3YzRkYjhiNGI4OTU2MmEwZTY0MTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2YWQwNTJjNDRiOTUzZjBkODMyODZhMmRkZGVjMjE4NWU3ZjE4OWRiMGU0ZjUwMmM2ZjA2ZjM0NzU4NDU0YTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNkODYxYjI1YjY5MzdmYjEzNzM0Y2E5YWE3NTQxMTExYTJhMGM1Y2FhZDM4OTI0OTBjNmVmYmU4MGY0NzU4NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3MTFhODgzMmQ5YjdjNDZkZGVkNWI3Y2Y0Zjk2OTBhNDgyYzRlMmVmYzYzY2I5ZGI1MjZhMGZiYTg0N2RiZWIifQ"
         }
       ]
@@ -71,7 +71,7 @@
       "statement": "! commands run on the host via the user's shell with stdin attached, bypassing the sandbox, approvals, and dcg; output is streamed live in raw chunks and also captured.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1196-L1221",
+          "resource": "repo://yach.py#L1321-L1346",
           "version": "repo-lines-v1:sha256:5faccc7494a55eab3005341276543a2488ecc99ef3e380ab576ffc3c95f26af7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjNDg4ZTg1NDY4ZDM4OWYxNDY5Yjc4ODgwNjNhZTIxZjFiYjBiYjdiMTVmY2E2YmE4NDVhYTExZjkyNjdlNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjNDI5MGJlZTA0NzE4NmU5MzVkMTFhMTczNGExYTY2YjE0NTJhYWM1ZWVhNmRiYzNkYThhNTAyZTcyMTM5YjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkYTU3MGVmNTlkOTk3OTEwN2IzZGFhMmNhMTU4ODcxZmMyNjM1NWQ5NDg4ODRhM2Y0YTJmYWRhMjUzMzcyZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzYmZiYTZkMzQyZGFlOWMwNjc5NmE1YzdkOWFmYzY2NTUzZTE3NmFiY2VjYmFhNjg4MzhkMTE4NjdlN2MwYjYifQ"
         }
       ]
@@ -81,15 +81,15 @@
       "statement": "Captured ! output is cleaned, truncated, and added as a block-list user message so the auto-approval reviewer, which reads only plain-string user messages, does not treat it as user intent; a dangling tool call is repaired first.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1224-L1231",
+          "resource": "repo://yach.py#L1349-L1356",
           "version": "repo-lines-v1:sha256:cbf3cc1a1de7c140ae5a4574121be38d5cfde25333b248d087c121da33032b08:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTg2YWM4NjIyYzZmOTFlYjU4NDM0YzJjNWE1YmQ3ODE3YTA4ODY5N2VlYTMzNmRjMzcxOGJmMjM0MzdiOGZiYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzA1ZDNmMWQ3OGU4NDNlOTY2ODQyYmM3MGNkZTMxMWYyM2M0YWRhMDZiZGU0MWYwM2M3Njg3MjQ2YmI1ZmYzNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzc2NjgxNDlkNDRiNjI0ZmUwYzkzMzhiOGQyMzc3ZWNmMGQ2MTkwZTY5OWRkZTIxY2U3NTgwMDBmYWFiZmFmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjg3OGViNDI5NzgwMWNlMWVjYjQ4YmY2YjFjOTdhNmY0NDllMjgzZjk4NDFhNTFlMmUyM2MyZDQ2MTI4Njk2MSJ9"
         },
         {
-          "resource": "repo://yach.py#L1310-L1320",
+          "resource": "repo://yach.py#L1435-L1445",
           "version": "repo-lines-v1:sha256:cb0b23b58b4793cc44555957dcb2167bc2ac6a15cc66561a680215fc7066a806:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0NDQyNmU1MWMwZmNkYzA0YTA0ZDQ1YTEzM2NkMjI3MWVhZWMyOThlMGU3ZTI3NTE5YTdlNjE1MmUzYjlmNTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2YWQwNTJjNDRiOTUzZjBkODMyODZhMmRkZGVjMjE4NWU3ZjE4OWRiMGU0ZjUwMmM2ZjA2ZjM0NzU4NDU0YTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcxNjRkYTE1NDkwZDhjODQyOTcxNGRmNDJiYmE1M2NhMzE2ODM1NjAxNmEwNDFmNzI1YjYwZWI2N2U3MjU1ZDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYwYzE4MTU5NzA5ZTNlZjMzNTkyNzNiNzU3YTcwYWNhYjA1OTU3NGIxZTczN2I5OTAxMTc4OTYxYmNlZmYwYzIifQ"
         },
         {
-          "resource": "repo://yach.py#L996-L1001",
+          "resource": "repo://yach.py#L1067-L1072",
           "version": "repo-lines-v1:sha256:258fd2b8455d4783907e7172d896104af6e472d9e0d89c6b1e36810740b51a97:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzFmMDM2Yzk2MjRhOWUzOGNiMTJmMjlhMGFlZDhkYTUwZTkyZmJjMWMzZGE5NTFkNDQxZmU0MmQxNGE2NjVkZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWIxNjhkNTJiZWNmMmM2ZmE2Y2YxMmU0Njc0NzM3ZjJiZDIyYjllNTVlZTcyZDQzMTcxYzBjNDQ1YjBjY2ZhNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2Q1MDk3NjNiM2VjZDUzYzMyMDg3YzU1YmQ5M2JlMWVmYThiMzljMGRjNGE5NjY3ZjNkMTVkMTMyYmEzNWUxZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmJmZGU0NzQxNjAyN2FiZjM1OWY3ZTM3ZjU5MjUwMzZkYzViNjg0NDg0N2QzYTU1M2UxYTdlOGIzNGI5MzUwOCJ9"
         }
       ]
@@ -123,10 +123,20 @@
           "version": "repo-lines-v1:sha256:9de943d982bfa7527758858899ea646186f0ebb85eeed8bdb2cc1534bab86ccc:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2YjhmMzAyZGFhN2E0MTk2OGUwMzVkYjJmZTgwNTQ0MDZjNzVmM2QyOGMwMDBjZjMxNTY4ZGUzZjMzMWE4MDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjZDVjYWM4YjRhZjlmOWI0NDg4ZTcyYWU1MDc1MzNmOWJhNDYzZGI1YzI1MDk2MTM3MDk0ZjViYzk0Y2QzMGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzYWNjMTQyMTgzNGZjZTYzOTVhMjg5MzU3NjQyMzgwMzk4MjE3YTIxMTk0ZTgyYzFlNmI3MzBiMDM0MTI2N2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY1ZTBlYjkzMWUxMzNiMzg1NTNlMzU3M2VlYzNmY2Q5ODE5ODQwZDJlMDIzMTFjNGIzMTIzOTE4NGI2ZGQyYzMifQ"
         }
       ]
+    },
+    {
+      "id": "claim_7703695863814bf8ad3583ce0bc852b4",
+      "statement": "The REPL handles /undo locally by calling Agent.undo, without sending anything to the model at that moment.",
+      "evidence": [
+        {
+          "resource": "repo://yach.py#L1454-L1456",
+          "version": "repo-lines-v1:sha256:f7ca7161d7ad9be0b95a6a0b4fa55738dc84e08fb11d53438ecc37e8686efbe2:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmViYWJiZTZjNzkzOTdiYjJhYzVlODRlZTcwNmQ4YTI1MGY1YmFjMGE2NTZhY2VhOTU0NzllYmQ3NTVmYmIxNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZhZDA1MmM0NGI5NTNmMGQ4MzI4NmEyZGRkZWMyMTg1ZTdmMTg5ZGIwZTRmNTAyYzZmMDZmMzQ3NTg0NTRhNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDI4OTg2YjBjYTQwNTA5OTRlMGJlODIwYWVhODk0MGUxNDg1YjgwMjI2NDE1N2NkODFmNzQ2Y2NkYmNlZDYyOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzEwZWRmZGJhOGM3Yzc3NzViYjBmZGJjYzFjM2RiMzM2ZDQ3YTdlOTNiYTI2NGM5OTJiODgzMGE4NGYwMjA4ZCJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-07T00:49:17.948Z"
+    "at": "2026-11-10T01:26:12.508Z"
   }
 }

@@ -5,15 +5,13 @@ description: What YACH is, how to run it, and which wiki page to read for common
 tags: [quickstart, overview, onboarding]
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-07T00:49:17.948Z
+    at: 2026-11-10T01:26:12.508Z
 sources:
   - id: openwiki-source-05ccef8d4cf1698187f20464
     resource: repo://pyproject.toml
-  - id: openwiki-source-23775c3de52f3ab95a13cb8b
-    resource: repo://README.md
   - id: openwiki-source-d3fe2c58a00acb98c6319084
     resource: repo://yach.py
-generated: { by: "claude-code", at: "2026-11-07T00:49:17.948Z" }
+generated: { by: "claude-code", at: "2026-11-10T01:26:12.508Z" }
 ---
 
 # Quickstart
@@ -23,7 +21,8 @@ YACH is a terminal coding agent for the Claude API. It is one Python file,
 loop with seven tools and checks every shell command and file write with an
 approval policy. Behind the policy sit a reviewer model, destructive_command_guard
 and an optional Docker sandbox. Conversations are saved per project and can be
-resumed, and long ones are compacted automatically.
+resumed, and long ones are compacted automatically. `/undo` puts back the
+files a turn wrote.
 
 ## Run it
 
@@ -46,6 +45,7 @@ in this project. All flags and in-session commands are on
 | Add or change a tool, or tighten path handling | [Tool surface](tools/tool-surface.md) |
 | Change what gets approved, the reviewer prompt, or dcg behavior | [Approvals, auto mode and dcg](safety/approvals-and-dcg.md) |
 | Debug sandboxed commands, timeouts or orphaned processes | [Docker sandbox and command execution](safety/sandbox.md) |
+| Change what `/undo` restores or how file changes are tracked | [Undo and checkpoints](safety/undo.md) |
 | Change how conversations are saved, repaired or resumed | [Session storage and resume](sessions/session-storage.md) |
 | Change the context readout or compaction | [Context measurement and compaction](sessions/context-and-compaction.md) |
 | Add a slash command, flag or change terminal output | [Terminal interface and CLI](interface/repl-and-cli.md) |
@@ -61,6 +61,8 @@ in this project. All flags and in-session commands are on
 - **Every `tool_use` needs a `tool_result`** before the next user message;
   `Session.repair()` enforces this.
 - **Untrusted text goes through `clean()`** before it reaches the terminal.
+- **A tool that writes files must be snapshotted** in `run_tool`, or `/undo`
+  silently won't cover it.
 - **Safety checks fail closed:** when the reviewer or dcg can't decide, the
   user is asked.
 

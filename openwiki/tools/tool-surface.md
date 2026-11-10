@@ -5,11 +5,11 @@ description: The seven tools YACH gives the model (bash, read_file, write_file, 
 tags: [tools, tool-use, validation, path-confinement, security]
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-07T00:49:17.948Z
+    at: 2026-11-10T01:26:12.508Z
 sources:
   - id: openwiki-source-d3fe2c58a00acb98c6319084
     resource: repo://yach.py
-generated: { by: "claude-code", at: "2026-11-07T00:49:17.948Z" }
+generated: { by: "claude-code", at: "2026-11-10T01:26:12.508Z" }
 ---
 
 # Tool surface
@@ -17,6 +17,8 @@ generated: { by: "claude-code", at: "2026-11-07T00:49:17.948Z" }
 YACH declares its tools in `TOOLS` and maps each name to a Python function in
 `HANDLERS`. `Agent.run_tool` connects them: validate, approve, run, bound the
 output, and return a `tool_result` ([Agent loop](../architecture/agent-loop.md)).
+Around `write_file` and `edit_file` it also snapshots the file so `/undo` can
+restore it ([Undo and checkpoints](../safety/undo.md)).
 
 ## The tools
 
@@ -103,10 +105,12 @@ the model no user is available. Ctrl-C at the question cancels the turn.
    supported by `validate_input` (`JSON_TYPES`).
 2. Write the handler and register it in `HANDLERS`. Raise `ToolError` for
    expected failures.
-3. Decide on approval. Add the name to `NO_APPROVAL` only for side-effect-free
+3. If the tool writes files, snapshot them in `run_tool` the way `write_file`
+   and `edit_file` are, or `/undo` won't cover it.
+4. Decide on approval. Add the name to `NO_APPROVAL` only for side-effect-free
    tools, and extend `outside_root` / `describe_action` / `Permissions.preview`
    if it touches paths.
-4. Adding a tool changes the request prefix, so the first request after an
+5. Adding a tool changes the request prefix, so the first request after an
    upgrade misses the prompt cache, and resumed sessions drop older thinking
    blocks.
 
@@ -114,4 +118,5 @@ the model no user is available. Ctrl-C at the question cancels the turn.
 
 - [Approvals, auto mode and dcg](../safety/approvals-and-dcg.md)
 - [Docker sandbox and command execution](../safety/sandbox.md)
+- [Undo and checkpoints](../safety/undo.md)
 - [Agent loop](../architecture/agent-loop.md)

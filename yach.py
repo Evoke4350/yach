@@ -665,6 +665,73 @@ def print_diff(old: list[str], new: list[str], label: str) -> None:
         print(f"{DIM}... {len(diff) - 200} more diff lines{RESET}")
 
 
+# ---------------------------------------------------------------- undo
+
+class Checkpoint:
+    """What one turn changed through write_file and edit_file, so /undo can put
+    it back. Kept in memory only: it doesn't survive quitting, and it knows
+    nothing about what shell commands changed."""
+
+    def __init__(self, request: str):
+        self.request = request
+        self.before: dict[Path, bytes | None] = {}  # contents before the turn; None = didn't exist
+        self.written: dict[Path, bytes] = {}  # digest of what we last wrote, to spot later changes
+        self.new_dirs: list[Path] = []  # topmost directories a write created
+        self.commands = 0  # shell commands the turn ran
+
+    @staticmethod
+    def snapshot(path: str) -> tuple[Path, bytes | None, Path | None]:
+        """Call before the write; pass the result to record() once it succeeded."""
+        p = resolve(path, write=True)
+        before = p.read_bytes() if p.is_file() else None
+        top = None
+        for parent in p.parents:
+            if parent.exists():
+                break
+            top = parent
+        return p, before, top
+
+    def record(self, p: Path, before: bytes | None, top: Path | None) -> None:
+        self.before.setdefault(p, before)  # keep the oldest version if a file is written twice
+        self.written[p] = hashlib.sha256(p.read_bytes()).digest()
+        if top and top not in self.new_dirs:
+            self.new_dirs.append(top)
+
+    def undo(self, confirm) -> tuple[list[str], list[str]]:
+        """Restore every file. A file that changed after we wrote it (by you, or
+        by a shell command) is only overwritten if confirm(path) says so.
+        Returns (what was done, paths skipped); skipped files stay in the
+        checkpoint so /undo can be tried again."""
+        done, skipped = [], []
+        for p, before in list(self.before.items()):
+            rel = str(p.relative_to(ROOT))
+            current = p.read_bytes() if p.is_file() else None
+            if current != before:
+                touched = current is None or hashlib.sha256(current).digest() != self.written[p]
+                if touched and not confirm(rel):
+                    skipped.append(rel)
+                    continue
+                try:
+                    if before is None:
+                        p.unlink(missing_ok=True)
+                        done.append(f"deleted {rel}")
+                    else:
+                        p.parent.mkdir(parents=True, exist_ok=True)
+                        p.write_bytes(before)
+                        done.append(f"restored {rel}")
+                except OSError as e:
+                    skipped.append(f"{rel} ({e.strerror or e})")
+                    continue
+            del self.before[p]
+        for top in self.new_dirs:  # remove the directories we created, if now empty
+            for folder, _, _ in os.walk(top, topdown=False):
+                try:
+                    os.rmdir(folder)
+                except OSError:
+                    pass
+        return done, skipped
+
+
 # ---------------------------------------------------------------- agent
 
 
@@ -852,6 +919,8 @@ class Agent:
         self.system = build_system_prompt()
         self.session = Session(system=self.system)
         self.resumed = False
+        self.checkpoint = Checkpoint("")  # file changes of the turn in progress
+        self.checkpoints: list[Checkpoint] = []  # earlier turns that changed files, for /undo
         self.context_tokens: int | None = None  # size of the conversation as last measured
         self.window: int | None = None
         self.compactions = 0
@@ -869,6 +938,7 @@ class Agent:
         self.system = build_system_prompt()
         self.session = Session(system=self.system)
         self.resumed = False
+        self.checkpoints = []
         self.context_tokens = None
 
     def resume(self, session: Session, quiet: bool = False) -> None:
@@ -885,6 +955,7 @@ class Agent:
         else:
             self.system = current
         self.resumed = True
+        self.checkpoints = []  # they belong to the conversation we just left
         self.context_tokens = None
         if quiet:
             return
@@ -1088,12 +1159,20 @@ class Agent:
             allowed, note = self.permissions.allow(block.name, args, lambda: self.review(block.name, args))
             if not allowed:
                 return {**result, "is_error": True, "content": "The user denied this tool call." + note}
+            snapshot = None
             if block.name == "bash":  # the only tool that can take a while
+                self.checkpoint.commands += 1
                 SPINNER.start(f"{DIM}running{RESET}")
+            elif block.name in ("write_file", "edit_file"):
+                snapshot = Checkpoint.snapshot(args["path"])
             try:
                 output = truncate(HANDLERS[block.name](**args))
             finally:
                 SPINNER.stop()
+            if snapshot:
+                self.checkpoint.record(*snapshot)
+                if self.checkpoint not in self.checkpoints:
+                    self.checkpoints.append(self.checkpoint)
         except KeyboardInterrupt:
             raise
         except Exception as e:  # odd input (NUL bytes, bad patterns...) must not crash the REPL
@@ -1106,8 +1185,53 @@ class Agent:
             print(DIM + "\n".join("  " + line[:150] for line in preview[:3]) + more + RESET)
         return {**result, "content": output}
 
+    def undo(self) -> None:
+        """Put back the files the most recent file-changing turn wrote."""
+        if not self.checkpoints:
+            print(f"{DIM}nothing to undo: no file changes by YACH in this conversation "
+                  f"since it was started or resumed{RESET}")
+            return
+        cp = self.checkpoints.pop()
+        request = " ".join(clean(cp.request).split())
+        print(f"{DIM}undoing file changes from: {request[:100]}{RESET}")
+
+        def confirm(rel: str) -> bool:
+            try:
+                answer = prompt(f"{YELLOW}  {clean(rel)} changed after YACH wrote it. "
+                                f"Overwrite with the older version? [y/N] {RESET}")
+            except (EOFError, KeyboardInterrupt):
+                print()
+                return False
+            return answer.strip().lower().startswith("y")
+
+        done, skipped = cp.undo(confirm)
+        for line in done:
+            print(f"  {clean(line)}")
+        for rel in skipped:
+            print(f"{YELLOW}  left as is: {clean(rel)}{RESET}")
+        if cp.before:
+            self.checkpoints.append(cp)  # /undo again retries what's left
+        if not done and not skipped and not cp.before:
+            print(f"{DIM}  files already match their earlier contents{RESET}")
+        shell = ""
+        if cp.commands:
+            shell = (f" The {cp.commands} shell command(s) run in that turn were not undone; "
+                     f"anything they changed is still changed.")
+            print(f"{YELLOW}  that turn also ran {cp.commands} shell command(s); "
+                  f"whatever they changed was not undone{RESET}")
+        if done:
+            # History is append-only, so the model learns of the undo from a new
+            # message. A block list, like "!" output: context, not a request.
+            self.session.repair()
+            self.add_message({"role": "user", "content": [{"type": "text", "text": (
+                f"I undid the file changes you made while working on my request "
+                f"\"{request[:300]}\": {', '.join(done)}. Those files are back to how they were "
+                f"before that turn, so what you remember writing is no longer there; read a file "
+                f"again before editing it.{shell}")}]})
+
     def send(self, user_text: str) -> None:
         self.session.repair()  # a refused or interrupted turn can leave a tool call unanswered
+        self.checkpoint = Checkpoint(user_text)
         # Compact between turns, never mid tool loop: the whole history is
         # summarized and nothing older is replayed, so no thinking rules apply.
         if self.compact_at and self.context_tokens and self.context_tokens >= self.compact_at:
@@ -1188,6 +1312,7 @@ HELP = """!<command>  run a shell command yourself; its output is shared with th
 /resume  switch to a saved conversation
 /context show how full the context window is
 /compact summarize the conversation now to free up context
+/undo    put back the files changed in the last turn (not what shell commands did)
 /approval [ask|auto|yolo]  show or change the approval mode
 /exit    quit (or Ctrl-C / Ctrl-D at the prompt)
 Ctrl-C during a turn stops that turn."""
@@ -1325,6 +1450,9 @@ def main() -> None:
             continue
         if text == "/compact":
             agent.compact()
+            continue
+        if text == "/undo":
+            agent.undo()
             continue
         if text == "/context":
             if agent.context_tokens is None:

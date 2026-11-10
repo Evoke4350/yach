@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:44f7ca95702e41d40f4b7a6cdc6f49ee098c2f45421a1643cf9201d69f2c89bd",
+  "pageVersion": "sha256:d94edc10d3547d3c0350fffbf83c196f81c3d8f134fc7b56f88fa17909cddf0a",
   "claims": [
     {
       "id": "claim_ecf3b78b3bf14cf59e69ec43b711ca22",
       "statement": "After each reply, context size is recorded as input + output + cache-creation + cache-read tokens from the last non-compaction usage iteration, since compaction iterations report summarizer work rather than conversation size.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L916-L922",
+          "resource": "repo://yach.py#L987-L993",
           "version": "repo-lines-v1:sha256:098557dc9b65f78371ce714ea492f8324d211f49ca0cc716262a220e0a1583b5:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjdmYjIxZTRiYzVjMDU1YjE5MmFjMjg1ZGIwODJmOTFkMDM1OTVlY2EzNmQ1ZThhZDZkOTU0NjAwZTdlNzYyOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWU1NjM2ZDVlMWM5NTAzY2U2MmU4YmIyNzY3YzBjNTc1ODljMWJjNmZhMTNhYTc0MmIwMDgzYjU3MDcxMDk5YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmZmYmQ3NWI1MDM0ZThjZTdkZDFkZDZkMjE4OGUyNGUyMmI3NGFkYTllYjMyY2EzYmMwYWIwOTBmMDM0OGI4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzgwMTY2ZTVlZjBlOGY3ODI5Njc0NWJmYWM4ZDdhMTc3MmVjMjA4YTkyN2MxMTk3OTg1ZjllY2EwMjY1Zjk4NSJ9"
         }
       ]
@@ -17,7 +17,7 @@
       "statement": "The context window is fetched once from the Models API's max_input_tokens and cached, falling back to 1,000,000 tokens on error or a missing value.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L908-L914",
+          "resource": "repo://yach.py#L979-L985",
           "version": "repo-lines-v1:sha256:f0c3185a214d9cbc90dc97cb75a659992dcfc6f313e5233612035c6889165a8c:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWY5MDc3YTBhZGU2MmVhOTQ2M2JlNWZlNjExY2MxNTk4NDEzZWJiMDc1ZDgwZjY1MzAzMDE5OWM5OTA0MzBjYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTRiN2M4MTk5NWJiY2I0MDc0MTg1YjIxNDY0MTEzMDVmMmIyOTc2NTdkYTM4Yzc5ZDliMDQxZTkyYWIyYmQ4NCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODE4MWRjYWM2MzNmNTY1NzI5Yzg2ZjBlNjA0ODNiY2I2ZDkyNTY5OGExZDAxZWYwODNkNTg3MjYxNWJkZDA4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNGUyMTc2NGUxNDVjMDBmNjcxYzliNzlhNmZiNGM3NTEyZmE4ZTE2MWQ1NjAzNTQ4NGU0MzhlNzdhZGY4MjRhNSJ9"
         }
       ]
@@ -27,7 +27,7 @@
       "statement": "count_context measures the current history via the token-counting endpoint with the same system, tools, and thinking settings plus the compaction beta, returning 0 for an empty history and None on API errors.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L924-L935",
+          "resource": "repo://yach.py#L995-L1006",
           "version": "repo-lines-v1:sha256:f06e0df98e0dbede75443613ae10e41187a362f736e87b93e49a7af47b4d8083:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4MjI3OWQzYjZhZTBhOWVhZjY0ZjYzOGI3MGFhYzY2ZWZlMWIxOWViOTVlMGYxNGFlZTkzYmFiYTRjYzQ4NjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyMDc4MzkyZmZlOTM1MTNhNGNlYzA2MjQ2ODZhOTcyM2Y4MzgxYjM4YTNjNjBmYWQ0NmYzYjEwYTc2NjVlN2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhYjFkMGEzNmI5NDMxYWE5OTQxZjQxOWNjMDc1OWJmZTI0NmU1OWI1ODgzNzg3ZjZjNzE1NmZiODFkMmIyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1MmIxZjZlM2EyNTFlODU1NTFkY2U2ZjNhNzhiZjkxZWUwMjBlNjJjNzJmYTVlNDRhNWIyYzJjOTY5N2FlNTcifQ"
         }
       ]
@@ -37,8 +37,8 @@
       "statement": "Automatic compaction runs only at the start of send, before the new user message is appended, when compact_at is non-zero and the last measured context size has reached it.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1109-L1115",
-          "version": "repo-lines-v1:sha256:db2875d4bdcabd405a92e30c20c9a58fdc89d3f9d1b514119fd3e556e568a190:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTkwZGU3MzYzMzk3MzA0OTY3YmY1YWQwMzU5NjE1NjU5NDZjNTZkNTFlNDA5YTczZWZhNWE2MzEzMzJmYWZmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmYzMDcyNDIzMWM5MzVkZjRlMGI2YTZhMDQyMDExNzZlMWZhMzA4NTUwZjQ3YTIwNTQyNTVkNWFjMTY5YzI1NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2Y1ZjNiMzM4NjUxZGNhMzZiMzA5MGI1MWRlOTRiMDJlYTMyYjEzNjA3NmFkZDRjODZiZmRlYmRiZWJmMGY4MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjg5MzRmMWRiYjhkNWUwZTQzOWFhZDliZmQ2OTJhOWM4MDJiZGI4MzQzOGQyNDAyODMwZDdhYmYyOWU2MjVmNCJ9"
+          "resource": "repo://yach.py#L1232-L1239",
+          "version": "repo-lines-v1:sha256:40fbc0999063aba58582fe2361be5323259e47442b3e039ce8ae4f2706803561:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTkwZGU3MzYzMzk3MzA0OTY3YmY1YWQwMzU5NjE1NjU5NDZjNTZkNTFlNDA5YTczZWZhNWE2MzEzMzJmYWZmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmYzMDcyNDIzMWM5MzVkZjRlMGI2YTZhMDQyMDExNzZlMWZhMzA4NTUwZjQ3YTIwNTQyNTVkNWFjMTY5YzI1NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWEyNmExYTg3MDQxNDUyYzE1NzBlY2RkMzgwOTRhMDU0Y2FkYjNmNGQ5NTc0MTVjOTM1YzBkYjQ2ZWNiMzAxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjg5MzRmMWRiYjhkNWUwZTQzOWFhZDliZmQ2OTJhOWM4MDJiZGI4MzQzOGQyNDAyODMwZDdhYmYyOWU2MjVmNCJ9"
         }
       ]
     },
@@ -47,7 +47,7 @@
       "statement": "compact() issues an on-demand compaction request (compaction type summarize) with the conversation's own model, system prompt, tools and thinking settings, trying with cache_control first and retrying without it on a 400.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L943-L959",
+          "resource": "repo://yach.py#L1014-L1030",
           "version": "repo-lines-v1:sha256:6e030b4b3cefa5cfc41ce16f4d3fcd414266b0a88ce88b84a93e9da0b5625043:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmOTc3ODAzMTVmODYzYTFjYWM2MWVlZGE5NTMxMGE3ZTExMDY1MzZkNWE0M2RjMTY4YmI1OGJjMDM5NWUzZDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4NmE2ZmY2MDAxMWRhNGMzOTgyZmEwODAxOTUyN2ZiMTk4YWM5ZGVhMzVlZTMzYWVjYWY5NzU0NzNmNzEwOGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFmYTRlNjBkZmY1ZWNmYWIwZDUwZDdhZWYxZGZlZTY1MzU3NmI2NWJlNzA4YWI0ZGYwMjg0NWU1NDY1MWQ1NDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhiMGRhYTJmNjUxZmRkNjQyNTUwMjMwMzE0MzQyMzlkYTBlOTJiYzg0Y2MyMjNjNTEyMmRjZjRjMjU4NzRkMWQifQ"
         }
       ]
@@ -57,7 +57,7 @@
       "statement": "If the compaction call fails or returns no compaction block with content and stop_reason compaction, the full conversation is kept unchanged.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L960-L969",
+          "resource": "repo://yach.py#L1031-L1040",
           "version": "repo-lines-v1:sha256:68587730292b97f7588b8a59b32e080bdfe230230c58ad44e466091b1538abec:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxN2UyYzc4ODY3MWVkNDNmNDMwMTg3MzBmYjRiYjU1YmIwZTY1MzA0ZjE2MDA5NWZiOGM1YzExMDRiOTg0ZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmMTFlYTExZWYwMWUyZTk2OWU1ZjRjNjI3MmYzZGI2NmRlNWY4ZTU0ZDFjYWFhNGFmZWYyZDIwYmJhMmVmMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlYzBiYzI4OTM1ZDRiYjk4ZDI4YmNjNWM1YjY2ZDVmNzc5MTE2YTIxNzVhYTMwODdlOTE3NWFjNmRlYzY2ZGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxMjlmMmJhYzA5YThiNDMyOGViZjkwMTQ5ZjU1NDE5NTY3N2QwODJkNGIwMWEyM2ZkZjgyZTA1NTEzZTJlNDkifQ"
         }
       ]
@@ -67,11 +67,11 @@
       "statement": "A successful compaction replaces the history with a single assistant message holding the compaction block in wire form, then re-measures context with count_context.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L748-L752",
+          "resource": "repo://yach.py#L815-L819",
           "version": "repo-lines-v1:sha256:3a562327b8410fffe83c9475b906d1df9875de58c57dbb5fd92ca86843f286ee:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjY4YWQ5OWY4NmZmNzQxOTE0YWFjMTRjNzM3ZTM4MDg3NmVmNzFlODY1NjliYmQzNmFkMTFjNzk4MGZjZjAxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTZiMDEwMDdiZjEwMDE5NjY5NGZlZTU1YWQzNWEzODVlZThjMGI2OGZjOWE3MDVlZGI3YTdkYThiYWMyNGI2NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDhjMzVmMDM1MTYzMGM4Y2IyZTZlNmM2ODU0Mzk3MWEwMDc1NjZhYTAzYzcyNWYyM2NkYWYwNjZhYjgxZmFmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzY4NmRmMjg3N2QwNTJiY2RjZTY4MjkxMWNmMWI1OGU3MWEwMzkwMTM2ZTUxYzU4MTk3YzU3Nzg1MzliZGUyZCJ9"
         },
         {
-          "resource": "repo://yach.py#L970-L976",
+          "resource": "repo://yach.py#L1041-L1047",
           "version": "repo-lines-v1:sha256:38e115510836f856e8191f7b154489f09b9687702738731f8a1e84f221739813:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWQ4NWY3OGE0OTQwODFjMmY1NmQ1YTAzYjYyMjBmYzE5YWY2ZDQyOGRlZGI4ODlhZTYzZGE0MmFjYWIxZDgzMSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDEwNDI0YmRlM2FkOTFmZjhkYWVhODFhNGFhNTA0YjJmZTlkMzc5MjNmNTkzNzkxNTJkNTQzZDdiNGRlYWY3MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2RmOWYyNWY3YTY2MmIzYjdhMmIwODc0MjQ4MmRkZmJlODA0YTJlMzJlYzZlYmI5NmUyZDdkYzFhOTEzZTUzZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTk4ZjhlYzdiN2FhMmU5YjM5NjYxZWZkMzM4MzRiYjNjNjg2NGY4ZjViZDQxMTU5MjdiNjdjODA2ZTI3YWFiYiJ9"
         }
       ]
@@ -81,7 +81,7 @@
       "statement": "Requests whose history starts with an assistant-role compaction summary carry the compaction beta header.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L1011-L1014",
+          "resource": "repo://yach.py#L1082-L1085",
           "version": "repo-lines-v1:sha256:d2405d4a885ba7a654b2f5d889c035dde8bb7945122fb52e3b19be02287d94de:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGUxNGE4NzE4OGZhMTc2N2I2NDY0MzBhM2EzZmQ2YTkyNTU3NzU0NGUyMWNkZjk4YjIzZDdjMTYwMWM1NTBmNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzU0MDcyNDM5YjI3MzA5MGIzY2MzMWI0MmUxZjVhNzIxM2I0ZGUwYTc4MTkzMjRjN2UwZjljM2VkMDg0NjNlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTY0MzYxYTA0ZThkYjE3MTBlMDhkYjFjODRkNmE3ZTkxZjE4NzczMTg0MjkwZTlhZTcwNmJhMzhhOWIzOTYyMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTMyMzYyMDI2NDMxNmJkZDM0NDNiNzU1ZWViZWVjOWI0OWQwODQ1ZDkxNjE4MTUxODYxZDkxMTJjNDVmYzViZSJ9"
         }
       ]
@@ -91,11 +91,11 @@
       "statement": "Compaction writes a yach_compaction marker line before the summary, keeping the full transcript on disk, and loading discards messages before the latest marker.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L748-L752",
+          "resource": "repo://yach.py#L815-L819",
           "version": "repo-lines-v1:sha256:3a562327b8410fffe83c9475b906d1df9875de58c57dbb5fd92ca86843f286ee:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjY4YWQ5OWY4NmZmNzQxOTE0YWFjMTRjNzM3ZTM4MDg3NmVmNzFlODY1NjliYmQzNmFkMTFjNzk4MGZjZjAxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTZiMDEwMDdiZjEwMDE5NjY5NGZlZTU1YWQzNWEzODVlZThjMGI2OGZjOWE3MDVlZGI3YTdkYThiYWMyNGI2NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDhjMzVmMDM1MTYzMGM4Y2IyZTZlNmM2ODU0Mzk3MWEwMDc1NjZhYTAzYzcyNWYyM2NkYWYwNjZhYjgxZmFmNiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzY4NmRmMjg3N2QwNTJiY2RjZTY4MjkxMWNmMWI1OGU3MWEwMzkwMTM2ZTUxYzU4MTk3YzU3Nzg1MzliZGUyZCJ9"
         },
         {
-          "resource": "repo://yach.py#L762-L771",
+          "resource": "repo://yach.py#L829-L838",
           "version": "repo-lines-v1:sha256:0dcd6dcea4cf038412decd830ed5774cdbffc3f80c208528d7cb88b236fc3f48:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJiZjY3NGM3ZGI5YzQ3NDZhYzg2OGI3N2Y5NDdlNzJkMmIyMDM4NmZmYjNkYmE1MzFlNTM4ZmVmYWJlZjdmNzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgwNzIxMWNhODQ0ZTdjYTZmY2Q5OGMzNDkwNjZmZDhmMDAwOWFjODdmOTY0YjljYzhkZTNmNjFiZjM3ODgxZGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjcyYWFjNDE2MjU5NGNjZTFkN2M5NzIxYzY4YWEyNWRkOTQ5N2VhZjYxYjFlZmYzYjdlNDhiMDQzOGQ0ZmJmZjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2NmMxNzgyMTY0MzE5NTYwODk3NWQzODNiOWNlNGM3N2M5NmE2MTdmMjk5MGUyZGUzZDljZjRkMmVmYzhkYzMifQ"
         }
       ]
@@ -105,11 +105,11 @@
       "statement": "Compaction tokens, reported only under usage.iterations, are included in session cost accounting.",
       "evidence": [
         {
-          "resource": "repo://yach.py#L964-L964",
+          "resource": "repo://yach.py#L1035-L1035",
           "version": "repo-lines-v1:sha256:412d42528cd6854d2205a8d6b5615aeb0a162c0efa13e9b2587544629b5ac082:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyZDQyNTI4Y2Q2ODU0ZDIyMDVhOGQ2YjU2MTVhZWIwYTE2MmMwZWZhMTNlOWIyNTg3NTQ0NjI5YjVhYzA4MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyZDQyNTI4Y2Q2ODU0ZDIyMDVhOGQ2YjU2MTVhZWIwYTE2MmMwZWZhMTNlOWIyNTg3NTQ0NjI5YjVhYzA4MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDhhMzA1OWEzYzhlNTY0NDBmMTYxN2Y0MWM5ODhmMDRiYjJlMzYyODkzNGM0YWEyZjNlYjlhYzBlMjUxZWRlNSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWYzOGQ5ZGI2YjhiMzQ1M2FkM2JkZTJiZjQwN2Q2ODFkZWFkNmIyNzdhZTBlYTJmMzllMTZlMDVhY2ZiNjViNyJ9"
         },
         {
-          "resource": "repo://yach.py#L978-L994",
+          "resource": "repo://yach.py#L1049-L1065",
           "version": "repo-lines-v1:sha256:5f3d13da284319d18fde7cd15d421de276d23e7b09fa468c1476eb5b552941e8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc3YWU2ZWZkNTU2Y2MxMGMxMDE3M2E0ZDIwYzNkNjI5ZGY5ZWE4ODBkNThkYTlhMmY3M2Y4NjUyNTY5MGMzYzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzNTMzMDI2NjY2OTljODM5ZjVkNGY4Y2UyZWEzOWM4MGExOGQwNDM1MzU1YWRlOWEzZTE1M2RkN2EzMGYwYmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5MWFhMjAzMDg0OGMxMGE4MGZkZjM1ZGM2NzJhNDFmMmI2NTQzMjNhNDU0MWIyNTgyNmNhYjhlZmM3MGI3N2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM1MWJmMDcwZDY1MjEwNjk0YzE2MWQ4ZWMxZDRjNzRlODM0MTQ3MjBiODQ3MTM3ZDgyOTExNDE3YTQwYzkzZmQifQ"
         }
       ]
@@ -117,6 +117,6 @@
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-07T00:49:17.948Z"
+    "at": "2026-11-10T01:26:12.508Z"
   }
 }

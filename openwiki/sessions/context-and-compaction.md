@@ -5,7 +5,7 @@ description: How YACH tracks how full the context window is and shrinks long con
 tags: [context-window, compaction, tokens, claude-api]
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-07T00:49:17.948Z
+    at: 2026-11-10T01:26:12.508Z
 sources:
   - id: openwiki-source-d3fe2c58a00acb98c6319084
     resource: repo://yach.py
